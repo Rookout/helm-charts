@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  publish-helm-charts:
     docker:
       - image: alpine
     steps:
@@ -22,3 +22,12 @@ jobs:
               helm repo list
               helm inspect rookout/controller
             fi
+
+workflows:
+  version: 2
+  run-pipeline:
+    jobs:
+      - publish-helm-charts:
+          filters:
+            branches:
+              only: master
