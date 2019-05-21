@@ -1,0 +1,45 @@
+{{- if .Values.rookout.token }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "rookout.fullname" . }}
+  labels:
+    app: {{ template "rookout.name" . }}
+    chart: {{ template "rookout.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels: 
+      app: {{ template "rookout.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "rookout.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          resources:
+{{ toYaml .Values.rookout.resources | indent 12 }}
+          env:
+            - name: ROOKOUT_TOKEN
+              value: {{ .Values.rookout.token }}
+            - name: ROOKOUT_LISTEN_ALL
+              value: {{ .Values.rookout.listenAll }}
+            - name: ROOKOUT_AGENT_MAX_CPU
+              value: {{ .Values.rookout.internalResources.limits.cpu }}
+            - name: ROOKOUT_AGENT_MAX_MEMORY
+              value: {{ .Values.rookout.internalResources.limits.memory }}
+          ports:
+            - containerPort: 7486
+          livenessProbe:
+            tcpSocket:
+              port: 7486
+          initialDelaySeconds: 15
+          periodSeconds: 20
+{{- end -}}
