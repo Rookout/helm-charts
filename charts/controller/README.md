@@ -23,7 +23,7 @@ This chart bootstraps a [Rookout Controller](https://docs.rookout.com/docs/agent
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install --name my-controller rookout/controller --set rookout.token=YOUR_ORGANIZATIONAL_TOKEN
+$ helm install --name my-controller rookout/controller --set controller.token=YOUR_ORGANIZATIONAL_TOKEN
 ```
 
 The command deploys Rookout on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
