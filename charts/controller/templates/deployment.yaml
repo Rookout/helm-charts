@@ -36,7 +36,10 @@ spec:
             - name: ROOKOUT_AGENT_MAX_MEMORY
               value: {{ .Values.rookout.internalResources.limits.memory }}
           ports:
+            # gRPC connection
             - containerPort: 7486
+            # Websocket connection
+            - containerPort: 7488
           livenessProbe:
             tcpSocket:
               port: 7486
