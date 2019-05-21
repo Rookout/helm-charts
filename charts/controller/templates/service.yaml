@@ -1,15 +1,15 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: {{ template "rookout.fullname" . }}
+  name: {{ template "controller.fullname" . }}
   labels:
-    app: {{ template "rookout.name" . }}
-    chart: {{ template "rookout.chart" . }}
+    app: {{ template "controller.name" . }}
+    chart: {{ template "controller.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
   selector:
-    app: {{ template "rookout.name" . }}
+    app: {{ template "controller.name" . }}
     release: {{ .Release.Name }}
 
   type: ClusterIP

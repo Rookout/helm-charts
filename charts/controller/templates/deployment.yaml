@@ -1,23 +1,23 @@
-{{- if .Values.rookout.token }}
+{{- if .Values.controller.token }}
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: {{ template "rookout.fullname" . }}
+  name: {{ template "controller.fullname" . }}
   labels:
-    app: {{ template "rookout.name" . }}
-    chart: {{ template "rookout.chart" . }}
+    app: {{ template "controller.name" . }}
+    chart: {{ template "controller.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels: 
-      app: {{ template "rookout.name" . }}
+      app: {{ template "controller.name" . }}
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ template "rookout.name" . }}
+        app: {{ template "controller.name" . }}
         release: {{ .Release.Name }}
     spec:
       containers:
@@ -25,16 +25,16 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           resources:
-{{ toYaml .Values.rookout.resources | indent 12 }}
+{{ toYaml .Values.controller.resources | indent 12 }}
           env:
             - name: ROOKOUT_TOKEN
-              value: {{ .Values.rookout.token }}
+              value: {{ .Values.controller.token | quote }}
             - name: ROOKOUT_LISTEN_ALL
-              value: {{ .Values.rookout.listenAll }}
+              value: {{ .Values.controller.listenAll | quote }}
             - name: ROOKOUT_AGENT_MAX_CPU
-              value: {{ .Values.rookout.internalResources.limits.cpu }}
+              value: {{ .Values.controller.internalResources.limits.cpu | quote }}
             - name: ROOKOUT_AGENT_MAX_MEMORY
-              value: {{ .Values.rookout.internalResources.limits.memory }}
+              value: {{ .Values.controller.internalResources.limits.memory | quote }}
           ports:
             - name: grpc
               containerPort: 7486

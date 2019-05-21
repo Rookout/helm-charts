@@ -1,5 +1,7 @@
-{{- if .Values.rookout.token -}}
+{{- if .Values.controller.token -}}
 Rookout's Controller are the connection to Rookout's SDK (App Instances), you should see its status in Rookout's IDE in the connectivity map.
+
+            https://app.rookout.com/
 
 No further action should be required.
 
@@ -17,6 +19,6 @@ Once registered you can find your token in the organization page at:
 Then run:
 
     helm upgrade {{ .Release.Name }} \
-        --set rookout.token=YOUR-TOKEN-HERE rookout/controller
+        --set controller.token=YOUR-TOKEN-HERE rookout/controller
 {{- end }}
 
