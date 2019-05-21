@@ -3,9 +3,9 @@ entries:
   controller:
   - apiVersion: v1
     appVersion: 0.4.1
-    created: 2019-05-21T13:45:33.456212941Z
+    created: 2019-05-21T13:46:04.396974088Z
     description: A Helm chart for Rookout Controller on Kubernetes
-    digest: 470e7cb36cdabd6f2ce8b1b746d14e18c5d9a40b8acfde666e73589dc77ddb20
+    digest: 57e3a7dfa38e189c791faad0814540678615d748902be500869f7b0cad08dfc6
     home: http://rookout.com/
     icon: https://app.rookout.com/static/rookout/img/logo.svg
     maintainers:
@@ -15,4 +15,4 @@ entries:
     urls:
     - controller/controller-0.2.0.tgz
     version: 0.2.0
-generated: 2019-05-21T13:45:33.4556608Z
+generated: 2019-05-21T13:46:04.396345631Z
