@@ -17,6 +17,6 @@ Once registered you can find your token in the organization page at:
 Then run:
 
     helm upgrade {{ .Release.Name }} \
-        --set token=YOUR-TOKEN-HERE stable/rookout
+        --set rookout.token=YOUR-TOKEN-HERE rookout/controller
 {{- end }}
 
