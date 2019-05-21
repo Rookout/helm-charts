@@ -5,7 +5,9 @@
 ## TL;DR;
 
 ```bash
-$ helm install --name my-release stable/rookout --set rookout.token=YOUR_ORGANIZATIONAL_TOKEN
+helm repo add rookout https://helm-charts.rookout.com
+helm repo update
+helm install --name my-release rookout/controller --set rookout.token=YOUR_ORGANIZATIONAL_TOKEN
 ```
 
 ## Introduction
@@ -64,7 +66,9 @@ The above parameters map to the env variables defined in [rookout/controller](ht
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```bash
-$ helm install --name my-controller \
+helm repo add rookout https://helm-charts.rookout.com
+helm repo update
+helm install --name my-controller \
   --set rookout.token=YOUR_ORGANIZATIONAL_TOKEN,listenAll=False \
     stable/rookout
 ```
