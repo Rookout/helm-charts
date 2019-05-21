@@ -7,7 +7,7 @@
 ```bash
 helm repo add rookout https://helm-charts.rookout.com
 helm repo update
-helm install --name my-release rookout/controller --set rookout.token=YOUR_ORGANIZATIONAL_TOKEN
+helm install --name my-release rookout/controller --set controller.token=YOUR_ORGANIZATIONAL_TOKEN
 ```
 
 ## Introduction
@@ -23,7 +23,7 @@ This chart bootstraps a [Rookout Controller](https://docs.rookout.com/docs/agent
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install --name my-controller stable/rookout --set rookout.token=YOUR_ORGANIZATIONAL_TOKEN
+$ helm install --name my-controller rookout/controller --set rookout.token=YOUR_ORGANIZATIONAL_TOKEN
 ```
 
 The command deploys Rookout on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -46,14 +46,14 @@ The following table lists the configurable parameters of the Rookout Router char
 
 |            Parameter                      |              Description                 |                          Default                        | 
 | ----------------------------------------- | ---------------------------------------- | ------------------------------------------------------- |
-| `rookout.token`                           | Rookout organizational token             | `Nil` You must provide your own token                   |  
-| `rookout.listenAll`                       | Configuring the Controller to listen on all addresses instead of only localhost.                      | `False` Listens only on localhost |
-| `rookout.resources.requests.cpu`          | CPU resource requests                    | `30m`                                                   |
-| `rookout.resources.limits.cpu`            | CPU resource limits                      | `4000m`                                                 |
-| `rookout.resources.requests.memory`       | Memory resource requests                 | `32Mi`                                                  |
-| `rookout.resources.limits.memory`         | Memory resource limits                   | `1024Mi`                                                |
-| `rookout.internalResources.limits.cpu`    | Rookout Controller internal cpu limit, measured in number of full cpus     | `4`                    |
-| `rookout.internalReources.limits.memory`  | Rookout Controller internal memory limit, measured in Mb                 | `1024`                   |
+| `controller.token`                           | Rookout organizational token             | `Nil` You must provide your own token                   |  
+| `controller.listenAll`                       | Configuring the Controller to listen on all addresses instead of only localhost.                      | `False` Listens only on localhost |
+| `controller.resources.requests.cpu`          | CPU resource requests                    | `30m`                                                   |
+| `controller.resources.limits.cpu`            | CPU resource limits                      | `4000m`                                                 |
+| `controller.resources.requests.memory`       | Memory resource requests                 | `32Mi`                                                  |
+| `controller.resources.limits.memory`         | Memory resource limits                   | `1024Mi`                                                |
+| `controller.internalResources.limits.cpu`    | Rookout Controller internal cpu limit, measured in number of full cpus     | `4`                    |
+| `controller.internalReources.limits.memory`  | Rookout Controller internal memory limit, measured in Mb                 | `1024`                   |
 | `image.registry`                          | Rookout image registry                   | `docker.io`                                             |
 | `image.repository`                        | Rookout image name                       | `rookout/controller`                                         |
 | `image.tag`                               | Rookout image tag                        | `{VERSION}`                                             |
@@ -69,8 +69,8 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 helm repo add rookout https://helm-charts.rookout.com
 helm repo update
 helm install --name my-controller \
-  --set rookout.token=YOUR_ORGANIZATIONAL_TOKEN,listenAll=False \
-    stable/rookout
+  --set controller.token=YOUR_ORGANIZATIONAL_TOKEN,listenAll=False \
+    rookout/controller
 ```
 
 The above command sets the Rookout Controller token to your organizational token. Additionally, it sets the listenAll to `False`.
