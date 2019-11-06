@@ -14,10 +14,6 @@ spec:
 
   type: ClusterIP
   ports:
-    - name: grpc
-      protocol: TCP
-      port: 7486
-      targetPort: 7486
     - name: websocket
       protocol: TCP
       port: 7488

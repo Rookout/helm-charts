@@ -36,15 +36,11 @@ spec:
             - name: ROOKOUT_AGENT_MAX_MEMORY
               value: {{ .Values.controller.internalResources.limits.memory | quote }}
           ports:
-            - name: grpc
-              containerPort: 7486
             - name: websocket
               containerPort: 7488
           livenessProbe:
-            # https://github.com/kubernetes/kubernetes/issues/37218
-            # K8S to date does not support multiple ports in probes
             tcpSocket:
-              port: 7486
+              port: 7488
           initialDelaySeconds: 15
           periodSeconds: 20
 {{- end -}}
