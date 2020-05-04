@@ -1,4 +1,4 @@
-{{ if .Values.ingress.enabled - }}
+{{ if .Values.ingress.enabled -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -19,4 +19,4 @@ spec:
             backend:
               serviceName: {{ template "controller.fullname" . }}
               servicePort: {{ .Values.ingress.servicePort }}
-{{ end - }}
+{{ end -}}
