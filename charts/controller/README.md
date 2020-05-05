@@ -47,6 +47,8 @@ The following table lists the configurable parameters of the Rookout Router char
 |            Parameter                      |              Description                 |                          Default                        | 
 | ----------------------------------------- | ---------------------------------------- | ------------------------------------------------------- |
 | `controller.token`                           | Rookout organizational token             | `Nil` You must provide your own token                   |  
+| `controller.tokenFromSecret.name`                 | Secret ref in which the Rookout token resides  | `Nil` You must provide your own secret (Optional if setting the token using controller.token)                   |  
+| `controller.tokenFromSecret.key`                 | Key of the secret in which the Rookout token resides  | `Nil` You must provide your own secret (Optional if setting the token using controller.token)                   |  
 | `controller.listenAll`                       | Configuring the Controller to listen on all addresses instead of only localhost.                      | `False` Listens only on localhost |
 | `controller.resources.requests.cpu`          | CPU resource requests                    | `30m`                                                   |
 | `controller.resources.limits.cpu`            | CPU resource limits                      | `4000m`                                                 |
