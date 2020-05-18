@@ -9,10 +9,13 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   selector:
-    app: {{ template "controller.name" . }}
+    app: {{ template "controller.fullname" . }}
     release: {{ .Release.Name }}
-
+{{- if (or (eq .Values.service.type "ClusterIP") (empty .Values.service.type)) }}
   type: ClusterIP
+{{- else }}
+  type: {{ .Values.service.type }}
+{{- end }}
   ports:
     - name: websocket
       protocol: TCP

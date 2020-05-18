@@ -1,0 +1,23 @@
+{{ if .Values.ingress.enabled -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ template "controller.fullname" . }}
+  labels:
+    app: {{ template "controller.name" . }}
+    chart: {{ template "controller.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  annotations:
+{{ toYaml .Values.ingress.annotations | trim | indent 4 }}
+spec:
+  rules:
+    - host: {{ .Values.ingress.host | default (printf "%s.%s.svc.cluster.local" (include "controller.fullname" .) .Release.Namespace) }}
+
+      http:
+        paths:
+          - path: {{ .Values.ingress.path }}
+            backend:
+              serviceName: {{ template "controller.fullname" . }}
+              servicePort: {{ .Values.ingress.servicePort }}
+{{ end -}}
