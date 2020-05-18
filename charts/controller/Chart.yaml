@@ -1,9 +1,9 @@
 apiVersion: v1
-appVersion: "0.5.12"
+appVersion: "0.5.14"
 description: A Helm chart for Rookout Controller on Kubernetes
 icon: https://app.rookout.com/static/rookout/img/logo.svg
 name: controller
-version: 0.2.1
+version: 0.2.2
 home: "http://rookout.com/"
 maintainers:
 - name: Mickael Alliel
