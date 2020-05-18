@@ -1,4 +1,4 @@
-{{- if .Values.controller.token }}
+---
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
@@ -28,7 +28,15 @@ spec:
 {{ toYaml .Values.controller.resources | indent 12 }}
           env:
             - name: ROOKOUT_TOKEN
-              value: {{ .Values.controller.token | quote }}
+              valueFrom:
+                secretKeyRef:
+{{- if (.Values.controller.tokenFromSecret) }}
+{{ toYaml .Values.controller.tokenFromSecret | indent 18 }}
+{{- else }}
+
+                  name: rookout
+                  key: token
+{{- end }}
             - name: ROOKOUT_LISTEN_ALL
               value: {{ .Values.controller.listenAll | quote }}
             - name: ROOKOUT_AGENT_MAX_CPU
@@ -43,4 +51,3 @@ spec:
               port: 7488
           initialDelaySeconds: 15
           periodSeconds: 20
-{{- end -}}
