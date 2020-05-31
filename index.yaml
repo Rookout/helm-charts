@@ -3,7 +3,7 @@ entries:
   controller:
   - apiVersion: v1
     appVersion: 0.5.14
-    created: 2020-05-31T12:00:46.729904641Z
+    created: "2020-05-31T15:12:10.759365342+03:00"
     description: A Helm chart for Rookout Controller on Kubernetes
     digest: 01b26043b23810f64e10a5fbf18db97ec6187ca6d33c3d4c502faeef2d77834e
     home: http://rookout.com/
@@ -17,9 +17,9 @@ entries:
     version: 0.2.2
   - apiVersion: v1
     appVersion: 0.5.12
-    created: 2020-05-31T12:00:46.729563131Z
+    created: "2020-05-31T15:12:10.758824007+03:00"
     description: A Helm chart for Rookout Controller on Kubernetes
-    digest: 8cb7529fb452c2e7f192eb0f882ebaba8874cdbc158152e31855db643b14bb7c
+    digest: 612c71568e97e2f1b42e117953906e0a28080852556fe13aafbe15ff1a15056c
     home: http://rookout.com/
     icon: https://app.rookout.com/static/rookout/img/logo.svg
     maintainers:
@@ -31,7 +31,7 @@ entries:
     version: 0.2.1
   - apiVersion: v1
     appVersion: 0.4.1
-    created: 2020-05-31T12:00:46.729259264Z
+    created: "2020-05-31T15:12:10.758452549+03:00"
     description: A Helm chart for Rookout Controller on Kubernetes
     digest: c6b80881ae4ffb451abce59acc728d34182b6feed49e4609b87ae09cb1c1b89e
     home: http://rookout.com/
@@ -43,4 +43,4 @@ entries:
     urls:
     - controller/controller-0.2.0.tgz
     version: 0.2.0
-generated: 2020-05-31T12:00:46.728849941Z
+generated: "2020-05-31T15:12:10.757686974+03:00"
