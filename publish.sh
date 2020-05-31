@@ -49,6 +49,15 @@ git clone -b "$GITHUB_PAGES_BRANCH" "git@github.com:$GITHUB_PAGES_REPO.git" .
 
 echo '>> Building charts...'
 find "$HELM_CHARTS_SOURCE" -mindepth 1 -maxdepth 1 -type d | while read chart; do
+  echo ">>> fetching chart $chart version"
+  chart_version=$(cat $HELM_CHARTS_SOURCE/$chart/Chart.yaml | grep -oE "version:\s[0-9]+\.[0-9]+\.[0-9]+" | grep -oE "[0-9]+\.[0-9]+\.[0-9]+")
+  echo ">>> checking if version is already published"
+  if [ -f "$chart/$chart-$chart-version.tgz" ]; then
+    echo ">>> VERSION $chart_version ALREADY EXISTS! Skipping..."
+    continue
+  else
+    echo ">>> chart version is valid, continuing..."
+  fi
   echo ">>> helm lint $chart"
   helm lint "$chart"
   chart_name="`basename "$chart"`"
