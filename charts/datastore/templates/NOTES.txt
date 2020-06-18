@@ -1,0 +1,7 @@
+Rookout's datastore is a component that saves messages from your app and serves them to our web-IDE in 
+      https://app.rookout.com/
+
+To make sure that the datastore is connected to your installed controller, 
+your org admin should visit https://app.rookout.com and set the datastore url in the Data-On-prem tab under Breakpoint settings.
+
+After that, put a new breakpoint to see the magic happen!

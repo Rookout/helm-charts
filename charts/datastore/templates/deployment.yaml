@@ -1,0 +1,40 @@
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "datastore.fullname" . }}
+  labels:
+    product: {{ template "datastore.name" . }}
+    app: rookout
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      product: {{ template "datastore.name" . }}
+  template:
+    metadata:
+      labels:
+        product: {{ template "datastore.name" . }}
+        app: rookout
+    spec:
+      containers:
+        - name: {{ template "datastore.name" . }}
+          image: "{{ .Values.image.repository }}:{{ default "latest" .Values.image.tag }}"
+          imagePullPolicy: Always
+          env:
+            - name: ROOKOUT_DOP_ENV
+              value: {{ .Values.datastore.env | quote }}
+            - name: ROOKOUT_DOP_SERVER_MODE
+              value: {{ .Values.datastore.serverMode | quote }}
+            - name: ROOKOUT_DOP_PUBLIC_KEY
+              value: {{ .Values.datastore.publicKey | quote }}
+            - name: ROOKOUT_DOP_AUTO_TLS_DOMAIN
+              value: {{ .Values.datastore.autoTlsDomain | quote }}
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 20
+  
