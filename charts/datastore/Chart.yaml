@@ -6,5 +6,5 @@ name: datastore
 version: 0.1.0
 home: "http://rookout.com/"
 maintainers:
-- name: Mickael Alliel
-  email: mickael@rookout.com
+- name: Ori Shoshan
+  email: ori.shoshan@rookout.com
