@@ -6,10 +6,8 @@ replicaCount: 1
 
 image:
   repository: rookout/data-on-prem
-  pullPolicy: IfNotPresent
 
 datastore:
-  env: production
   autoTlsDomain: ''
   
 service:
@@ -24,8 +22,8 @@ ingress:
 
 resources:
   requests:
-    cpu: 30m
-    memory: 32Mi
+    cpu: 500m
+    memory: 512Mi
   limits:
     cpu: 4000m
     memory: 1024Mi
