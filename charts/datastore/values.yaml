@@ -15,7 +15,7 @@ datastore:
   autoTlsDomain: ''
   
 service:
-  type: ClusterIp
+  type: ClusterIP
   port: 80
   loadBalancerIP: ''
 

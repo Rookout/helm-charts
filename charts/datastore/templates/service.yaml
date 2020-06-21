@@ -10,14 +10,15 @@ spec:
   selector:
     product: {{ template "datastore.name" . }}  
   ports:
-    {{ if (eq .Values.datastore.serverMode "PLAIN") }}
+    {{ if (ne .Values.datastore.serverMode "TLS") }}
     - protocol: TCP
       port: 80
       targetPort: 80
-      name: {{ template "datastore.name" . }}
-    {{ else }}
+      name: {{ printf "%s-http" (include "datastore.name" .) }}
+    {{ end }}
+    {{ if (ne .Values.datastore.serverMode "PLAIN") }}
     - protocol: TCP
       port: 443
       targetPort: 443
-      name: {{ template "datastore.name" . }}
+      name: {{ printf "%s-https" (include "datastore.name" .) }}
     {{ end }}
