@@ -20,4 +20,10 @@ spec:
             backend:
               serviceName: {{ printf "%s-https" (include "datastore.name" .) }}
               servicePort: 443
+          {{ if (eq .Values.datastore.serverMode "AUTOTLS") }}
+          - path: {{ .Values.ingress.letsEncryptPath }}
+            backend:
+              serviceName: {{ printf "%s-http" (include "datastore.name" .) }}
+              servicePort: 80
+          {{ end }}
 {{ end -}}
