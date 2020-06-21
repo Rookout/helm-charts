@@ -10,7 +10,7 @@ spec:
   selector:
     product: {{ template "datastore.name" . }}  
   ports:
-    {{ if (ne .Values.datastore.serverMode "TLS") }}
+    {{ if (ne .Values.datastore.serverMode "TLS") }} # AUTOTLS mode requires port 80 for communicating with LetsEncrypt
     - protocol: TCP
       port: 80
       targetPort: 80
