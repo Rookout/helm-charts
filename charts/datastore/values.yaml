@@ -8,18 +8,12 @@ image:
   repository: rookout/data-on-prem
 
 datastore:
+  serverMode: ''
   autoTlsDomain: ''
   
 service:
-  type: ClusterIP
-  port: 80
+  type: LoadBalancer
   loadBalancerIP: ''
-
-ingress:
-  enabled: True
-  path: '/*'
-  letsEncrpyPath: '/.well-known*'
-  ingressClass: ''
 
 resources:
   requests:
