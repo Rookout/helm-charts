@@ -33,11 +33,11 @@ spec:
             - containerPort: 443
             {{ end }}
           livenessProbe:
-            tcpSocket:
-              {{ if (ne .Values.datastore.serverMode "TLS") }}
+            httpGet:
+              {{ if (eq .Values.datastore.serverMode "PLAIN") }}
+              path: /healthz
               port: 80
-              {{ end }}
-              {{ if (ne .Values.datastore.serverMode "PLAIN") }}
+              {{ else }}
               port: 443
               {{ end }}
             initialDelaySeconds: 15
