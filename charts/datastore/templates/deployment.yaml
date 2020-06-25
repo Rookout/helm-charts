@@ -34,8 +34,8 @@ spec:
             {{ end }}
           livenessProbe:
             httpGet:
-              {{ if (eq .Values.datastore.serverMode "PLAIN") }}
               path: /healthz
+              {{ if (eq .Values.datastore.serverMode "PLAIN") }}
               port: 80
               {{ else }}
               port: 443
