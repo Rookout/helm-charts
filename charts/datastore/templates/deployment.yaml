@@ -36,16 +36,20 @@ spec:
             {{ if (ne .Values.datastore.serverMode "PLAIN") }}
             - containerPort: 443
             {{ end }}
-          # livenessProbe:
-          #   httpGet:
-          #     path: /healthz
-          #     {{ if (eq .Values.datastore.serverMode "PLAIN") }}
-          #     port: 80
-          #     {{ else }}
-          #     port: 443
-          #     {{ end }}
-          #   initialDelaySeconds: 15
-          #   periodSeconds: 20
+          livenessProbe:
+            httpGet:
+              scheme: HTTPS
+              path: /healthz
+              {{ if (eq .Values.datastore.serverMode "PLAIN") }}
+              port: 80
+              {{ else }}
+              port: 443
+              {{ end }}
+              {{ if (eq .Values.datastore.serverMode "AUTOTLS") }}
+              host: {{ .Values.datastore.autoTlsDomain }}
+              {{ end }}
+            initialDelaySeconds: 15
+            periodSeconds: 20
           volumeMounts:
             - mountPath: "/var/rookout/database/db"
               name: messages-volume
