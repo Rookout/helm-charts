@@ -25,6 +25,10 @@ spec:
               value: {{ .Values.datastore.serverMode | quote }}
             - name: ROOKOUT_DOP_AUTO_TLS_DOMAIN
               value: {{ .Values.datastore.autoTlsDomain | quote }}
+            {{ if (eq .Values.datastore.serverMode "AUTOTLS") }}
+            - name: ROOKOUT_DOP_ENABLE_FILE_LOGGER
+              value: "False"
+            {{ end }}
           ports:
             {{ if (ne .Values.datastore.serverMode "TLS") }}
             - containerPort: 80
@@ -32,14 +36,28 @@ spec:
             {{ if (ne .Values.datastore.serverMode "PLAIN") }}
             - containerPort: 443
             {{ end }}
-          livenessProbe:
-            httpGet:
-              path: /healthz
-              {{ if (eq .Values.datastore.serverMode "PLAIN") }}
-              port: 80
-              {{ else }}
-              port: 443
-              {{ end }}
-            initialDelaySeconds: 15
-            periodSeconds: 20
+          # livenessProbe:
+          #   httpGet:
+          #     path: /healthz
+          #     {{ if (eq .Values.datastore.serverMode "PLAIN") }}
+          #     port: 80
+          #     {{ else }}
+          #     port: 443
+          #     {{ end }}
+          #   initialDelaySeconds: 15
+          #   periodSeconds: 20
+          volumeMounts:
+            - mountPath: "/var/rookout/database/db"
+              name: messages-volume
+            - mountPath: "/var/rookout/certs"
+              name: cert-volume
+      volumes:
+        - name: messages-volume
+          persistentVolumeClaim:
+            claimName: {{ printf "%s-pvc-messages" (include "datastore.name" .) }}
+        {{ if (eq .Values.datastore.serverMode "AUTOTLS") }}
+        - name: cert-volume
+          persistentVolumeClaim:
+            claimName: {{ printf "%s-pvc-cert" (include "datastore.name" .) }}
+        {{ end }}
   

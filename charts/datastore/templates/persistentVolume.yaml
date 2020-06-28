@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ printf "%s-pvc-messages" (include "datastore.name" .) }}
+spec:
+  storageClassName: {{ .Values.pvc.storageClassName }}
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.pvc.messagesVolumeSize }}
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ printf "%s-pvc-cert" (include "datastore.name" .) }}
+spec:
+  storageClassName: {{ .Values.pvc.storageClassName }}
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10M
