@@ -1,7 +1,7 @@
 image:
   repository: rookout/controller
-  tag: 0.5.14
-  pullPolicy: IfNotPresent
+  tag: latest
+  pullPolicy: Always
 
 service:
   type: ClusterIP
