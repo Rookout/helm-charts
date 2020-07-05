@@ -17,7 +17,7 @@ service:
 
 pvc:
   storageClassName: ''
-  messagesVolumeSize: 1Gi
+  messagesVolumeSize: 10Gi
 
 resources:
   requests:

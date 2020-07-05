@@ -52,16 +52,10 @@ spec:
             periodSeconds: 20
           volumeMounts:
             - mountPath: "/var/rookout/database/db"
-              name: messages-volume
+              name: rookout-volume
             - mountPath: "/var/rookout/certs"
-              name: cert-volume
+              name: rookout-volume
       volumes:
-        - name: messages-volume
+        - name: rookout-volume
           persistentVolumeClaim:
-            claimName: {{ printf "%s-pvc-messages" (include "datastore.name" .) }}
-        {{ if (eq .Values.datastore.serverMode "AUTOTLS") }}
-        - name: cert-volume
-          persistentVolumeClaim:
-            claimName: {{ printf "%s-pvc-cert" (include "datastore.name" .) }}
-        {{ end }}
-  
+            claimName: rookout-data-on-prem-pvc
