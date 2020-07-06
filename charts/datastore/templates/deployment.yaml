@@ -71,9 +71,11 @@ spec:
         - name: rookout-volume
           persistentVolumeClaim:
             claimName: rookout-data-on-prem-pvc
+        {{ if (eq .Values.datastore.serverMode "TLS") }}
         - name: tls-key
           secret:
             secretName: {{ required "In TLS mode, secretName holding key must be specified in datastore.tlsKeySecretName." .Values.datastore.tlsKeySecretName  }}
         - name: tls-cert
           configMap:
             name: {{ required "In TLS mode, configmapName holding the cert must be specified in datastore.tlsCertificateConfigmapName." .Values.datastore.tlsCertificateConfigmapName  }}
+        {{ end }}
