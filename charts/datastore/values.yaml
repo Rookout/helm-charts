@@ -10,6 +10,8 @@ image:
 datastore:
   serverMode: ''
   autoTlsDomain: ''
+  tlsKeySecretName: ''
+  tlsCertificateConfigmapName: ''
   
 service:
   type: LoadBalancer
@@ -17,7 +19,7 @@ service:
 
 pvc:
   storageClassName: ''
-  messagesVolumeSize: 10Gi
+  volumeSize: 10Gi
 
 resources:
   requests:
