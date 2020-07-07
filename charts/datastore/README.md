@@ -30,6 +30,7 @@ In order for it to be accesible by [app.rookout.com](https://app.rookout.com/) t
 | Parameter | Description |
 | ------ | ------ |
 | datastore.serverMode | Can have only 3 values: **AUTOTLS**, **TLS**, **PLAIN**|
+| datastore.loggingToken | Your organization token. This is the same token as that used by the Rookout SDK. |
 | datastore.autoTlsDomain | Only when using AUTOLS mode, that's the domain that the cert will vouche for. |
 | datastore.tlsKeySecretName| Only when using TLS mode, that's the secret nane which should hold the cert's key (key should be "key.pem") |
 | datastore.tlsCertificateConfigmapName| Only when using TLS mode, that's the configMap nane which should hold the cert itself (key should be "cert.pem") |
