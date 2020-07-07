@@ -48,7 +48,7 @@ spec:
               port: 443
               {{ end }}
               {{ if (eq .Values.datastore.serverMode "AUTOTLS") }}
-              host: {{ required "In TLSAUTO mode, hostname must be specified in datastore.autoTlsDomain." .Values.datastore.autoTlsDomain  }}
+              host: {{ required "In AUTOTLS mode, hostname must be specified in datastore.autoTlsDomain." .Values.datastore.autoTlsDomain  }}
               {{ end }}
             initialDelaySeconds: 15
             periodSeconds: 20
