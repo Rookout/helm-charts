@@ -30,9 +30,10 @@ In order for it to be accesible by [app.rookout.com](https://app.rookout.com/) t
 | Parameter | Description |
 | ------ | ------ |
 | datastore.serverMode | Can have only 3 values: **AUTOTLS**, **TLS**, **PLAIN**|
-| datastore.autoTlsDomain | Only when using AUTOLS mode, that's the domain that the cert will vouche for. |
-| datastore.tlsKeySecretName| Only when using TLS mode, that's the secret nane which should hold the cert's key (key should be "key.pem") |
-| datastore.tlsCertificateConfigmapName| Only when using TLS mode, that's the configMap nane which should hold the cert itself (key should be "cert.pem") |
+| datastore.loggingToken | Your organization token. This is the same token as that used by the Rookout SDK. |
+| datastore.autoTlsDomain | Only when using AUTOLS mode, the domain name the server will request a certificate for using [LetsEncrypt](https://letsencrypt.org/). |
+| datastore.tlsKeySecretName| Only when using TLS mode, Secret name which has a key named "key.pem" whose value is the private key |
+| datastore.tlsCertificateConfigmapName| Only when using TLS mode, Configmap name which has a key named "cert.pem" whose value is the certificate |
 | service.type | The component's service type, further explaination [here](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types)|
 | service.loadBalancerIP | Only when using `loadBalancer` as service type, that's an external IP that you can set for your component, further explaination [here](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types)|
 | pvc.storageClassName | the persistentVolumeClaim's storageClassName, defaults to `nil` |
