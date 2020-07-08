@@ -1,11 +1,10 @@
 # Rookout data-on-prem
 
-Before you continue, our recommandation, just to make things super clear, is to talk to us at support@rookout.com for help regarding installing, troubleshooting, prices or anything regarding rookout.
+To set up the Rookout data-on-prem solution, contact us at support@rookout.com
 
 ### Introduction
 
-Rookout data-on-prem lets you protect your own data, saving the messages we get from your application right on your premise.
-Those messages are served to you in [app.rookout.com](https://app.rookout.com/)
+The Rookout data-on-prem solution allows you to store your Rookout data on-premises, while still using the standard Rookout web UI.
 
 
 ### Short version installation
@@ -18,7 +17,7 @@ helm install --name my-release rookout/datastore--set datastore.serverMode=<YOUR
 
 ### Longer version...
 
-In order for it to be accesible by [app.rookout.com](https://app.rookout.com/) the data-on-prem must be able to receive requests via HTTPS port. to ensure usage of verified certs, it must be installed with one of three modes:
+The data-on-prem solution runs with one of 3 modes (datastore.serverMode):
 
 * **TLS** - (opens port 443) If you have your own certificate that resides also for your teammates browser, you will need can configmap with the certificare (key "cert.pem") and supply the configmapName, with that the key to the cert in a secret (key "key.pem") and supply the secretName.
 
