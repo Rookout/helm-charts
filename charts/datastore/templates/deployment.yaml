@@ -1,0 +1,81 @@
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "datastore.fullname" . }}
+  labels:
+    product: {{ template "datastore.name" . }}
+    app: rookout
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      product: {{ template "datastore.name" . }}
+  template:
+    metadata:
+      labels:
+        product: {{ template "datastore.name" . }}
+        app: rookout
+    spec:
+      containers:
+        - name: {{ template "datastore.name" . }}
+          image: "{{ .Values.image.repository }}:{{ default "latest" .Values.image.tag }}"
+          env:
+            - name: ROOKOUT_DOP_LOGGING_TOKEN
+              value: {{ .Values.datastore.loggingToken | quote}}
+            - name: ROOKOUT_DOP_SERVER_MODE
+              value: {{ .Values.datastore.serverMode | quote }}
+            - name: ROOKOUT_DOP_AUTO_TLS_DOMAIN
+              value: {{ .Values.datastore.autoTlsDomain | quote }}
+            {{ if (eq .Values.datastore.serverMode "AUTOTLS") }}
+            - name: ROOKOUT_DOP_ENABLE_FILE_LOGGER
+              value: "False"
+            {{ end }}
+          ports:
+            {{ if (ne .Values.datastore.serverMode "TLS") }}
+            - containerPort: 80
+            {{ end }}
+            {{ if (ne .Values.datastore.serverMode "PLAIN") }}
+            - containerPort: 443
+            {{ end }}
+          # livenessProbe:
+          #   httpGet:
+          #     scheme: HTTPS
+          #     path: /healthz
+          #     {{ if (eq .Values.datastore.serverMode "PLAIN") }}
+          #     port: 80
+          #     {{ else }}
+          #     port: 443
+          #     {{ end }}
+          #     {{ if (eq .Values.datastore.serverMode "AUTOTLS") }}
+          #     host: {{ required "In TLSAUTO mode, hostname must be specified in datastore.autoTlsDomain." .Values.datastore.autoTlsDomain  }}
+          #     {{ end }}
+          #   initialDelaySeconds: 15
+          #   periodSeconds: 20
+          volumeMounts:
+            - mountPath: "/var/rookout/database/db"
+              name: rookout-volume
+            - mountPath: "/var/rookout/certs"
+              name: rookout-volume
+            {{ if (eq .Values.datastore.serverMode "TLS") }}
+            - mountPath: /var/rookout/key.pem
+              subPath: key.pem
+              name: tls-key
+              readOnly: true
+            - mountPath: /var/rookout/cert.pem
+              subPath: cert.pem
+              name: tls-cert
+              readOnly: true
+            {{ end }}
+      volumes:
+        - name: rookout-volume
+          persistentVolumeClaim:
+            claimName: rookout-data-on-prem-pvc
+        {{ if (eq .Values.datastore.serverMode "TLS") }}
+        - name: tls-key
+          secret:
+            secretName: {{ required "In TLS mode, secretName holding key must be specified in datastore.tlsKeySecretName." .Values.datastore.tlsKeySecretName  }}
+        - name: tls-cert
+          configMap:
+            name: {{ required "In TLS mode, configmapName holding the cert must be specified in datastore.tlsCertificateConfigmapName." .Values.datastore.tlsCertificateConfigmapName  }}
+        {{ end }}

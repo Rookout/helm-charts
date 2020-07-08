@@ -1,0 +1,36 @@
+# Default values for datastore.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: rookout/data-on-prem
+
+datastore:
+  serverMode: ''
+  autoTlsDomain: ''
+  tlsKeySecretName: ''
+  tlsCertificateConfigmapName: ''
+  
+service:
+  type: LoadBalancer
+  loadBalancerIP: ''
+
+pvc:
+  storageClassName: ''
+  volumeSize: 10Gi
+
+resources:
+  requests:
+    cpu: 500m
+    memory: 512Mi
+  limits:
+    cpu: 4000m
+    memory: 1024Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
