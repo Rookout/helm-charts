@@ -13,7 +13,7 @@ Those messages are served to you in [app.rookout.com](https://app.rookout.com/)
 ```bash
 helm repo add rookout https://helm-charts.rookout.com
 helm repo update
-helm install --name my-release rookout/data-on-prem --set datastore.serverMode=<YOUR_TLS_MODE>
+helm install --name my-release rookout/datastore--set datastore.serverMode=<YOUR_TLS_MODE> --set datastore.loggingToken=<YOUR_ORGANIZATION_TOKEN>
 ```
 
 ### Longer version...
