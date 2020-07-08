@@ -12,7 +12,7 @@ The Rookout data-on-prem solution allows you to store your Rookout data on-premi
 ```bash
 helm repo add rookout https://helm-charts.rookout.com
 helm repo update
-helm install --name my-release rookout/datastore--set datastore.serverMode=<YOUR_TLS_MODE> --set datastore.loggingToken=<YOUR_ORGANIZATION_TOKEN>
+helm install --name my-release rookout/datastore --set datastore.serverMode=<YOUR_TLS_MODE> --set datastore.loggingToken=<YOUR_ORGANIZATION_TOKEN>
 ```
 
 ### Longer version...
