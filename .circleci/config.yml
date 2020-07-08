@@ -11,7 +11,7 @@ jobs:
           environment:
             - GITHUB_PAGES_REPO: rookout/helm-charts
       - run:
-          name: Verify - Controller Chart
+          name: Verify - Charts
           command: |
             alias helm=/tmp/helm/bin/linux-amd64/helm
             if [ "$CIRCLE_BRANCH" = "master" ]; then
@@ -21,6 +21,7 @@ jobs:
               helm repo update
               helm repo list
               helm inspect rookout/controller
+              helm inspect rookout/datastore
             fi
 
 workflows:
