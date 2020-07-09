@@ -33,7 +33,6 @@ spec:
 {{- if (.Values.controller.tokenFromSecret) }}
 {{ toYaml .Values.controller.tokenFromSecret | indent 18 }}
 {{- else }}
-
                   name: rookout
                   key: token
 {{- end }}
