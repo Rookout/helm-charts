@@ -48,5 +48,5 @@ spec:
           livenessProbe:
             tcpSocket:
               port: 7488
-          initialDelaySeconds: 15
-          periodSeconds: 20
+            initialDelaySeconds: 15
+            periodSeconds: 20
