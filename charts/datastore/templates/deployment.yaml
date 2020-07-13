@@ -16,9 +16,9 @@ spec:
       labels:
         product: {{ template "datastore.name" . }}
         app: rookout
-        {{- if .Values.datastore.labels }}
-        {{ toYaml .Values.datastore.labels | indent 8 }}
-        {{- end }}
+{{- if .Values.datastore.labels }}
+{{ toYaml .Values.datastore.labels | indent 8 }}
+{{- end }}
     spec:
       containers:
         - name: {{ template "datastore.name" . }}

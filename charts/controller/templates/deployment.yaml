@@ -19,9 +19,9 @@ spec:
       labels:
         app: {{ template "controller.name" . }}
         release: {{ .Release.Name }}
-        {{- if .Values.controller.labels }}
-        {{ toYaml .Values.controller.labels | indent 8 }}
-        {{- end }}
+{{- if .Values.controller.labels }}
+{{ toYaml .Values.controller.labels | indent 8 }}
+{{- end }}
     spec:
       containers:
         - name: {{ .Release.Name }}-{{ .Chart.Name }}
