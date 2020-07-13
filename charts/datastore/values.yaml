@@ -32,3 +32,6 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+serviceAccount:
+  name: name
