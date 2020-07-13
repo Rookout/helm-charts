@@ -7,7 +7,9 @@ metadata:
     product: {{ template "datastore.name" . }}
     app: rookout
 spec:
-  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: Recreate
+  replicas: 1
   selector:
     matchLabels:
       product: {{ template "datastore.name" . }}
