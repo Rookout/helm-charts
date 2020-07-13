@@ -3,7 +3,21 @@ entries:
   controller:
   - apiVersion: v1
     appVersion: 1.1.1
-    created: 2020-07-13T15:27:43.319571228Z
+    created: 2020-07-13T15:48:58.032660647Z
+    description: A Helm chart for Rookout Controller on Kubernetes
+    digest: 036670679a69a3c12624433c1ee3a6e054337ef2e9b5eee609df05f1cf7f2266
+    home: http://rookout.com/
+    icon: https://app.rookout.com/static/rookout/img/logo.svg
+    maintainers:
+    - email: mickael@rookout.com
+      name: Mickael Alliel
+    name: controller
+    urls:
+    - controller/controller-0.2.11.tgz
+    version: 0.2.11
+  - apiVersion: v1
+    appVersion: 1.1.1
+    created: 2020-07-13T15:48:58.032330673Z
     description: A Helm chart for Rookout Controller on Kubernetes
     digest: f5d31131ba999f9e202fc7331cb177a94b4663c9504757465c8d8e2104e2468b
     home: http://rookout.com/
@@ -17,7 +31,7 @@ entries:
     version: 0.2.10
   - apiVersion: v1
     appVersion: 1.1.1
-    created: 2020-07-13T15:27:43.32280904Z
+    created: 2020-07-13T15:48:58.035204935Z
     description: A Helm chart for Rookout Controller on Kubernetes
     digest: 8ac400889cc156824aca67dff381df1d158222b4ff0d65e3fc211790a3ecc5c7
     home: http://rookout.com/
@@ -31,7 +45,7 @@ entries:
     version: 0.2.9
   - apiVersion: v1
     appVersion: 1.1.1
-    created: 2020-07-13T15:27:43.322459513Z
+    created: 2020-07-13T15:48:58.034866861Z
     description: A Helm chart for Rookout Controller on Kubernetes
     digest: 0c2da2d2f9ee0b1073fc1b7761fe583d2a7dbbdbe924a7a21092ed436be5524f
     home: http://rookout.com/
@@ -45,7 +59,7 @@ entries:
     version: 0.2.8
   - apiVersion: v1
     appVersion: 1.1.1
-    created: 2020-07-13T15:27:43.322001871Z
+    created: 2020-07-13T15:48:58.03453231Z
     description: A Helm chart for Rookout Controller on Kubernetes
     digest: c1114a9b905a3c2e1450e35584cc2dfb1121a3f343428d7c91967c4bb5c7809c
     home: http://rookout.com/
@@ -59,7 +73,7 @@ entries:
     version: 0.2.7
   - apiVersion: v1
     appVersion: 1.1.1
-    created: 2020-07-13T15:27:43.32158782Z
+    created: 2020-07-13T15:48:58.034221078Z
     description: A Helm chart for Rookout Controller on Kubernetes
     digest: 6007e9222910d6ebc2810bbc87416664879a62aa567cc240e2da73bd60e87832
     home: http://rookout.com/
@@ -73,7 +87,7 @@ entries:
     version: 0.2.6
   - apiVersion: v1
     appVersion: 1.1.1
-    created: 2020-07-13T15:27:43.321204313Z
+    created: 2020-07-13T15:48:58.033910891Z
     description: A Helm chart for Rookout Controller on Kubernetes
     digest: fec4d1905cdad2b359875d7550c1db70c8badb62734a65645f80d506920590cb
     home: http://rookout.com/
@@ -87,7 +101,7 @@ entries:
     version: 0.2.5
   - apiVersion: v1
     appVersion: 1.1.1
-    created: 2020-07-13T15:27:43.320851638Z
+    created: 2020-07-13T15:48:58.033597376Z
     description: A Helm chart for Rookout Controller on Kubernetes
     digest: efd6d6e50eb7af58d72de01eed1d6c7d58f79631e1cdcb7ef504f8bbcb75604a
     home: http://rookout.com/
@@ -101,7 +115,7 @@ entries:
     version: 0.2.4
   - apiVersion: v1
     appVersion: 0.5.15
-    created: 2020-07-13T15:27:43.320400194Z
+    created: 2020-07-13T15:48:58.033286097Z
     description: A Helm chart for Rookout Controller on Kubernetes
     digest: 75dde243c7ccd3069ce98d641b7d59e21769976f28eb88c6bc7becaa5178d039
     home: http://rookout.com/
@@ -115,7 +129,7 @@ entries:
     version: 0.2.3
   - apiVersion: v1
     appVersion: 0.5.14
-    created: 2020-07-13T15:27:43.320009892Z
+    created: 2020-07-13T15:48:58.032973249Z
     description: A Helm chart for Rookout Controller on Kubernetes
     digest: 01b26043b23810f64e10a5fbf18db97ec6187ca6d33c3d4c502faeef2d77834e
     home: http://rookout.com/
@@ -129,7 +143,7 @@ entries:
     version: 0.2.2
   - apiVersion: v1
     appVersion: 0.5.12
-    created: 2020-07-13T15:27:43.319213603Z
+    created: 2020-07-13T15:48:58.031963912Z
     description: A Helm chart for Rookout Controller on Kubernetes
     digest: 612c71568e97e2f1b42e117953906e0a28080852556fe13aafbe15ff1a15056c
     home: http://rookout.com/
@@ -143,7 +157,7 @@ entries:
     version: 0.2.1
   - apiVersion: v1
     appVersion: 0.4.1
-    created: 2020-07-13T15:27:43.318866876Z
+    created: 2020-07-13T15:48:58.03162224Z
     description: A Helm chart for Rookout Controller on Kubernetes
     digest: c6b80881ae4ffb451abce59acc728d34182b6feed49e4609b87ae09cb1c1b89e
     home: http://rookout.com/
@@ -158,7 +172,21 @@ entries:
   datastore:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2020-07-13T15:27:43.325664218Z
+    created: 2020-07-13T15:48:58.03864827Z
+    description: A Helm chart for Rookout Data-On-Prem component on Kubernetes
+    digest: 9382cc81eead877ba92690850c081313d945c4659f15e3dc0cf2af7a6f396e49
+    home: http://rookout.com/
+    icon: https://app.rookout.com/static/rookout/img/logo.svg
+    maintainers:
+    - email: support@rookout.com
+      name: Rookout
+    name: datastore
+    urls:
+    - datastore/datastore-0.1.7.tgz
+    version: 0.1.7
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: 2020-07-13T15:48:58.037725598Z
     description: A Helm chart for Rookout Data-On-Prem component on Kubernetes
     digest: b9b9e92c1d9cd2f9132d5f0a7a6a95eb05d9c21b1dbc1a5e39917afcc04f16c7
     home: http://rookout.com/
@@ -172,7 +200,7 @@ entries:
     version: 0.1.6
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2020-07-13T15:27:43.325277725Z
+    created: 2020-07-13T15:48:58.037105234Z
     description: A Helm chart for Rookout Data-On-Prem component on Kubernetes
     digest: 2d47017e463a6b086e7ad113825bae7e7bd34bceecc73800fcc353ab1df68ba5
     home: http://rookout.com/
@@ -186,7 +214,7 @@ entries:
     version: 0.1.5
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2020-07-13T15:27:43.324828587Z
+    created: 2020-07-13T15:48:58.036810146Z
     description: A Helm chart for Rookout Data-On-Prem component on Kubernetes
     digest: 844b1a5b5cbc98eaa595f6da43eb82f9c96d306175b04d4d11eb715fb5d5ac99
     home: http://rookout.com/
@@ -200,7 +228,7 @@ entries:
     version: 0.1.4
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2020-07-13T15:27:43.324513929Z
+    created: 2020-07-13T15:48:58.036479214Z
     description: A Helm chart for Rookout Data-On-Prem component on Kubernetes
     digest: bd45f320c364866118fc3837ee5ea65dddc6f5553733c315e93e3ad13f152c20
     home: http://rookout.com/
@@ -214,7 +242,7 @@ entries:
     version: 0.1.3
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2020-07-13T15:27:43.324179151Z
+    created: 2020-07-13T15:48:58.036124906Z
     description: A Helm chart for Rookout Data-On-Prem component on Kubernetes
     digest: b645355cf51143118ec0be1f8b061d53f3eacaf62e85dbf87ab55759e4c5c374
     home: http://rookout.com/
@@ -228,7 +256,7 @@ entries:
     version: 0.1.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2020-07-13T15:27:43.323806231Z
+    created: 2020-07-13T15:48:58.035815873Z
     description: A Helm chart for Rookout Data-On-Prem component on Kubernetes
     digest: 3745611db67bd086212494608a6f8cac0ccf7851ef098342538c232411656bf3
     home: http://rookout.com/
@@ -242,7 +270,7 @@ entries:
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2020-07-13T15:27:43.323215318Z
+    created: 2020-07-13T15:48:58.035514826Z
     description: A Helm chart for Rookout Data-On-Prem component on Kubernetes
     digest: 6e5450d3b5f7a796cd1992a973a40b140427c7382d33fff54971ef4905084e79
     home: http://rookout.com/
@@ -254,4 +282,4 @@ entries:
     urls:
     - datastore/datastore-0.1.0.tgz
     version: 0.1.0
-generated: 2020-07-13T15:27:43.31831567Z
+generated: 2020-07-13T15:48:58.031168218Z
