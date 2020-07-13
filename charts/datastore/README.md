@@ -29,6 +29,7 @@ The data-on-prem solution runs with one of 3 modes (datastore.serverMode):
 | Parameter | Description |
 | ------ | ------ |
 | datastore.serverMode | Can have only 3 values: **AUTOTLS**, **TLS**, **PLAIN**|
+| datastore.logging.enabled | Whether logs should be sent to Rookout |
 | datastore.loggingToken | Your organization token. This is the same token as that used by the Rookout SDK. |
 | datastore.autoTlsDomain | Only when using AUTOLS mode, the domain name the server will request a certificate for using [LetsEncrypt](https://letsencrypt.org/). |
 | datastore.tlsKeySecretName| Only when using TLS mode, Secret name which has a key named "key.pem" whose value is the private key |
