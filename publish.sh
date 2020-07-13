@@ -32,6 +32,8 @@ mkdir -p "$HOME/.ssh"
 ssh-keyscan -H github.com >> "$HOME/.ssh/known_hosts"
 git clone -b "$GITHUB_PAGES_BRANCH" "git@github.com:$GITHUB_PAGES_REPO.git" .
 
+alias helm=/tmp/helm/bin/linux-amd64/helm
+
 echo '>> Building charts...'
 find "$HELM_CHARTS_SOURCE" -mindepth 1 -maxdepth 1 -type d | while read chart; do
   chart_name="`basename "$chart"`"
