@@ -31,6 +31,9 @@ spec:
 {{ toYaml .Values.controller.resources | indent 12 }}
           env:
             - name: ROOKOUT_TOKEN
+{{- if .Values.controller.token }}
+              value: {{ .Values.controller.token }}
+{{- else }}
               valueFrom:
                 secretKeyRef:
 {{- if (.Values.controller.tokenFromSecret) }}
@@ -38,6 +41,7 @@ spec:
 {{- else }}
                   name: rookout
                   key: token
+{{- end }}
 {{- end }}
             - name: ROOKOUT_LISTEN_ALL
               value: {{ .Values.controller.listenAll | quote }}

@@ -3,7 +3,7 @@ appVersion: "1.0"
 description: A Helm chart for Rookout Data-On-Prem component on Kubernetes
 icon: https://app.rookout.com/static/rookout/img/logo.svg
 name: datastore
-version: 0.1.4
+version: 0.1.5
 home: "http://rookout.com/"
 maintainers:
 - name: Rookout
