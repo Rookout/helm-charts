@@ -8,9 +8,6 @@ metadata:
     chart: {{ template "controller.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-{{- if .Values.controller.labels }}
-{{ toYaml .Values.controller.labels | indent 8 }}
-{{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -22,6 +19,9 @@ spec:
       labels:
         app: {{ template "controller.name" . }}
         release: {{ .Release.Name }}
+        {{- if .Values.controller.labels }}
+        {{ toYaml .Values.controller.labels | indent 8 }}
+        {{- end }}
     spec:
       containers:
         - name: {{ .Release.Name }}-{{ .Chart.Name }}
