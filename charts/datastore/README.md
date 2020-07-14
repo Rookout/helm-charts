@@ -39,6 +39,6 @@ The data-on-prem solution runs with one of 3 modes (datastore.serverMode):
 | service.loadBalancerIP | Only when using `loadBalancer` as service type, that's an external IP that you can set for your component, further explaination [here](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types)|
 | service.annotations | Annotations for the datastore k8s service |
 | serviceAccount.name | Name | Optional name for the service account |
-| deployment.annotations | Annotations for the datastore k8s deployment |
+| podAnnotations | Annotations for the datastore k8s pod |
 | pvc.storageClassName | the persistentVolumeClaim's storageClassName, defaults to `nil` |
 | pvc.volumeSize | the persistentVolumeClaim's requested volume size, defaults to 10Gi |) |

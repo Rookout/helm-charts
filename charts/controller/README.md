@@ -63,7 +63,7 @@ The following table lists the configurable parameters of the Rookout Router char
 | `image.pullPolicy`                        | Image pull policy                        | `Always` if `imageTag` is `latest`, else `IfNotPresent` |
 | `image.pullSecrets`                       | Specify image pull secrets               | `nil`                                                   |
 | `serviceAccount.name` | Optional name for the service account | (none) |
-| `deployment.annotations` | Annotations for the controller k8s deployment | (none) |
+| `podAnnotations` | Annotations for the controller k8s pod | (none) |
 | `service.annotations` | Annotations for the controller k8s service | (none) |
 
 
