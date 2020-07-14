@@ -49,7 +49,6 @@ tolerations: []
 affinity: {}
 replicaCount: 1
 
-serviceAccount:
-  name: name
+serviceAccount: {}
 
 deployment: {}

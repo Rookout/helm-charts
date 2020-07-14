@@ -34,7 +34,6 @@ tolerations: []
 
 affinity: {}
 
-serviceAccount:
-  name: name
+serviceAccount: {}
 
 deployment: {}
