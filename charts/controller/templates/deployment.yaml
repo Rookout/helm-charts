@@ -8,10 +8,6 @@ metadata:
     chart: {{ template "controller.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-{{- if .Values.deployment.annotations }}
-  annotations:
-{{ toYaml .Values.deployment.annotations | indent 8 }}
-{{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -25,6 +21,10 @@ spec:
         release: {{ .Release.Name }}
 {{- if .Values.controller.labels }}
 {{ toYaml .Values.controller.labels | indent 8 }}
+{{- end }}
+{{- if .Values.podAnnotations }}
+      annotations:
+{{ toYaml .Values.podAnnotations | indent 8 }}
 {{- end }}
     spec:
 {{- if .Values.serviceAccount.name }}

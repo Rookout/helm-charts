@@ -35,5 +35,3 @@ tolerations: []
 affinity: {}
 
 serviceAccount: {}
-
-deployment: {}

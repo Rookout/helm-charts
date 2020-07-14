@@ -50,5 +50,3 @@ affinity: {}
 replicaCount: 1
 
 serviceAccount: {}
-
-deployment: {}
