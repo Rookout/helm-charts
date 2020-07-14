@@ -6,6 +6,10 @@ metadata:
   labels:
     product: {{ template "datastore.name" . }}
     app: rookout
+{{- if .Values.deployment.annotations }}
+  annotations:
+{{ toYaml .Values.deployment.annotations | indent 8 }}
+{{- end }}
 spec:
   strategy:
     type: Recreate

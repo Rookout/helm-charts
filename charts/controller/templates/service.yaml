@@ -7,6 +7,10 @@ metadata:
     chart: {{ template "controller.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
+{{- if .Values.service.annotations }}
+  annotations:
+{{ toYaml .Values.service.annotations | indent 8 }}
+{{- end }}
 spec:
   selector:
     app: {{ template "controller.name" . }}

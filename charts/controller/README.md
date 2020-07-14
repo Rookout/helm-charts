@@ -63,6 +63,8 @@ The following table lists the configurable parameters of the Rookout Router char
 | `image.pullPolicy`                        | Image pull policy                        | `Always` if `imageTag` is `latest`, else `IfNotPresent` |
 | `image.pullSecrets`                       | Specify image pull secrets               | `nil`                                                   |
 | `serviceAccount.name` | Optional name for the service account | (none) |
+| `deployment.annotations` | Annotations for the controller k8s deployment | (none) |
+| `service.annotations` | Annotations for the controller k8s service | (none) |
 
 
 The above parameters map to the env variables defined in [rookout/controller](https://docs.rookout.com/docs/agent-setup.html). For more information please refer to the [rookout/controller](https://hub.docker.com/r/rookout/agent/) image documentation.
