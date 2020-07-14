@@ -36,3 +36,5 @@ affinity: {}
 
 serviceAccount:
   name: name
+
+deployment: {}
