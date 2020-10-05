@@ -13,6 +13,10 @@ jobs:
             helm template charts/controller -f charts/controller/values.yaml
             helm template charts/datastore -f charts/datastore/values.yaml
       - run:
+          name: Validate versions + Package helms
+          command: |
+            sh validate_and_package.sh
+      - run:
           name: Publish Helm charts to Github Pages
           command: sh publish.sh
           environment:
@@ -30,15 +34,15 @@ jobs:
               helm inspect rookout/controller
               helm inspect rookout/datastore
             fi
-  validate-charts-versions:
+  validate-charts:
     docker:
       - image: alpine 
     steps:
       - checkout
       - run:
-          name: Validate helm charts
+          name: Validate helm charts versions
           command: |
-            ls -la
+            sh validate_and_package.sh
 
 workflows:
   version: 2
@@ -48,7 +52,7 @@ workflows:
           filters:
             branches:
               only: master
-      - validate-charts-versions:
+      - validate-charts:
           filters:
             branches:
               ignore: master
