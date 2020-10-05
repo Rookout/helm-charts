@@ -2,7 +2,7 @@ version: 2
 jobs:
   publish-helm-charts:
     docker:
-      - image: alpine
+      - image: alpine 
     steps:
       - checkout
       - run:
