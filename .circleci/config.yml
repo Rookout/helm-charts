@@ -41,6 +41,8 @@ jobs:
       - checkout
       - run:
           name: Validate helm charts versions
+          environment:
+            - GITHUB_PAGES_REPO: rookout/helm-charts
           command: |
             sh validate_and_package.sh
 
