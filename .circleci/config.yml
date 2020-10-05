@@ -36,9 +36,9 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Validate helm charts
-        command: |
-          ls -la
+          name: Validate helm charts
+          command: |
+            ls -la
 
 workflows:
   version: 2
