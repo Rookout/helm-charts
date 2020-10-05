@@ -43,7 +43,9 @@ jobs:
           name: Validate Charts
           command: |
             sh install-helm.sh
-            
+            alias helm=/tmp/helm/bin/linux-amd64/helm
+            helm template charts/controller -f charts/controller/values.yaml
+            helm template charts/datastore -f charts/datastore/values.yaml
       - run:
           name: Validate helm charts versions
           environment:
