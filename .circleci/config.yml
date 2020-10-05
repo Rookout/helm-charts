@@ -30,6 +30,15 @@ jobs:
               helm inspect rookout/controller
               helm inspect rookout/datastore
             fi
+  validate-charts-versions:
+    docker:
+      - image: alpine 
+    steps:
+      - checkout
+      - run:
+        name: Validate helm charts
+        command: |
+          ls -la
 
 workflows:
   version: 2
@@ -39,3 +48,7 @@ workflows:
           filters:
             branches:
               only: master
+      - validate-charts-versions:
+          filters:
+            branches:
+              ignore: master
