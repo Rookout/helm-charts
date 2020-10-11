@@ -16,7 +16,7 @@ helm install --name my-release rookout/datastore --set datastore.serverMode=<YOU
 ```
 
 ### Installation without helm
-If you're not using helm tiller on your kubernetes, you'll still be able to install the datastore. Helm will be needed to be installed locally just to create the templates.
+If you're not using helm tiller on your kubernetes, you'll still be able to install the datastore. Helm will be needed to be installed locally just to create the yaml file from the templates.
 
 1.  Install helm locally: https://helm.sh/docs/intro/install/ 
 2.  Clone this repository and `cd charts/datastore`
