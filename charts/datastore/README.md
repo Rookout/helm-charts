@@ -7,7 +7,7 @@ To set up the Rookout data-on-prem solution, contact us at support@rookout.com
 The Rookout data-on-prem solution allows you to store your Rookout data on-premises, while still using the standard Rookout web UI.
 
 
-### Short version installation
+### Installation using helm
 
 ```bash
 helm repo add rookout https://helm-charts.rookout.com
@@ -15,7 +15,16 @@ helm repo update
 helm install --name my-release rookout/datastore --set datastore.serverMode=<YOUR_TLS_MODE> --set datastore.loggingToken=<YOUR_ORGANIZATION_TOKEN>
 ```
 
-### Longer version...
+### Installation without helm
+If you're not using helm tiller on your kubernetes, you'll still be able to install the datastore. Helm will be needed to be installed locally just to create the templates.
+
+1.  Install helm locally: https://helm.sh/docs/intro/install/ 
+2.  Clone this repository and `cd charts/datastore`
+3.  run ``` helm template . --set datastore.serverMode=<YOUR_TLS_MODE> --set datastore.loggingToken=<YOUR_ORGANIZATION_TOKEN> --name=rookout```
+4.  A generation of the yamls will be presented so copy them to a single file, called `rookout-datastore.yaml`, for example 
+5.  Your yaml is ready, run `kubectl apply -f rookout-datastore.yaml`
+
+### Server Modes
 
 The data-on-prem solution runs with one of 3 modes (datastore.serverMode):
 
