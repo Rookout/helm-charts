@@ -16,13 +16,13 @@ helm install --name my-release rookout/datastore --set datastore.serverMode=<YOU
 ```
 
 ### Installation without helm
-If you're not using helm tiller on your kubernetes, you'll still be able to install the datastore. Helm will be needed to be installed locally just to create the yaml file from the templates.
+If you're not using helm with your kubernetes cluster, you'll still be able to install the datastore. Helm will be needed to be installed locally just to create the yaml file from the templates.
 
 1.  Install helm locally: https://helm.sh/docs/intro/install/ 
 2.  Clone this repository and `cd charts/datastore`
-3.  run ``` helm template . --set datastore.serverMode=<YOUR_TLS_MODE> --set datastore.loggingToken=<YOUR_ORGANIZATION_TOKEN> --name=rookout```
-4.  A generation of the yamls will be presented so copy them to a single file, called `rookout-datastore.yaml`, for example 
-5.  Your yaml is ready, run `kubectl apply -f rookout-datastore.yaml`
+3.  run ``` helm template . --set datastore.serverMode=<YOUR_TLS_MODE> --set datastore.loggingToken=<YOUR_ORGANIZATION_TOKEN> --name=rookout > rookout-datastore.yaml```
+4.  A generation of the yamls will be piped right to a single yaml file called `rookout-datastore.yaml`
+5.  Run `kubectl apply -f rookout-datastore.yaml`
 
 ### Server Modes
 
