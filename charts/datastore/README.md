@@ -44,6 +44,7 @@ The data-on-prem solution runs with one of 3 modes (datastore.serverMode):
 | datastore.tlsKeySecretName| Only when using TLS mode, Secret name which has a key named "key.pem" whose value is the private key |
 | datastore.tlsCertificateConfigmapName| Only when using TLS mode, Configmap name which has a key named "cert.pem" whose value is the certificate |
 | datastore.labels                       | Additional labels for the Deployment |
+| datastore.urlPrefix                    | URL prefix for datastore URLs (optional) |
 | service.type | The component's service type, further explaination [here](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types)|
 | service.loadBalancerIP | Only when using `loadBalancer` as service type, that's an external IP that you can set for your component, further explaination [here](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types)|
 | service.annotations | Annotations for the datastore k8s service |
