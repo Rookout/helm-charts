@@ -10,7 +10,8 @@ datastore:
   autoTlsDomain: ''
   tlsKeySecretName: ''
   tlsCertificateConfigmapName: ''
-  logging: false
+  logging:
+    enabled: false
   
 service:
   type: LoadBalancer
