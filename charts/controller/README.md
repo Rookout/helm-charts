@@ -57,10 +57,23 @@ Those commands removes all the Kubernetes components associated with the chart a
 
 ## Configuration
 
+### Server Modes
+
+The controller runs with one of 3 modes (datastore.serverMode):
+
+* **TLS** - If you have your own certificate that resides also for your teammates browser, you will need to create :
+1. create configmapName with key "tls.crt", put the certificate content as the value, and pass the configMap name to the helm template via `controller.tlsCertificateConfigmapName`  
+1. create a secret with key "tls.key", put the private-key content as the value, and pass the secret name to the helm template via `controller.tlsKeySecretName`
+
+* **PLAIN** - If you want to use your own ingress and enforce SSL validation not on application-level, you can set to this mode and configure your own ingress (with SSL termination) to receive requests and route them to the controller's port.
+
 The following table lists the configurable parameters of the Rookout Router chart and their default values.
 
 |            Parameter                      |              Description                 |                          Default                        | 
 | ----------------------------------------- | ---------------------------------------- | ------------------------------------------------------- |
+| `controller.serverMode`                   | TLS / PLAIN                    | PLAIN
+| `controller.tlsKeySecretName`             | Only when using TLS mode, Secret name which has a key named "tls.key" whose value is the private key |
+| `controller.tlsCertificateConfigmapName`  | Only when using TLS mode, Configmap name which has a key named "tls.crt" whose value is the certificate |
 | `controller.token`                           | Rookout organizational token             | `Nil` You must provide your own token                   |  
 | `controller.tokenFromSecret.name`                 | Secret ref in which the Rookout token resides  | `Nil` You must provide your own secret (Optional if setting the token using controller.token)                   |  
 | `controller.tokenFromSecret.key`                 | Key of the secret in which the Rookout token resides  | `Nil` You must provide your own secret (Optional if setting the token using controller.token)                   |  
