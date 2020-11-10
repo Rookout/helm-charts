@@ -59,7 +59,7 @@ Those commands removes all the Kubernetes components associated with the chart a
 
 ### Server Modes
 
-The controller runs with one of 3 modes (datastore.serverMode):
+The controller runs with one of 3 modes (controller.serverMode):
 
 * **TLS** - If you have your own certificate that resides also for your teammates browser, you will need to create :
 1. create configmapName with key "tls.crt", put the certificate content as the value, and pass the configMap name to the helm template via `controller.tlsCertificateConfigmapName`  
