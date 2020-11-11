@@ -59,9 +59,9 @@ Those commands removes all the Kubernetes components associated with the chart a
 
 ### Server Modes
 
-The controller runs with one of 3 modes (controller.serverMode):
+The controller runs with one of 2 modes (controller.serverMode):
 
-* **TLS** - If you have your own certificate that resides also for your teammates browser, you will need to create :
+* **TLS** - You will need to create the following secret & configmap in your k8s cluster :
 1. create configmapName for the TLS certificate : `kubectl create configmap rookout-tls-cert --from-file=tls.crt=<path to cert file>`  
 1. create secret for the TLS private-key : `kubectl create secret generic rookout-tls-key --from-file=tls.key=<path to key file>`
 
