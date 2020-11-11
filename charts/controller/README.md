@@ -62,8 +62,8 @@ Those commands removes all the Kubernetes components associated with the chart a
 The controller runs with one of 3 modes (controller.serverMode):
 
 * **TLS** - If you have your own certificate that resides also for your teammates browser, you will need to create :
-1. create configmapName with key "tls.crt", put the certificate content as the value, and pass the configMap name to the helm template via `controller.tlsCertificateConfigmapName`  
-1. create a secret with key "tls.key", put the private-key content as the value, and pass the secret name to the helm template via `controller.tlsKeySecretName`
+1. create configmapName for the TLS certificate : `kubectl create configmap rookout-tls-cert --from-file=tls.crt=<path to cert file>`  
+1. create secret for the TLS private-key : `kubectl create secret generic rookout-tls-key --from-file=tls.key=<path to key file>`
 
 * **PLAIN** - If you want to use your own ingress and enforce SSL validation not on application-level, you can set to this mode and configure your own ingress (with SSL termination) to receive requests and route them to the controller's port.
 

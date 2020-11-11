@@ -51,7 +51,7 @@ spec:
                   key: token
 {{- end }}
 {{- end }}
-            - name: ROOKOUT_SERVER_MODE
+            - name: ROOKOUT_CONTROLLER_SERVER_MODE
               value: {{ .Values.controller.serverMode | quote }}
             - name: ROOKOUT_LISTEN_ALL
               value: {{ .Values.controller.listenAll | quote }}
@@ -82,8 +82,8 @@ spec:
       volumes:
       - name: tls-key
         secret:
-          secretName: {{ required "In TLS mode, secretName holding key must be specified in controller.tlsKeySecretName." .Values.controller.tlsKeySecretName  }}
+          secretName: rookout-tls-key
       - name: tls-cert
         configMap:
-          name: {{ required "In TLS mode, configmapName holding the cert must be specified in controller.tlsCertificateConfigmapName." .Values.controller.tlsCertificateConfigmapName  }}
+          name: rookout-tls-cert
 {{ end }}
