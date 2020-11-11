@@ -72,8 +72,6 @@ The following table lists the configurable parameters of the Rookout Router char
 |            Parameter                      |              Description                 |                          Default                        | 
 | ----------------------------------------- | ---------------------------------------- | ------------------------------------------------------- |
 | `controller.serverMode`                   | TLS / PLAIN                    | PLAIN
-| `controller.tlsKeySecretName`             | Only when using TLS mode, Secret name which has a key named "tls.key" whose value is the private key |
-| `controller.tlsCertificateConfigmapName`  | Only when using TLS mode, Configmap name which has a key named "tls.crt" whose value is the certificate |
 | `controller.token`                           | Rookout organizational token             | `Nil` You must provide your own token                   |  
 | `controller.tokenFromSecret.name`                 | Secret ref in which the Rookout token resides  | `Nil` You must provide your own secret (Optional if setting the token using controller.token)                   |  
 | `controller.tokenFromSecret.key`                 | Key of the secret in which the Rookout token resides  | `Nil` You must provide your own secret (Optional if setting the token using controller.token)                   |  
