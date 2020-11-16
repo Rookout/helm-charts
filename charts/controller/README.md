@@ -57,13 +57,26 @@ Those commands removes all the Kubernetes components associated with the chart a
 
 ## Configuration
 
+### Server Modes
+
+The controller runs with one of 2 modes (controller.serverMode):
+
+* **TLS** - You will need to create the following secret & configmap in your k8s cluster :
+  1. Create configmapName for the TLS certificate : `kubectl create configmap rookout-tls-cert --from-file=tls.crt=<path to cert file>`  
+  1. Create secret for the TLS private-key : `kubectl create secret generic rookout-tls-key --from-file=tls.key=<path to key file>`
+
+* **PLAIN** - If you want to use your own ingress and enforce SSL validation not on application-level, you can set to this mode and configure your own ingress (with SSL termination) to receive requests and route them to the controller's port.
+
 The following table lists the configurable parameters of the Rookout Router chart and their default values.
 
 |            Parameter                      |              Description                 |                          Default                        | 
 | ----------------------------------------- | ---------------------------------------- | ------------------------------------------------------- |
+| `controller.serverMode`                   | TLS / PLAIN                    | PLAIN
 | `controller.token`                           | Rookout organizational token             | `Nil` You must provide your own token                   |  
 | `controller.tokenFromSecret.name`                 | Secret ref in which the Rookout token resides  | `Nil` You must provide your own secret (Optional if setting the token using controller.token)                   |  
 | `controller.tokenFromSecret.key`                 | Key of the secret in which the Rookout token resides  | `Nil` You must provide your own secret (Optional if setting the token using controller.token)                   |  
+| `ingress.enabled` | Creates a simple ingress that will direct a defined hostname to the controller. Note that this ingress does not consist of cert-manager | `False` | 
+| `ingress.host` | Hostname set to the controller | (none) | 
 | `controller.listenAll`                       | Configuring the Controller to listen on all addresses instead of only localhost.                      | `False` Listens only on localhost |
 | `controller.labels`                       | Additional labels for the Deployment | (None) |
 | `controller.resources.requests.cpu`          | CPU resource requests                    | `30m`                                                   |

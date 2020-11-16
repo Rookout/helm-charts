@@ -51,6 +51,8 @@ spec:
                   key: token
 {{- end }}
 {{- end }}
+            - name: ROOKOUT_CONTROLLER_SERVER_MODE
+              value: {{ .Values.controller.serverMode | quote }}
             - name: ROOKOUT_LISTEN_ALL
               value: {{ .Values.controller.listenAll | quote }}
             - name: ROOKOUT_AGENT_MAX_CPU
@@ -65,3 +67,23 @@ spec:
               port: 7488
             initialDelaySeconds: 15
             periodSeconds: 20
+{{ if (eq .Values.controller.serverMode "TLS") }}
+          volumeMounts:
+          - mountPath: /var/controller-tls-secrets/tls.key
+            subPath: tls.key
+            name: tls-key
+            readOnly: true
+          - mountPath: /var/controller-tls-secrets/tls.crt
+            subPath: tls.crt
+            name: tls-cert
+            readOnly: true
+{{ end }}
+{{ if (eq .Values.controller.serverMode "TLS") }}
+      volumes:
+      - name: tls-key
+        secret:
+          secretName: rookout-tls-key
+      - name: tls-cert
+        configMap:
+          name: rookout-tls-cert
+{{ end }}
