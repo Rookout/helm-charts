@@ -15,8 +15,6 @@ ingress:
 
 controller:
   serverMode: "PLAIN"
-  tlsKeySecretName: ''
-  tlsCertificateConfigmapName: ''
   listenAll: False
   token: ''
 
