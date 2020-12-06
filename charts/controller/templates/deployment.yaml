@@ -53,6 +53,8 @@ spec:
 {{- end }}
             - name: ROOKOUT_CONTROLLER_SERVER_MODE
               value: {{ .Values.controller.serverMode | quote }}
+            - name: ROOKS_WS_LISTEN_ADDR
+              value: ":{{ .Values.controller.port }}"
             - name: ROOKOUT_LISTEN_ALL
               value: {{ .Values.controller.listenAll | quote }}
             - name: ROOKOUT_AGENT_MAX_CPU
@@ -61,10 +63,10 @@ spec:
               value: {{ .Values.controller.internalResources.limits.memory | quote }}
           ports:
             - name: websocket
-              containerPort: 7488
+              containerPort: {{ .Values.controller.port }}
           livenessProbe:
             tcpSocket:
-              port: 7488
+              port: {{ .Values.controller.port }}
             initialDelaySeconds: 15
             periodSeconds: 20
 {{ if (eq .Values.controller.serverMode "TLS") }}
