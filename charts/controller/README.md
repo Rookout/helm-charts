@@ -78,6 +78,7 @@ The following table lists the configurable parameters of the Rookout Router char
 | `ingress.enabled` | Creates a simple ingress that will direct a defined hostname to the controller. Note that this ingress does not consist of cert-manager | `False` | 
 | `ingress.host` | Hostname set to the controller | (none) | 
 | `controller.listenAll`                       | Configuring the Controller to listen on all addresses instead of only localhost.                      | `False` Listens only on localhost |
+| `controller.port`                       | On which port to listen for connections                       | 7488 |
 | `controller.labels`                       | Additional labels for the Deployment | (None) |
 | `controller.resources.requests.cpu`          | CPU resource requests                    | `30m`                                                   |
 | `controller.resources.limits.cpu`            | CPU resource limits                      | `4000m`                                                 |
