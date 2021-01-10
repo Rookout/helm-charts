@@ -12,7 +12,7 @@ The Rookout data-on-prem solution allows you to store your Rookout data on-premi
 ```bash
 helm repo add rookout https://helm-charts.rookout.com
 helm repo update
-helm install --name my-release rookout/datastore --set datastore.serverMode=<YOUR_TLS_MODE> --set datastore.loggingToken=<YOUR_ORGANIZATION_TOKEN>
+helm install --name my-release rookout/datastore --set datastore.serverMode=<YOUR_TLS_MODE> --set datastore.token=<YOUR_ORGANIZATION_TOKEN>
 ```
 
 ### Installation without helm
@@ -29,7 +29,8 @@ If you're not using helm with your kubernetes cluster, you'll still be able to i
 The data-on-prem solution runs with one of 3 modes (datastore.serverMode):
 
 * **TLS** - (opens port 443) If you have your own certificate that resides also for your teammates browser, you will need can configmap with the certificare (key "cert.pem") and supply the configmapName, with that the key to the cert in a secret (key "key.pem") and supply the secretName.
-
+  1. Create configmapName for the TLS certificate : `kubectl create configmap rookout-tls-cert --from-file=cert.pem=<path to cert file>`  
+  1. Create secret for the TLS private-key : `kubectl create secret generic rookout-tls-key --from-file=key.pem=<path to key file>`
 * **AUTOTLS** - (opens port 443 + 80) If you don't want to user your own certificate, this mode will fetch a certificate automaticllay using [LetsEncrypt](https://letsencrypt.org/). As a prerequisites you must set a hostname in an valid DNS for the data-on-prem's external IP and set that hostname in `datastore.autoTlsDomain` for the certificate to vouche for that hostname.
 
 * **PLAIN** - (open port 80) if you want to use your own ingress and enforce SSL validation not on application-level, you can set to this mode and configure your own ingress to receive requests at port 443 and direct with to the data-on-prem on port 80.
