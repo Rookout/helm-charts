@@ -20,7 +20,7 @@ If you're not using helm with your kubernetes cluster, you'll still be able to i
 
 1.  Install helm locally: https://helm.sh/docs/intro/install/ 
 2.  Clone this repository and `cd charts/datastore`
-3.  run ``` helm template . --set datastore.serverMode=<YOUR_TLS_MODE> --set datastore.loggingToken=<YOUR_ORGANIZATION_TOKEN> --name=rookout > rookout-datastore.yaml```
+3.  run ``` helm template . --set datastore.serverMode=<YOUR_TLS_MODE> --set datastore.token=<YOUR_ORGANIZATION_TOKEN> --name=rookout > rookout-datastore.yaml```
 4.  A generation of the yamls will be piped right to a single yaml file called `rookout-datastore.yaml`
 5.  Run `kubectl apply -f rookout-datastore.yaml`
 
@@ -43,7 +43,7 @@ The data-on-prem solution runs with one of 3 modes (datastore.serverMode):
 | datastore.token | Your organization token. This is the same token as that used by your Rookout ETL controller |
 | datastore.tokenFromSecret.name| Secret ref in which the Rookout token resides |
 | datastore.tokenFromSecret.key| Key of the secret in which the Rookout token resides |
-| datastore.autoTlsDomain | Only when using AUTOLS mode, the domain name the server will request a certificate for using [LetsEncrypt](https://letsencrypt.org/). |
+| datastore.autoTlsDomain | Only when using AUTOTLS mode, the domain name the server will request a certificate for using [LetsEncrypt](https://letsencrypt.org/). |
 | datastore.tlsKeySecretName| Only when using TLS mode, Secret name which has a key named "key.pem" whose value is the private key |
 | datastore.tlsCertificateConfigmapName| Only when using TLS mode, Configmap name which has a key named "cert.pem" whose value is the certificate |
 | datastore.labels                       | Additional labels for the Deployment |
