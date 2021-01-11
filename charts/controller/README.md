@@ -79,7 +79,8 @@ The following table lists the configurable parameters of the Rookout Router char
 | `ingress.host` | Hostname set to the controller | (none) | 
 | `controller.listenAll`                       | Configuring the Controller to listen on all addresses instead of only localhost.                      | `False` Listens only on localhost |
 | `controller.port`                       | On which port to listen for connections                       | 7488 |
-| `controller.labels`                       | Additional labels for the Deployment | (None) |
+| `controller.labels`                       | Additional labels for the Deployment | (None)  |
+| `controller.proxy`                       | HTTPS proxy. example: https://127.0.0.1:9090 | (None) |
 | `controller.resources.requests.cpu`          | CPU resource requests                    | `30m`                                                   |
 | `controller.resources.limits.cpu`            | CPU resource limits                      | `4000m`                                                 |
 | `controller.resources.requests.memory`       | Memory resource requests                 | `32Mi`                                                  |

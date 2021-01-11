@@ -51,6 +51,10 @@ spec:
                   key: token
 {{- end }}
 {{- end }}
+{{- if (.Values.controller.proxy) }}
+            - name: ROOKOUT_PROXY
+              value: {{ .Values.controller.proxy | quote }}
+{{- end }}
             - name: ROOKOUT_CONTROLLER_SERVER_MODE
               value: {{ .Values.controller.serverMode | quote }}
             - name: ROOKS_WS_LISTEN_ADDR
