@@ -66,22 +66,27 @@ spec:
             - name: ROOKOUT_DOP_SERVER_MODE
               value: {{ .Values.datastore.serverMode | quote }}
             - name: ROOKOUT_DOP_PORT
-              value: "8080"
+              value: .Values.datastore.dopContainerPort
             - name: ROOKOUT_DOP_AUTO_TLS_DOMAIN
               value: {{ .Values.datastore.autoTlsDomain | quote }}
             {{ if (eq .Values.datastore.serverMode "AUTOTLS") }}
             - name: ROOKOUT_DOP_ENABLE_FILE_LOGGER
               value: "False"
+            - name: ROOKOUT_DOP_LETS_ENCRYPT_PORT
+              value: .Values.datastore.letsEncryptContainerlPort
             {{ end }}
           ports:
-            - containerPort: 8080
+            - containerPort: .Values.datastore.dopContainerPort
+            {{ if (eq .Values.datastore.serverMode "AUTOTLS") }}
+            - containerPort: .Values.datastore.letsEncryptContainerlPort
+            {{ end }}
           volumeMounts:
             {{- if (eq .Values.datastore.inMemoryDb false) }}
             - mountPath: "/var/rookout/database/db"
               name: rookout-volume
+            {{ end }}
             - mountPath: "/var/rookout/certs"
               name: rookout-volume
-            {{ end }}
             {{ if (eq .Values.datastore.serverMode "TLS") }}
             - mountPath: /var/rookout/key.pem
               subPath: key.pem
