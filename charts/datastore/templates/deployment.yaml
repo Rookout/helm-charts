@@ -66,7 +66,7 @@ spec:
             - name: ROOKOUT_DOP_SERVER_MODE
               value: {{ .Values.datastore.serverMode | quote }}
             - name: ROOKOUT_DOP_PORT
-              value: .Values.datastore.dopContainerPort
+              value: {{ .Values.datastore.dopContainerPort }}
             - name: ROOKOUT_DOP_AUTO_TLS_DOMAIN
               value: {{ .Values.datastore.autoTlsDomain | quote }}
             {{ if (eq .Values.datastore.serverMode "AUTOTLS") }}
