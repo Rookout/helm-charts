@@ -43,6 +43,11 @@ The data-on-prem solution runs with one of 3 modes (datastore.serverMode):
 | datastore.token | Your organization token. This is the same token as that used by your Rookout ETL controller |
 | datastore.tokenFromSecret.name| Secret ref in which the Rookout token resides |
 | datastore.tokenFromSecret.key| Key of the secret in which the Rookout token resides |
+| datastore.dopContainerPort| Main container port, default: 8080 |
+| datastore.dopServicePort| Main service port, default: 8080 |
+| datastore.letsEncryptContainerlPort| Let's encrypt container port (required on AUTOTLS mode), default: 9090 |
+| datastore.letsEncryptServicePort| Let's encrypt service port (required on AUTOTLS mode), default: 9090 |
+| datastore.inMemoryDb| Use in-memory db instead of file-system, default: false |
 | datastore.autoTlsDomain | Only when using AUTOTLS mode, the domain name the server will request a certificate for using [LetsEncrypt](https://letsencrypt.org/). |
 | datastore.tlsKeySecretName| Only when using TLS mode, Secret name which has a key named "key.pem" whose value is the private key |
 | datastore.tlsCertificateConfigmapName| Only when using TLS mode, Configmap name which has a key named "cert.pem" whose value is the certificate |
