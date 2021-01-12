@@ -4,8 +4,10 @@
 
 image:
   repository: rookout/data-on-prem
+  pullPolicy: Always
 
 datastore:
+  inMemoryDb: false
   serverMode: ''
   autoTlsDomain: ''
   tlsKeySecretName: ''
