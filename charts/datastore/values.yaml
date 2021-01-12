@@ -8,9 +8,7 @@ image:
 
 datastore:
   dopContainerPort: 8080
-  dopServicePort: 80
   letsEncryptContainerlPort: 9090
-  letsEncryptServicePort: 9090
   inMemoryDb: false
   serverMode: ''
   autoTlsDomain: ''
