@@ -73,12 +73,12 @@ spec:
             - name: ROOKOUT_DOP_ENABLE_FILE_LOGGER
               value: "False"
             - name: ROOKOUT_DOP_LETS_ENCRYPT_PORT
-              value: .Values.datastore.letsEncryptContainerlPort
+              value: {{ .Values.datastore.letsEncryptContainerlPort }}
             {{ end }}
           ports:
-            - containerPort: .Values.datastore.dopContainerPort
+            - containerPort: {{ .Values.datastore.dopContainerPort }}
             {{ if (eq .Values.datastore.serverMode "AUTOTLS") }}
-            - containerPort: .Values.datastore.letsEncryptContainerlPort
+            - containerPort: {{ .Values.datastore.letsEncryptContainerlPort }}
             {{ end }}
           volumeMounts:
             {{- if (eq .Values.datastore.inMemoryDb false) }}
