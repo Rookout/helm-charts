@@ -27,6 +27,8 @@ spec:
 {{- end }}
     spec:
       securityContext:
+        # group ID 1000 is associated with all Containers in the Pod automatically by k8s
+        # we use it to give non-root user access to mounted volumes
         fsGroup: 1000
 {{- if .Values.serviceAccount.name }}
       serviceAccount: {{ .Values.serviceAccount.name }}
