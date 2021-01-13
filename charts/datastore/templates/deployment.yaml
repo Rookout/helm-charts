@@ -65,14 +65,14 @@ spec:
             - name: ROOKOUT_DOP_SERVER_MODE
               value: {{ .Values.datastore.serverMode | quote }}
             - name: ROOKOUT_DOP_PORT
-              value: {{ default 8080 .Values.datastore.dopContainerPort }}
+              value: {{ default 8080 .Values.datastore.dopContainerPort | qoute }}
             - name: ROOKOUT_DOP_AUTO_TLS_DOMAIN
               value: {{ .Values.datastore.autoTlsDomain | quote }}
             {{ if (eq .Values.datastore.serverMode "AUTOTLS") }}
             - name: ROOKOUT_DOP_ENABLE_FILE_LOGGER
               value: "False"
             - name: ROOKOUT_DOP_LETS_ENCRYPT_PORT
-              value: {{ default 9090 .Values.datastore.letsEncryptContainerPort }}
+              value: {{ default 9090 .Values.datastore.letsEncryptContainerPort | qoute }}
             {{ end }}
           ports:
             - containerPort: {{ default 8080 .Values.datastore.dopContainerPort }}
