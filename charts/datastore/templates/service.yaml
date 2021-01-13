@@ -17,7 +17,7 @@ spec:
     {{- if (eq .Values.datastore.serverMode "AUTOTLS") }} # AUTOTLS mode requires port 80 for communicating with LetsEncrypt
     - protocol: TCP
       port: 80
-      targetPort: {{ .Values.datastore.letsEncryptContainerlPort }}
+      targetPort: {{ default 9090 .Values.datastore.letsEncryptContainerlPort }}
       name: {{ printf "%s-lets-encrypt" (include "datastore.name" .) }}
     {{ end }}
     {{- if or (eq .Values.datastore.serverMode "TLS") (eq .Values.datastore.serverMode "AUTOTLS") }}
@@ -29,6 +29,6 @@ spec:
       port: 80
       name: {{ printf "%s-http" (include "datastore.name" .) }}
     {{- end }}
-      targetPort: {{ .Values.datastore.dopContainerPort }}
+      targetPort: {{ default 8080 .Values.datastore.dopContainerPort }}
 
 

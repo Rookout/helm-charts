@@ -7,9 +7,6 @@ image:
   pullPolicy: Always
 
 datastore:
-  dopContainerPort: 8080
-  letsEncryptContainerlPort: 9090
-  inMemoryDb: false
   serverMode: ''
   autoTlsDomain: ''
   tlsKeySecretName: ''

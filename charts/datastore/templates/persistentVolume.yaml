@@ -1,4 +1,4 @@
-{{- if (eq .Values.datastore.inMemoryDb false) }}
+{{- if (eq (default false .Values.datastore.inMemoryDb) false) }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
