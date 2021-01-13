@@ -4,6 +4,7 @@
 
 image:
   repository: rookout/data-on-prem
+  pullPolicy: Always
 
 datastore:
   serverMode: ''

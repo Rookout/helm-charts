@@ -27,6 +27,10 @@ spec:
 {{ toYaml .Values.podAnnotations | indent 8 }}
 {{- end }}
     spec:
+      securityContext:
+        fsGroup: 5000
+        runAsUser: 5000
+        runAsGroup: 5000
 {{- if .Values.serviceAccount.name }}
       serviceAccount: {{ .Values.serviceAccount.name }}
       serviceAccountName: {{ .Values.serviceAccount.name }}

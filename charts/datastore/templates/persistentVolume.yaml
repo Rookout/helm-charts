@@ -1,3 +1,4 @@
+{{- if (eq (default false .Values.datastore.inMemoryDb) false) }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -9,3 +10,4 @@ spec:
   resources:
     requests:
       storage: {{ .Values.pvc.volumeSize }}
+{{- end }}
