@@ -1,0 +1,17 @@
+image:
+  repository: "us.gcr.io/rookout/rookout-k8s-operator"
+  tag: "1.0"
+  pullPolicy: Always
+
+operator:
+  token: "fba5d2d413de317d77110867968ecc413bc13e65a7c75a32f6002adb2d7aebee"
+  matchers:
+    - deployment : "java-test"
+
+  resources:
+    requests:
+      cpu: 30m
+      memory: 32Mi
+    limits:
+      cpu: 4000m
+      memory: 1024Mi
