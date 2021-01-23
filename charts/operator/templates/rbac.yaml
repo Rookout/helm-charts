@@ -33,12 +33,6 @@ metadata:
   name: rookout-manager-role
 rules:
   - apiGroups:
-      - ""
-    resources:
-      - pods/exec
-    verbs:
-      - create
-  - apiGroups:
       - apps
     resources:
       - deployments
