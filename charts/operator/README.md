@@ -57,13 +57,33 @@ Those commands removes all the Kubernetes components associated with the chart a
 
 ## Configuration
 
-The following table lists the configurable parameters of the Rookout Router chart and their default values.
+The following table lists the configurable parameters and their default values.
 
 |            Parameter                      |              Description                 |                          Default                        | 
 | ----------------------------------------- | ---------------------------------------- | ------------------------------------------------------- |
 | `operator.token`                          | Token to authentication with Rookout's SaaS         | (None)
+| `operator.matchers`                       | List of matchers (see matchers section below)         | (None)
 
 
+## Matchers
+
+Matchers guide the operator which deployments required to be patched
+
+Each matcher can contain the following constrains (one or more):
+- deployment - substring of deployment name (Deployment.metadata.name)
+- container - substring of container name (Deployment.Specs.Template.Specs.Containers[].name)
+- labels - list of Key/value which should match on deployment labels (Deployment.metadata.labels)
+
+Example :
+The following matcher will match on deployment named "test_automation" which contains a container "frontend"  
+and the label "env:production"
+```
+matchers:
+    - deployment: "test_automation"
+      container: "frontend"
+      labels:
+         - env: "production"
+``` 
 
 The above parameters map to the env variables defined in [rookout/operator](https://docs.rookout.com/docs/k8s-operator-setup.html).
 
