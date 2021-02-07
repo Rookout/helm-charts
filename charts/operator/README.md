@@ -23,7 +23,7 @@ This chart installs [Rookout's k8s Operator](https://docs.rookout.com/docs/k8s-o
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install --name my-operator rookout/operator --set operator.token=YOUR_ORGANIZATIONAL_TOKEN
+$ helm install my-operator rookout/operator --set operator.token=YOUR_ORGANIZATIONAL_TOKEN
 ```
 
 The command deploys Rookout's k8s operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -35,7 +35,7 @@ If you're not using helm with your kubernetes cluster, you'll still be able to i
 
 1.  Install helm locally: https://helm.sh/docs/intro/install/ 
 2.  Clone this repository and `cd charts/operator`
-3.  run ``` helm template . --set operator.token=YOUR_ORGANIZATIONAL_TOKEN --name=rookout > rookout-operator.yaml```
+3.  run ``` helm template . --set operator.token=YOUR_ORGANIZATIONAL_TOKEN > rookout-operator.yaml```
 4.  A generation of the yamls will be piped right to a single yaml file called `rookout-operator.yaml`
 5.  Run `kubectl apply -f rookout-operator.yaml`
 

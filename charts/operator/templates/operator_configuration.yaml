@@ -1,7 +1,7 @@
 apiVersion: rookout.rookout.com/v1alpha1
 kind: Rookout
 metadata:
-  name: rookout-sample
+  name: rookout-operator-configuration
   labels:
     app: {{ template "operator.name" . }}
     chart: {{ template "operator.chart" . }}
