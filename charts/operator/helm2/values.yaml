@@ -4,9 +4,13 @@ image:
   pullPolicy: Always
 
 operator:
-  token: "fba5d2d413de317d77110867968ecc413bc13e65a7c75a32f6002adb2d7aebee"
+  token: "<YOUR ROOKOUT TOKEN>"
   matchers:
-    - deployment : "java-test"
+    - deployment : "example_deployment_matcher"
+      container: "example_container_matcher"
+      labelels:
+        - name: "deployment label name"
+          value: "deployment label value"
 
   resources:
     requests:
