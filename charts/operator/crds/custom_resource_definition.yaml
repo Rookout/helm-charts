@@ -30,6 +30,20 @@ spec:
             spec:
               description: RookoutSpec defines the desired state of Rookout
               properties:
+                init_container:
+                  properties:
+                    container_name:
+                      type: string
+                    image:
+                      type: string
+                    image_pull_policy:
+                      description: PullPolicy describes a policy for if/when to pull a container image
+                      type: string
+                    shared_volume_mount_path:
+                      type: string
+                    shared_volume_name:
+                      type: string
+                  type: object
                 matchers:
                   items:
                     properties:
