@@ -20,15 +20,20 @@ This chart installs [Rookout's k8s Operator](https://docs.rookout.com/docs/k8s-o
 
 ## Installing the Chart using helm
 
-First install the Custom Resource Definitions :
+Checkout this repo :
+```bash
+$ git clone git@github.com:Rookout/helm-charts.git; cd ./helm-charts/charts/operator/helm2
 ```
+
+Install the Custom Resource Definitions :
+```bash
 $ kubectl apply -f ./crds/custom_resource_definition.yaml
 ```
 
-Then install the chart with the release name `my-release`:
+Install the chart with a release named `my-release`:
 
 ```bash
-$ helm install --name my-release rookout/operator --set operator.token=YOUR_ORGANIZATIONAL_TOKEN
+$ helm install --name my-release . --set operator.token=YOUR_ORGANIZATIONAL_TOKEN
 ```
 
 The command deploys Rookout's k8s operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
