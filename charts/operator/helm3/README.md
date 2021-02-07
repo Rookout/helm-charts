@@ -67,9 +67,9 @@ The following table lists the configurable parameters and their default values.
 
 ## Matchers
 
-Matchers guide the operator which deployments required to be patched
+Matchers guide the operator which deployments desired to be patched
 
-Each matcher can contain the following constrains (one or more):
+Each matcher can contain the following constraints (one or more):
 - deployment - substring of deployment name (Deployment.metadata.name)
 - container - substring of container name (Deployment.Specs.Template.Specs.Containers[].name)
 - labels - list of Key/value which should match on deployment labels (Deployment.metadata.labels)
