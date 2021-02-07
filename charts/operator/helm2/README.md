@@ -47,10 +47,10 @@ If you're not using helm with your kubernetes cluster, you'll still be able to i
 
 ## Uninstalling the Chart
 
-To uninstall/delete the `my-operator` deployment:
+To uninstall/delete the `my-release` deployment:
 
 ```bash
-$ helm delete my-operator
+$ helm delete my-release
 ```
 
 or, if you're not using helm:
@@ -97,7 +97,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```bash
 helm repo add rookout https://helm-charts.rookout.com
 helm repo update
-helm install --name my-operator \
+helm install --name my-release \
   --set operator.token=YOUR_ORGANIZATIONAL_TOKEN \
     rookout/operator
 ```
