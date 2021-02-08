@@ -22,7 +22,7 @@ This chart installs [Rookout's k8s Operator](https://docs.rookout.com/docs/k8s-o
 
 Checkout this repo :
 ```bash
-$ git clone git@github.com:Rookout/helm-charts.git; cd ./helm-charts/charts/operator/helm2
+$ git clone git@github.com:Rookout/helm-charts.git; cd ./helm-charts/charts/operator_helm2
 ```
 
 Install the Custom Resource Definitions :
@@ -44,7 +44,7 @@ The command deploys Rookout's k8s operator on the Kubernetes cluster in the defa
 If you're not using helm with your kubernetes cluster, you'll still be able to install the controller. Helm will be needed to be installed locally just to create the yaml file from the templates.
 
 1.  Install helm locally: https://helm.sh/docs/intro/install/ 
-2.  Clone this repository and `cd charts/operator`
+2.  Clone this repository and `cd charts/operator_helm2`
 3.  run ``` helm template . --set operator.token=YOUR_ORGANIZATIONAL_TOKEN > rookout-operator.yaml```
 4.  A generation of the yamls will be piped right to a single yaml file called `rookout-operator.yaml`
 5.  Run `kubectl apply -f rookout-operator.yaml`
@@ -104,7 +104,7 @@ helm repo add rookout https://helm-charts.rookout.com
 helm repo update
 helm install --name my-release \
   --set operator.token=YOUR_ORGANIZATIONAL_TOKEN \
-    rookout/operator
+    rookout/operator_helm2
 ```
 
 The above command sets the Rookout token to your organizational token.
