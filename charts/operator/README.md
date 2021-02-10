@@ -14,21 +14,21 @@ This chart installs [Rookout's k8s Operator](https://docs.rookout.com/docs/k8s-o
 
 To install the chart with the release name `my-release`:
 
-helm 2  
+Helm 2  
 
-first, apply CRDs with kubectl
+First, apply CRDs with kubectl
 ```
 kubectl apply -f ./crds/custom_resource_definition.yaml
 ```
 
-then install the chart
+Then install the chart
 ```
 helm install --name my-release rookout/operator -f values.yaml
 ```
 
-helm 3
+Helm 3
 
-install chart (CRDs will be applied by helm3 automatically)
+Install chart (CRDs will be applied by helm3 automatically)
 ```
 helm install my-release rookout/operator -f values.yaml
 ```
@@ -59,7 +59,7 @@ To uninstall/delete the `my-release` deployment:
 helm delete my-release
 ```
 
-or, if you're not using helm:
+Or, if you're not using helm:
 ```
 kubectl delete -f rookout-operator.yaml
 ```
@@ -106,7 +106,7 @@ matchers:
 
 ## Check deployment status
 
-get all deployment logs :
+Get all deployment logs :
 ```
 kubectl -n rookout logs -f deployment/rookout-controller-manager --all-containers=true --since=10m
 ```
