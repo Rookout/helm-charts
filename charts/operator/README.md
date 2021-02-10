@@ -46,7 +46,7 @@ If you're not using helm with your kubernetes cluster, you'll still be able to i
 
 1.  Install helm locally: https://helm.sh/docs/intro/install/ 
 2.  Clone this repository and `cd charts/operator`
-3.  run (helm 2+3)```helm template . -f values.yaml > rookout-operator.yaml```
+3.  run ```helm template . -f values.yaml > rookout-operator.yaml```
 4.  A generation of the yamls will be piped right to a single yaml file called `rookout-operator.yaml`
 5.  Run `kubectl apply -f rookout-operator.yaml`
 
@@ -59,7 +59,7 @@ To uninstall/delete the `my-release` deployment:
 helm delete my-release
 ```
 
-Or, if you're not using helm:
+Or, if you're not using helm, (use the yaml you've created with `helm template` command):
 ```
 kubectl delete -f rookout-operator.yaml
 ```
