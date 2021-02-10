@@ -2,19 +2,6 @@
 
 [Rookout](http://rookout.com/) gets data from your live code, as it runs. Extract any piece of data from your code and pipeline it anywhere, in realtime, even if you’d never thought about it beforehand or created any instrumentation to collect it.
 
-## TL;DR;
-
-```bash
-helm repo add rookout https://helm-charts.rookout.com
-helm repo update
-
-# helm 2
-helm install --name my-release rookout/operator -f values.yaml
-
-# helm 3
-helm install my-release rookout/operator -f values.yaml
-```
-
 ## Introduction
 
 This chart installs [Rookout's k8s Operator](https://docs.rookout.com/docs/k8s-operator-setup.html) on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
@@ -27,20 +14,32 @@ This chart installs [Rookout's k8s Operator](https://docs.rookout.com/docs/k8s-o
 
 To install the chart with the release name `my-release`:
 
-```bash
-# helm 2  
-# requried CRD to be applied with kubectl
-$ kubectl apply -f ./crds/custom_resource_definition.yaml
-$ helm install --name my-release rookout/operator -f values.yaml
-$ helm install --name my-release rookout/operator -f values.yaml
+helm 2  
 
-# helm 3
-$ helm install my-release rookout/operator -f values.yaml
+first, apply CRDs with kubectl
+```
+kubectl apply -f ./crds/custom_resource_definition.yaml
 ```
 
-The command deploys Rookout's k8s operator on the Kubernetes cluster in the default configuration. The [configuration](##configuration) section lists the parameters that can be configured during installation.
+then install the chart
+```
+helm install --name my-release rookout/operator -f values.yaml
+```
 
-> **Tip**: List all releases using `helm list`
+helm 3
+
+install chart (CRDs will be applied by helm3 automatically)
+```
+helm install my-release rookout/operator -f values.yaml
+```
+
+## Updating configuration and redeploy with helm
+Modify the  [values.yaml](./values.yaml)
+
+Then apply the changes with :
+```
+helm upgrade --install my-release rookout/operator -f values.yaml
+```
 
 ## Installation without helm
 If you're not using helm with your kubernetes cluster, you'll still be able to install the controller. Helm will be needed to be installed locally just to create the yaml file from the templates.
@@ -56,13 +55,13 @@ If you're not using helm with your kubernetes cluster, you'll still be able to i
 
 To uninstall/delete the `my-release` deployment:
 
-```bash
-$ helm delete my-release
+```
+helm delete my-release
 ```
 
 or, if you're not using helm:
-```bash
-$ kubectl delete -f rookout-operator.yaml
+```
+kubectl delete -f rookout-operator.yaml
 ```
 
 Those commands removes all the Kubernetes components associated with the chart and deletes the release.
@@ -104,4 +103,16 @@ matchers:
           - name: "ROOKOUT_TOKEN"
             value: "<YOUR TOKEN>"
 ``` 
+
+## Check deployment status
+
+get all deployment logs :
+```
+kubectl -n rookout logs -f deployment/rookout-controller-manager --all-containers=true --since=10m
+```
+
+You should see the following log message :
+```
+Operator configuration updated
+```
 
