@@ -9,13 +9,13 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   matchers:
-  {{- range .Values.operator.matchers }}
+  {{- range required "operator.matchers are required" .Values.operator.matchers }}
     - deployment: {{ .deployment | quote }}
       {{- if .container }}
       container: {{ .container | quote }}
       {{- end}}
       env_vars:
-      {{- range .env_vars }}
+      {{- range required "env_vars are required for each matcher" .env_vars }}
         - name: {{ .name }}
           value: {{ .value}}
       {{- end}}

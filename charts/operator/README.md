@@ -12,7 +12,7 @@ This chart installs [Rookout's k8s Operator](https://docs.rookout.com/docs/k8s-o
 
 ## Installing the Chart using helm
 
-To install the chart with the release name `my-release`:
+To install the chart with the release name `rookout-operator`:
 
 Helm 2  
 
@@ -23,14 +23,14 @@ kubectl apply -f ./crds/custom_resource_definition.yaml
 
 Then install the chart
 ```
-helm install --name my-release rookout/operator -f values.yaml
+helm install --name rookout-operator rookout/operator -f values.yaml
 ```
 
 Helm 3
 
 Install chart (CRDs will be applied by helm3 automatically)
 ```
-helm install my-release rookout/operator -f values.yaml
+helm install rookout-operator rookout/operator -f values.yaml
 ```
 
 ## Updating configuration and redeploy with helm
@@ -38,7 +38,7 @@ Modify the  [values.yaml](./values.yaml)
 
 Then apply the changes with :
 ```
-helm upgrade --install my-release rookout/operator -f values.yaml
+helm upgrade --install rookout-operator rookout/operator -f values.yaml
 ```
 
 ## Installation without helm
@@ -53,10 +53,10 @@ If you're not using helm with your kubernetes cluster, you'll still be able to i
 
 ## Uninstalling the Chart
 
-To uninstall/delete the `my-release` deployment:
+To uninstall/delete the `rookout-operator` deployment:
 
 ```
-helm delete my-release
+helm delete rookout-operator
 ```
 
 Or, if you're not using helm, (use the yaml you've created with `helm template` command):
@@ -68,31 +68,26 @@ Those commands removes all the Kubernetes components associated with the chart a
 
 ## Configuration
 
-The following table lists the configurable parameters and their default values.
+`operator.matchers` must be populated in [values.yaml](./values.yaml) file
 
-|            Parameter                      |              Description                 |                          Default                        | Required |
-| ----------------------------------------- | ---------------------------------------- | ------------------------------------------------------- | ---------|
-| `operator.matchers`                       | List of matchers (see matchers section below)         | (None)                                     | Yes      |
-
-
-## Matchers
-
-Matchers guide the operator which deployments desired to be patched
+Matchers guide the operator which deployments need to be patched
 
 Each matcher can contain the following constraints (one or more):
 - deployment - substring of deployment name (Deployment.metadata.name)
 - container - substring of container name (Deployment.Specs.Template.Specs.Containers[].name)
 - labels - list of Key/value which should match on deployment labels (Deployment.metadata.labels)
 
+Each matcher should have ROOKOUT_TOKEN environment variable defined in its `env_vars` section
+
+If container matcher not supplied the operator will install rookout agent on all the containers in the deployment.
+ 
 Example :
-The following matcher will match on deployment named "test_automation" which contains a container "frontend"  
-and the label "env:production"
 
-The matcher will set "ROOKOUT_TOKEN" environment variable on matched containers
+The following matcher will match on deployments that contain "test_automation" in their name
+,have a container with the string "frontend" in its name and contain the label "env:production"
 
-ROOKOUT_TOKEN environment variable required for each matcher  
+The matcher tells the operator to set "ROOKOUT_TOKEN" environment variable on every matched container.   
 
-Take a look at [values.yaml](./values.yaml) for full example reference
 ```
 matchers:
     - deployment: "test_automation"
