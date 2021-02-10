@@ -4,13 +4,18 @@ image:
   pullPolicy: Always
 
 operator:
-  token: "<YOUR ROOKOUT TOKEN>"
   matchers:
     - deployment : "example_deployment_matcher"
       container: "example_container_matcher"
       labelels:
         - name: "deployment label name"
           value: "deployment label value"
+      env_vars:
+        - name: "TEST_VAR"
+          value: "TEST_VALUE"
+
+        - name: "ROOKOUT_TOKEN"
+          value: "<YOUR TOKEN>"
 
   resources:
     requests:

@@ -8,17 +8,15 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  rookout_env_vars:
-    - name: "ROOKOUT_TOKEN"
-      value: {{ .Values.operator.token | quote }}
-
-  {{- if .Values.operator.matchers }}
   matchers:
   {{- range .Values.operator.matchers }}
     - deployment: {{ .deployment | quote }}
       {{- if .container }}
       container: {{ .container | quote }}
       {{- end}}
-  {{- end }}
-
-  {{- end }}
+      env_vars:
+      {{- range .env_vars }}
+        - name: {{ .name }}
+          value: {{ .value}}
+      {{- end}}
+  {{- end}}

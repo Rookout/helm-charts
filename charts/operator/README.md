@@ -7,7 +7,12 @@
 ```bash
 helm repo add rookout https://helm-charts.rookout.com
 helm repo update
-helm install --name my-release rookout/operator_helm3 --set operator.token=YOUR_ORGANIZATIONAL_TOKEN
+
+# helm 2
+helm install --name my-release rookout/operator -f values.yaml
+
+# helm 3
+helm install my-release rookout/operator -f values.yaml
 ```
 
 ## Introduction
@@ -23,10 +28,17 @@ This chart installs [Rookout's k8s Operator](https://docs.rookout.com/docs/k8s-o
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install my-release rookout/operator_helm3 --set operator.token=YOUR_ORGANIZATIONAL_TOKEN
+# helm 2  
+# requried CRD to be applied with kubectl
+$ kubectl apply -f ./crds/custom_resource_definition.yaml
+$ helm install --name my-release rookout/operator -f values.yaml
+$ helm install --name my-release rookout/operator -f values.yaml
+
+# helm 3
+$ helm install my-release rookout/operator -f values.yaml
 ```
 
-The command deploys Rookout's k8s operator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
+The command deploys Rookout's k8s operator on the Kubernetes cluster in the default configuration. The [configuration](##configuration) section lists the parameters that can be configured during installation.
 
 > **Tip**: List all releases using `helm list`
 
@@ -34,8 +46,8 @@ The command deploys Rookout's k8s operator on the Kubernetes cluster in the defa
 If you're not using helm with your kubernetes cluster, you'll still be able to install the controller. Helm will be needed to be installed locally just to create the yaml file from the templates.
 
 1.  Install helm locally: https://helm.sh/docs/intro/install/ 
-2.  Clone this repository and `cd charts/operator_helm3`
-3.  run ``` helm template . --set operator.token=YOUR_ORGANIZATIONAL_TOKEN > rookout-operator.yaml```
+2.  Clone this repository and `cd charts/operator`
+3.  run (helm 2+3)```helm template . -f values.yaml > rookout-operator.yaml```
 4.  A generation of the yamls will be piped right to a single yaml file called `rookout-operator.yaml`
 5.  Run `kubectl apply -f rookout-operator.yaml`
 
@@ -59,10 +71,9 @@ Those commands removes all the Kubernetes components associated with the chart a
 
 The following table lists the configurable parameters and their default values.
 
-|            Parameter                      |              Description                 |                          Default                        | 
-| ----------------------------------------- | ---------------------------------------- | ------------------------------------------------------- |
-| `operator.token`                          | Token to authentication with Rookout's SaaS         | (None)
-| `operator.matchers`                       | List of matchers (see matchers section below)         | (None)
+|            Parameter                      |              Description                 |                          Default                        | Required |
+| ----------------------------------------- | ---------------------------------------- | ------------------------------------------------------- | ---------|
+| `operator.matchers`                       | List of matchers (see matchers section below)         | (None)                                     | Yes      |
 
 
 ## Matchers
@@ -77,26 +88,20 @@ Each matcher can contain the following constraints (one or more):
 Example :
 The following matcher will match on deployment named "test_automation" which contains a container "frontend"  
 and the label "env:production"
+
+The matcher will set "ROOKOUT_TOKEN" environment variable on matched containers
+
+ROOKOUT_TOKEN environment variable required for each matcher  
+
+Take a look at [values.yaml](./values.yaml) for full example reference
 ```
 matchers:
     - deployment: "test_automation"
       container: "frontend"
       labels:
          - env: "production"
+      env_vars:
+          - name: "ROOKOUT_TOKEN"
+            value: "<YOUR TOKEN>"
 ``` 
 
-The above parameters map to the env variables defined in [rookout/operator](https://docs.rookout.com/docs/k8s-operator-setup.html).
-
-Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
-
-```bash
-helm repo add rookout https://helm-charts.rookout.com
-helm repo update
-helm install my-release \
-  --set operator.token=YOUR_ORGANIZATIONAL_TOKEN \
-    rookout/operator_helm3
-```
-
-The above command sets the Rookout token to your organizational token.
-
-> **Tip**: You can use the default [values.yaml](values.yaml)
