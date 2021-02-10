@@ -36,7 +36,7 @@ spec:
             - --leader-elect
           command:
             - /manager
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: "{{ required "image.repository is required" .Values.image.repository }}:{{ required "image.tag is required" .Values.image.tag }}"
           imagePullPolicy: Always
           livenessProbe:
             httpGet:
@@ -53,11 +53,11 @@ spec:
             periodSeconds: 10
           resources:
             limits:
-              cpu: {{ .Values.operator.resources.limits.cpu }}
-              memory: {{ .Values.operator.resources.limits.memory }}
+              cpu: {{ required "operator.resources.limits.cpu is required" .Values.operator.resources.limits.cpu }}
+              memory: {{ required "operator.resources.limits.memory is required" .Values.operator.resources.limits.memory }}
             requests:
-              cpu: {{ .Values.operator.resources.requests.cpu }}
-              memory: {{ .Values.operator.resources.requests.memory }}
+              cpu: {{ required "operator.resources.requests.cpu is required" .Values.operator.resources.requests.cpu }}
+              memory: {{ required "operator.resources.requests.memory is required" .Values.operator.resources.requests.memory }}
           securityContext:
             allowPrivilegeEscalation: false
       securityContext:

@@ -5,6 +5,10 @@ image:
 
 operator:
   matchers: # place your own matchers here
+    - deployment: "aa"
+      env_vars:
+        - name: "aa"
+          value: "aa"
   resources:
     requests:
       cpu: 30m
