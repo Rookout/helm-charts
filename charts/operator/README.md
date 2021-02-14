@@ -68,6 +68,23 @@ Those commands removes all the Kubernetes components associated with the chart a
 
 ## Configuration
 
+The following table lists the configurable parameters of the Rookout Router chart and their default values (See [values.yaml](./values.yaml) for example values).
+
+|            Parameter                      |              Description                   | Default  | Required 
+| ----------------------------------------- | -------------------------------------------| ---------| --------
+| `image.repository`                        | Operator image repo                        | None     | Yes
+| `image.tag`                               | Operator image tag                         | None     | Yes
+| `image.pullPolicy`                        | Operator image pull policy                 | Always   | Yes
+| `operator.matchers`                       | see matchers explanation below             | None     | Yes
+| `operator.init_container.image`           | Init container image repo                  | None     | Yes
+| `operator.init_container.tag`             | Init container image tag                   | None     | Yes
+| `operator.init_container.pullPolicy`      | Init container image pull policy           | Always   | Yes
+| `operator.resources.requests.cpu`         | operator CPU allocation request            | 30m      | Yes
+| `operator.resources.requests.memory`      | operator memory allocation request         | 31Mi     | Yes
+| `operator.resources.limits.cpu`           | operator CPU limit                         | 4000m    | Yes
+| `operator.resources.limits.memory`        | operator memory limit                      | 1024Mi   | Yes
+
+
 `operator.matchers` must be populated in [values.yaml](./values.yaml) file
 
 Matchers guide the operator which deployments need to be patched

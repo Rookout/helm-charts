@@ -37,7 +37,7 @@ spec:
           command:
             - /manager
           image: "{{ required "image.repository is required" .Values.image.repository }}:{{ required "image.tag is required" .Values.image.tag }}"
-          imagePullPolicy: {{ required "image.pullPolicy is requried" .Values.image.pullPolicy }}
+          imagePullPolicy: {{ default "Always" .Values.image.pullPolicy }}
           livenessProbe:
             httpGet:
               path: /healthz
@@ -53,11 +53,11 @@ spec:
             periodSeconds: 10
           resources:
             limits:
-              cpu: {{ required "operator.resources.limits.cpu is required" .Values.operator.resources.limits.cpu }}
-              memory: {{ required "operator.resources.limits.memory is required" .Values.operator.resources.limits.memory }}
+              cpu: {{ default "4000m" .Values.operator.resources.limits.cpu }}
+              memory: {{ default "1024i" .Values.operator.resources.limits.memory }}
             requests:
-              cpu: {{ required "operator.resources.requests.cpu is required" .Values.operator.resources.requests.cpu }}
-              memory: {{ required "operator.resources.requests.memory is required" .Values.operator.resources.requests.memory }}
+              cpu: {{ default "30m" .Values.operator.resources.requests.cpu }}
+              memory: {{ default "32Mi" .Values.operator.resources.requests.memory }}
           securityContext:
             allowPrivilegeEscalation: false
       securityContext:
