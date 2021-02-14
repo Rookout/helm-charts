@@ -37,7 +37,7 @@ spec:
           command:
             - /manager
           image: "{{ required "image.repository is required" .Values.image.repository }}:{{ required "image.tag is required" .Values.image.tag }}"
-          imagePullPolicy: Always
+          imagePullPolicy: {{ required "image.pullPolicy is requried" .Values.image.pullPolicy }}
           livenessProbe:
             httpGet:
               path: /healthz
