@@ -5,7 +5,15 @@ image:
 
 operator:
   init_container:
-    image: "rookout/k8s-operator-init-container:1.0"
+    image: "rookout/k8s-operator-init-container"
+    tag: "1.0"
+    pullPolicy: Always
+
+  matchers:
+    - deployment: "aa"
+      env_vars:
+        - name: "aa"
+          value: "aa"
 
   resources:
     requests:

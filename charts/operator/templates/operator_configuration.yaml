@@ -9,7 +9,8 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   init_container:
-    image: {{ required "operator.init_container.image is required" .Values.operator.init_container.image }}
+    image: "{{ required "operator.init_container.image is required" .Values.operator.init_container.image }}:{{ required "operator.init_container.tag is required" .Values.operator.init_container.tag }}"
+    image_pull_policy: {{ required "operator.init_container.pullPolicy is required" .Values.operator.init_container.pullPolicy }}
   matchers:
   {{- range required "operator.matchers are required" .Values.operator.matchers }}
     - deployment: {{ .deployment | quote }}
