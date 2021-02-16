@@ -26,7 +26,11 @@ spec:
       name: {{ printf "%s-https" (include "datastore.name" .) }}
     {{- else }}
     - protocol: TCP
+      {{- if .Values.datastore.ingressPort }}
+      port: {{ .Values.datastore.ingressPort }}
+      {{- else }}
       port: 80
+      {{- end}}
       name: {{ printf "%s-http" (include "datastore.name" .) }}
     {{- end }}
       targetPort: {{ default 8080 .Values.datastore.dopContainerPort }}

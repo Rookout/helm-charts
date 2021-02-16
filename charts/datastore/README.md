@@ -39,6 +39,7 @@ The data-on-prem solution runs with one of 3 modes (datastore.serverMode):
 | Parameter | Description |
 | ------ | ------ |
 | datastore.serverMode | Can have only 3 values: **AUTOTLS**, **TLS**, **PLAIN**|
+| datastore.ingressPort | Ingress port for PLAIN serverMode. The ingress expected to do the SSL termination|
 | datastore.logging.enabled | Whether logs should be sent to Rookout. If you decide to enable logging, you must specify your Rookout token with `token` or `tokenFromSecret` parameters |
 | datastore.token | Your organization token. This is the same token as that used by your Rookout ETL controller |
 | datastore.tokenFromSecret.name| Secret ref in which the Rookout token resides |
