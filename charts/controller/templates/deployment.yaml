@@ -72,7 +72,7 @@ spec:
               value: {{ .Values.controller.proxy | quote }}
 {{- end }}
             - name: ROOKOUT_CONTROLLER_SERVER_MODE
-              value: {{ .Values.controller.serverMode | quote }}
+              value: {{ required "controller.serverMode is required" .Values.controller.serverMode | quote }}
             - name: ROOKS_WS_LISTEN_ADDR
               value: ":{{ .Values.controller.port }}"
             - name: ROOKOUT_LISTEN_ALL
@@ -89,7 +89,7 @@ spec:
               port: {{ .Values.controller.port }}
             initialDelaySeconds: 15
             periodSeconds: 20
-{{ if (eq .Values.controller.serverMode "TLS") }}
+{{ if (eq (required "controller.serverMode is required" .Values.controller.serverMode) "TLS") }}
           volumeMounts:
           - mountPath: /var/controller-tls-secrets/tls.key
             subPath: tls.key
@@ -100,7 +100,7 @@ spec:
             name: tls-cert
             readOnly: true
 {{ end }}
-{{ if (eq .Values.controller.serverMode "TLS") }}
+{{ if (eq (required "controller.serverMode is required" .Values.controller.serverMode) "TLS") }}
       volumes:
       - name: tls-key
         secret:
