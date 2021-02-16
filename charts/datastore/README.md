@@ -59,3 +59,6 @@ The data-on-prem solution runs with one of 3 modes (datastore.serverMode):
 | podAnnotations | Annotations for the datastore k8s pod |
 | pvc.storageClassName | the persistentVolumeClaim's storageClassName, defaults to `nil` |
 | pvc.volumeSize | the persistentVolumeClaim's requested volume size, defaults to 10Gi |) |
+| affinity | deployment affinity (optional) |
+| tolerations | deployment tolerations (optional) |
+| nodeSelector | deployment nodeSelector (optional) |
