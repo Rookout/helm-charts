@@ -1,3 +1,4 @@
+# Allowing controller -> dop in-cluster communication in HTTP (No TLS)
 {{- if (eq .Values.datastore.serverMode "PLAIN") }}
 apiVersion: v1
 kind: Service
