@@ -24,6 +24,7 @@ spec:
     - protocol: TCP
       port: 443
       name: {{ printf "%s-https" (include "datastore.name" .) }}
+      targetPort: {{ default 8080 .Values.datastore.dopContainerPort }}
     {{- else }}
     - protocol: TCP
       port: {{ default 80 .Values.datastore.servicePort }}
