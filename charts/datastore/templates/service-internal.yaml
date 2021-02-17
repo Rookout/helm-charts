@@ -1,0 +1,18 @@
+{{- if (eq .Values.datastore.serverMode "PLAIN") }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{  template "datastore.fullname" . }}-internal
+{{- if .Values.service.annotations }}
+  annotations:
+{{ toYaml .Values.service.annotations | indent 8 }}
+{{- end }}
+spec:
+  selector:
+    product: {{ template "datastore.name" . }}  
+  ports:
+    - protocol: TCP
+      port: 80
+      name: {{ printf "%s-https" (include "datastore.name" .) }}
+      targetPort: {{ default 8080 .Values.datastore.dopContainerPort }}
+{{- end}}
