@@ -7,7 +7,7 @@ image:
   pullPolicy: Always
 
 datastore:
-  serverMode: ''
+  serverMode: 'PLAIN'
   autoTlsDomain: ''
   tlsKeySecretName: ''
   tlsCertificateConfigmapName: ''
