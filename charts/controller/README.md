@@ -71,7 +71,7 @@ The following table lists the configurable parameters of the Rookout Router char
 
 |            Parameter                      |              Description                 |                          Default                        | 
 | ----------------------------------------- | ---------------------------------------- | ------------------------------------------------------- |
-| `controller.serverMode`                   | TLS / PLAIN                    | PLAIN
+| `controller.serverMode`                   | TLS / PLAIN                    | PLAIN (required)
 | `controller.token`                           | Rookout organizational token             | `Nil` You must provide your own token                   |  
 | `controller.tokenFromSecret.name`                 | Secret ref in which the Rookout token resides  | `Nil` You must provide your own secret (Optional if setting the token using controller.token)                   |  
 | `controller.tokenFromSecret.key`                 | Key of the secret in which the Rookout token resides  | `Nil` You must provide your own secret (Optional if setting the token using controller.token)                   |  
@@ -95,6 +95,9 @@ The following table lists the configurable parameters of the Rookout Router char
 | `serviceAccount.name` | Optional name for the service account | (none) |
 | `podAnnotations` | Annotations for the controller k8s pod | (none) |
 | `service.annotations` | Annotations for the controller k8s service | (none) |
+| affinity | deployment affinity (optional) | (none) |
+| tolerations | deployment tolerations (optional) | (none) |
+| nodeSelector | deployment nodeSelector (optional) | (none) |
 
 
 The above parameters map to the env variables defined in [rookout/controller](https://docs.rookout.com/docs/agent-setup.html). For more information please refer to the [rookout/controller](https://hub.docker.com/r/rookout/agent/) image documentation.
