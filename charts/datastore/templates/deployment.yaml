@@ -26,6 +26,18 @@ spec:
 {{ toYaml .Values.podAnnotations | indent 8 }}
 {{- end }}
     spec:
+    {{- if .Values.affinity }}
+      affinity:
+    {{ toYaml .Values.affinity | indent 8 }}
+    {{- end}}
+    {{- if .Values.nodeSelector }}
+      nodeSelector:
+    {{ toYaml .Values.nodeSelector | indent 8 }}
+    {{- end}}
+    {{- if .Values.tolerations }}
+      tolerations:
+    {{ toYaml .Values.tolerations | indent 8 }}
+    {{- end}}
       securityContext:
         fsGroup: 5000
         runAsUser: 5000
@@ -63,12 +75,12 @@ spec:
               value: {{ .Values.datastore.url_prefix | quote }}
 {{- end }}
             - name: ROOKOUT_DOP_SERVER_MODE
-              value: {{ .Values.datastore.serverMode | quote }}
+              value: {{ required "datastore.serverMode is required" .Values.datastore.serverMode | quote }}
             - name: ROOKOUT_DOP_PORT
               value: {{ default 8080 .Values.datastore.dopContainerPort | quote }}
             - name: ROOKOUT_DOP_AUTO_TLS_DOMAIN
               value: {{ .Values.datastore.autoTlsDomain | quote }}
-            {{ if (eq .Values.datastore.serverMode "AUTOTLS") }}
+            {{ if (eq (required "datastore.serverMode is required" .Values.datastore.serverMode) "AUTOTLS") }}
             - name: ROOKOUT_DOP_ENABLE_FILE_LOGGER
               value: "False"
             - name: ROOKOUT_DOP_LETS_ENCRYPT_PORT
@@ -76,7 +88,7 @@ spec:
             {{ end }}
           ports:
             - containerPort: {{ default 8080 .Values.datastore.dopContainerPort }}
-            {{ if (eq .Values.datastore.serverMode "AUTOTLS") }}
+            {{ if (eq (required "datastore.serverMode is required" .Values.datastore.serverMode) "AUTOTLS") }}
             - containerPort: {{ default 9090 .Values.datastore.letsEncryptContainerPort }}
             {{ end }}
           volumeMounts:
@@ -86,7 +98,7 @@ spec:
             {{ end }}
             - mountPath: "/var/rookout/certs"
               name: rookout-volume
-            {{ if (eq .Values.datastore.serverMode "TLS") }}
+            {{ if (eq (required "datastore.serverMode is required" .Values.datastore.serverMode) "TLS") }}
             - mountPath: /var/rookout/key.pem
               subPath: key.pem
               name: tls-key
@@ -102,7 +114,7 @@ spec:
           persistentVolumeClaim:
             claimName: rookout-data-on-prem-pvc
         {{ end }}
-        {{ if (eq .Values.datastore.serverMode "TLS") }}
+        {{ if (eq (required "datastore.serverMode is required" .Values.datastore.serverMode) "TLS") }}
         - name: tls-key
           secret:
             secretName: {{ required "In TLS mode, secretName holding key must be specified in datastore.tlsKeySecretName." .Values.datastore.tlsKeySecretName  }}

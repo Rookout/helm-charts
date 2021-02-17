@@ -14,21 +14,20 @@ spec:
   selector:
     product: {{ template "datastore.name" . }}  
   ports:
-    {{- if (eq .Values.datastore.serverMode "AUTOTLS") }} # AUTOTLS mode requires port 80 for communicating with LetsEncrypt
+    {{- if (eq (required "datastore.serverMode is required" .Values.datastore.serverMode) "AUTOTLS") }} # AUTOTLS mode requires port 80 for communicating with LetsEncrypt
     - protocol: TCP
       port: 80
       targetPort: {{ default 9090 .Values.datastore.letsEncryptContainerPort }}
       name: {{ printf "%s-lets-encrypt" (include "datastore.name" .) }}
     {{ end }}
-    {{- if or (eq .Values.datastore.serverMode "TLS") (eq .Values.datastore.serverMode "AUTOTLS") }}
+    {{- if or (eq (required "datastore.serverMode is required" .Values.datastore.serverMode) "TLS") (eq .Values.datastore.serverMode "AUTOTLS") }}
     - protocol: TCP
       port: 443
       name: {{ printf "%s-https" (include "datastore.name" .) }}
+      targetPort: {{ default 8080 .Values.datastore.dopContainerPort }}
     {{- else }}
     - protocol: TCP
-      port: 80
+      port: {{ default 80 .Values.datastore.servicePort }}
       name: {{ printf "%s-http" (include "datastore.name" .) }}
-    {{- end }}
       targetPort: {{ default 8080 .Values.datastore.dopContainerPort }}
-
-
+  {{- end }}

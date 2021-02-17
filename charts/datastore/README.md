@@ -38,7 +38,8 @@ The data-on-prem solution runs with one of 3 modes (datastore.serverMode):
 ### Configuration
 | Parameter | Description |
 | ------ | ------ |
-| datastore.serverMode | Can have only 3 values: **AUTOTLS**, **TLS**, **PLAIN**|
+| datastore.serverMode | Can have only 3 values: **AUTOTLS**, **TLS**, **PLAIN** (required)|
+| datastore.servicePort | service external port (default=80). See guidelines below this table for Ingress service |
 | datastore.logging.enabled | Whether logs should be sent to Rookout. If you decide to enable logging, you must specify your Rookout token with `token` or `tokenFromSecret` parameters |
 | datastore.token | Your organization token. This is the same token as that used by your Rookout ETL controller |
 | datastore.tokenFromSecret.name| Secret ref in which the Rookout token resides |
@@ -58,3 +59,12 @@ The data-on-prem solution runs with one of 3 modes (datastore.serverMode):
 | podAnnotations | Annotations for the datastore k8s pod |
 | pvc.storageClassName | the persistentVolumeClaim's storageClassName, defaults to `nil` |
 | pvc.volumeSize | the persistentVolumeClaim's requested volume size, defaults to 10Gi |) |
+| affinity | deployment affinity (optional) |
+| tolerations | deployment tolerations (optional) |
+| nodeSelector | deployment nodeSelector (optional) |
+| service.annotations | Annotations for the data-on-prem k8s service (optional) |
+
+
+### Ingress guidelines
+- Some ingresses requires special annotation for SSL terminations whihc depends on the kubernets cluster provider.
+- When ingress + SSL is used the data-on-prem serverMode should be in *PLAIN* because it gets plain HTTP from the ingress.
