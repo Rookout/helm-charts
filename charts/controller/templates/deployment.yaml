@@ -29,16 +29,16 @@ spec:
     spec:
       {{- if .Values.affinity }}
       affinity:
-      {{ toYaml .Values.affinity | indent 8 }}
-      {{- end}}
-      {{- if .Values.nodeSelector }}
+{{ toYaml .Values.affinity | indent 8 }}
+{{- end}}
+{{- if .Values.nodeSelector }}
       nodeSelector:
-      {{ toYaml .Values.nodeSelector | indent 8 }}
-      {{- end}}
-      {{- if .Values.tolerations }}
+{{ toYaml .Values.nodeSelector | indent 8 }}
+{{- end}}
+{{- if .Values.tolerations }}
       tolerations:
-      {{ toYaml .Values.tolerations | indent 8 }}
-      {{- end}}
+{{ toYaml .Values.tolerations | indent 8 }}
+{{- end}}
       securityContext:
         fsGroup: 5000
         runAsUser: 5000
