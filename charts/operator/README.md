@@ -133,7 +133,7 @@ Indicates that the operator is ready for patching deployments :
 ```
 Operator configuration updated
 ```
-If the above log line not found it means mo operator matcher supplied. 
+If the above log line not found it means no operator matcher supplied. 
 make sure at least one matcher defined in [values.yaml](./values.yaml) under the operator.matchers section.
 
 
