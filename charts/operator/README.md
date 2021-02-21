@@ -133,8 +133,8 @@ Indicates that the operator is ready for patching deployments :
 ```
 Operator configuration updated
 ```
-If the above log line not found it means the operator matcher not supplied yet. 
-make sure at least one matcher defined in (values.yaml)[./values.yaml] under the operator.matcher section.
+If the above log line not found it means mo operator matcher supplied. 
+make sure at least one matcher defined in [values.yaml](./values.yaml) under the operator.matchers section.
 
 
 Indication of a successful installation of rookout agent on a specific deployment :
