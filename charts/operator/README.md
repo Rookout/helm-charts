@@ -137,8 +137,9 @@ If the above log line not found it means no operator matchers supplied.
 make sure at least one matcher defined in [values.yaml](./values.yaml) under the operator.matchers section.
 
 
-Indication of a successful installation of rookout agent on a specific deployment :
+Indication of a successful installation of rookout agent :
 ```
+Adding rookout agent to container <container name> of deployment <deployment name>
 Deployment <deployment name> patched successfully
 ```
 
