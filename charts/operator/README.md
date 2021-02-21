@@ -129,7 +129,7 @@ How to see the operator logs ?
 kubectl -n rookout logs -f deployment/rookout-controller-manager --all-containers=true --since=10m
 ```
 
-Indication that the operator is ready for patching deployments :
+Indicates that the operator is ready for patching deployments :
 ```
 Operator configuration updated
 ```
