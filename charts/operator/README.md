@@ -14,9 +14,15 @@ This chart installs [Rookout's k8s Operator](https://docs.rookout.com/docs/k8s-o
 
 To install the chart with the release name `rookout-operator`:
 
+Add rookout's helm repo :
+```
+helm repo add rookout https://helm-charts.rookout.com
+helm repo update
+```
+
 Helm 2  
 
-First, apply CRDs with kubectl
+Apply CRDs with kubectl
 ```
 kubectl apply -f ./crds/custom_resource_definition.yaml
 ```
@@ -116,15 +122,20 @@ matchers:
             value: "<YOUR TOKEN>"
 ``` 
 
-## Check deployment status
+## Important log lines
 
-Get all deployment logs :
+How to see the operator logs ?
 ```
 kubectl -n rookout logs -f deployment/rookout-controller-manager --all-containers=true --since=10m
 ```
 
-You should see the following log message :
+Indication that the operator is ready for patching deployments :
 ```
 Operator configuration updated
+```
+
+Indication of a successful installation of rookout agent on a specific deployment :
+```
+Deployment <deployment name> patched successfully
 ```
 
