@@ -74,7 +74,7 @@ Those commands removes all the Kubernetes components associated with the chart a
 
 ## Configuration
 
-The following table lists the configurable parameters of the Rookout Router chart and their default values (See [values.yaml](./values.yaml) for example values).
+The following table lists the configurable parameters of the Rookout Operator chart and their default values (See [values.yaml](./values.yaml) for example values).
 
 |            Parameter                      |              Description                   | Default  | Required 
 | ----------------------------------------- | -------------------------------------------| ---------| --------
