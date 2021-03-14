@@ -20,7 +20,7 @@ helm repo add rookout https://helm-charts.rookout.com
 helm repo update
 ```
 
-Helm 2  
+### Helm 2 
 
 Apply CRDs with kubectl
 ```
@@ -32,7 +32,7 @@ Then install the chart
 helm install --name rookout-operator rookout/operator -f values.yaml
 ```
 
-Helm 3
+### Helm 3
 
 Install chart (CRDs will be applied by helm3 automatically)
 ```
@@ -124,20 +124,20 @@ matchers:
 
 ## Important log lines
 
-How to see the operator logs ?
+How to see the operator logs :
 ```
 kubectl -n rookout logs -f deployment/rookout-controller-manager --all-containers=true --since=10m
 ```
 
-Indicates that the operator is ready for patching deployments :
+The operator is ready for patching deployments :
 ```
 Operator configuration updated
 ```
-If the above log line not found it means no operator matchers supplied. 
-make sure at least one matcher defined in [values.yaml](./values.yaml) under the operator.matchers section.
+If the logline above does not exist, it means that no operator matchers were supplied.. 
+Make sure at least one matcher is defined in [values.yaml](./values.yaml) under the operator.matchers section.
 
 
-Indication of a successful installation of rookout agent :
+The Rookout agent was successfully installed :
 ```
 Adding rookout agent to container <container name> of deployment <deployment name>
 Deployment <deployment name> patched successfully
