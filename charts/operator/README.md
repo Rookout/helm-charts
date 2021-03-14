@@ -14,9 +14,15 @@ This chart installs [Rookout's k8s Operator](https://docs.rookout.com/docs/k8s-o
 
 To install the chart with the release name `rookout-operator`:
 
-Helm 2  
+Add rookout's helm repo :
+```
+helm repo add rookout https://helm-charts.rookout.com
+helm repo update
+```
 
-First, apply CRDs with kubectl
+### Helm 2 
+
+Apply CRDs with kubectl
 ```
 kubectl apply -f ./crds/custom_resource_definition.yaml
 ```
@@ -26,7 +32,7 @@ Then install the chart
 helm install --name rookout-operator rookout/operator -f values.yaml
 ```
 
-Helm 3
+### Helm 3
 
 Install chart (CRDs will be applied by helm3 automatically)
 ```
@@ -68,7 +74,7 @@ Those commands removes all the Kubernetes components associated with the chart a
 
 ## Configuration
 
-The following table lists the configurable parameters of the Rookout Router chart and their default values (See [values.yaml](./values.yaml) for example values).
+The following table lists the configurable parameters of the Rookout Operator chart and their default values (See [values.yaml](./values.yaml) for example values).
 
 |            Parameter                      |              Description                   | Default  | Required 
 | ----------------------------------------- | -------------------------------------------| ---------| --------
@@ -116,15 +122,24 @@ matchers:
             value: "<YOUR TOKEN>"
 ``` 
 
-## Check deployment status
+## Important log lines
 
-Get all deployment logs :
+How to see the operator logs :
 ```
 kubectl -n rookout logs -f deployment/rookout-controller-manager --all-containers=true --since=10m
 ```
 
-You should see the following log message :
+The operator is ready for patching deployments :
 ```
 Operator configuration updated
+```
+If the logline above does not exist, it means that no operator matchers were supplied.. 
+Make sure at least one matcher is defined in [values.yaml](./values.yaml) under the operator.matchers section.
+
+
+The Rookout agent was successfully installed :
+```
+Adding rookout agent to container <container name> of deployment <deployment name>
+Deployment <deployment name> patched successfully
 ```
 
