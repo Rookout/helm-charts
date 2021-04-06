@@ -20,5 +20,4 @@
 
 ---------------------------------------------------------------
 
-
 [LICENSE](https://github.com/rookout/helm-charts/blob/master/LICENSE)
