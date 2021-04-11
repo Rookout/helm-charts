@@ -95,9 +95,10 @@ The following table lists the configurable parameters of the Rookout Router char
 | `serviceAccount.name` | Optional name for the service account | (none) |
 | `podAnnotations` | Annotations for the controller k8s pod | (none) |
 | `service.annotations` | Annotations for the controller k8s service | (none) |
-| affinity | deployment affinity (optional) | (none) |
-| tolerations | deployment tolerations (optional) | (none) |
-| nodeSelector | deployment nodeSelector (optional) | (none) |
+| `affinity` | deployment affinity (optional) | (none) |
+| `tolerations` | deployment tolerations (optional) | (none) |
+| `nodeSelector` | deployment nodeSelector (optional) | (none) |
+| `controller.datastore_no_ssl_verif` | skip SSL cert verification when connecting to datastore | false |
 
 
 The above parameters map to the env variables defined in [rookout/controller](https://docs.rookout.com/docs/agent-setup.html). For more information please refer to the [rookout/controller](https://hub.docker.com/r/rookout/agent/) image documentation.
