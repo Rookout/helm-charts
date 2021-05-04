@@ -82,7 +82,7 @@ spec:
             - name: ROOKOUT_AGENT_MAX_MEMORY
               value: {{ .Values.controller.internalResources.limits.memory | quote }}
             - name: ROOKOUT_DOP_NO_SSL_VERIFY
-              value: {{ default false .Values.controller.datastore_no_ssl_verif }}
+              value: {{ default false .Values.controller.datastore_no_ssl_verif | quote }}
           ports:
             - name: websocket
               containerPort: {{ .Values.controller.port }}

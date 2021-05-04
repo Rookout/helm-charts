@@ -1,4 +1,4 @@
-{{- if .Values.controller.token -}}
+{{- if or (.Values.controller.token) (.Values.controller.tokenFromSecret.name) -}}
 Rookout's Controller are the connection to Rookout's SDK (App Instances), you should see its status in Rookout's IDE in the connectivity map.
 
             https://app.rookout.com/
