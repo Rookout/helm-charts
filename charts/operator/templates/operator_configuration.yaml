@@ -20,6 +20,6 @@ spec:
       env_vars:
       {{- range required "env_vars are required for each matcher" .env_vars }}
         - name: {{ .name }}
-          value: {{ .value}}
+          value: {{ .value | quote }}
       {{- end}}
   {{- end}}
