@@ -63,6 +63,10 @@ The data-on-prem solution runs with one of 3 modes (datastore.serverMode):
 | tolerations | deployment tolerations (optional) |
 | nodeSelector | deployment nodeSelector (optional) |
 | service.annotations | Annotations for the data-on-prem k8s service (optional) |
+| resources.requests.cpu        | CPU resource requests (default: 1) |
+| resources.limits.cpu         | CPU resource limits (default: 2)|
+| resources.requests.memory       | Memory resource requests (default: 1G) |
+| resources.limits.memory        | Memory resource limits (default: 4G) |
 
 
 ### Ingress guidelines
