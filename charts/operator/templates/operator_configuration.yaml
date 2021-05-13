@@ -13,11 +13,10 @@ spec:
     image_pull_policy: {{ default "Always" .Values.operator.init_container.pullPolicy }}
   matchers:
   {{- range required "operator.matchers are required" .Values.operator.matchers }}
-    - {{- if .deployment }} deployment: {{ .deployment | quote }}{{- end}}
-      {{- if .container }} container: {{ .container | quote }}{{- end}}
-      {{- if .labels }} labels:
+    - deployment: {{ .deployment | quote }}
+      container: {{ .container | quote }}
+      labels:
 {{ toYaml .labels | indent 8 }}
-      {{- end}}
       env_vars:
       {{- range required "env_vars are required for each matcher" .env_vars }}
         - name: {{ .name }}
