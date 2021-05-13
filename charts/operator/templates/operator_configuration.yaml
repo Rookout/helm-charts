@@ -12,11 +12,12 @@ spec:
     image: "{{ required "operator.init_container.image is required" .Values.operator.init_container.image }}:{{ required "operator.init_container.tag is required" .Values.operator.init_container.tag }}"
     image_pull_policy: {{ default "Always" .Values.operator.init_container.pullPolicy }}
   matchers:
-  {{- range required "operator.matchers are required" .Values.operator.matchers }}
+    {{- range required "operator.matchers are required" .Values.operator.matchers }}
     - deployment: {{ .deployment | quote }}
       container: {{ .container | quote }}
       labels:
-{{ toYaml .labels | indent 8 }}
+    {{- if .labels }}
+    {{ toYaml .labels | indent 8 }}{{- end}}
       env_vars:
       {{- range required "env_vars are required for each matcher" .env_vars }}
         - name: {{ .name }}
