@@ -16,8 +16,9 @@ spec:
     - deployment: {{ .deployment | quote }}
       container: {{ .container | quote }}
       labels:
-    {{- if .labels }}
-    {{ toYaml .labels | indent 8 }}{{- end}}
+{{- if .labels }}
+{{ toYaml .labels | indent 8 }}
+{{- end}}
       env_vars:
       {{- range required "env_vars are required for each matcher" .env_vars }}
         - name: {{ .name }}
