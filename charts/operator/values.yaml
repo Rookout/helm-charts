@@ -8,11 +8,10 @@ operator:
     - deployment: "test_deployment"
       container: "test_container"
       labels:
-        - env: "test_env"
+        env: "test_env"
       env_vars:
         - name: "ROOKOUT_TOKEN"
           value: "<YOUR TOKEN>"
-
   init_container:
     image: "rookout/k8s-operator-init-container"
     tag: "1.0"
