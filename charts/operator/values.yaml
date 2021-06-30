@@ -12,6 +12,7 @@ operator:
       env_vars:
         - name: "ROOKOUT_TOKEN"
           value: "<YOUR TOKEN>"
+
   init_container:
     image: "rookout/k8s-operator-init-container"
     tag: "latest"
