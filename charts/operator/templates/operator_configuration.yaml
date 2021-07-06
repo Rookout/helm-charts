@@ -15,6 +15,7 @@ spec:
     {{- range required "operator.matchers are required" .Values.operator.matchers }}
     - deployment: {{ .deployment | quote }}
       container: {{ .container | quote }}
+      namespace: {{ .namespace | quote }}
 {{- if .labels }}
       labels:
 {{ toYaml .labels | indent 8 }}

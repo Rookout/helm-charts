@@ -98,6 +98,7 @@ Matchers guide the operator which deployments need to be patched
 Each matcher can contain the following constraints (one or more):
 - deployment - substring of deployment name (Deployment.metadata.name)
 - container - substring of container name (Deployment.Specs.Template.Specs.Containers[].name)
+- namespace - substring of namespace name 
 - labels - list of Key/value which should match on deployment labels (Deployment.metadata.labels)
 
 Each matcher should have ROOKOUT_TOKEN environment variable defined in its `env_vars` section
@@ -115,6 +116,7 @@ The matcher tells the operator to set "ROOKOUT_TOKEN" environment variable on ev
 matchers:
     - deployment: "test_automation"
       container: "frontend"
+      namespace: "production"
       labels:
          - env: "production"
       env_vars:
@@ -139,7 +141,7 @@ Make sure at least one matcher is defined in [values.yaml](./values.yaml) under 
 
 The Rookout agent was successfully installed :
 ```
-Adding rookout agent to container <container name> of deployment <deployment name>
+Adding rookout agent to container <container name> of deployment <deployment name> in <namespace name> namespace"
 Deployment <deployment name> patched successfully
 ```
 

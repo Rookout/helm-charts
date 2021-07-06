@@ -51,6 +51,8 @@ spec:
                         type: string
                       deployment:
                         type: string
+                      namespace:
+                        type: string
                       env_vars:
                         items:
                           description: EnvVar represents an environment variable present in a Container.
