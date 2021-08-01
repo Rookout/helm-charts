@@ -98,8 +98,10 @@ spec:
             - mountPath: "/var/rookout/database/db"
               name: rookout-volume
             {{ end }}
+            {{ if (eq (required "datastore.serverMode is required" .Values.datastore.serverMode) "AUTOTLS") }}
             - mountPath: "/var/rookout/certs"
               name: rookout-volume
+            {{ end }}
             {{ if (eq (required "datastore.serverMode is required" .Values.datastore.serverMode) "TLS") }}
             - mountPath: /var/rookout/key.pem
               subPath: key.pem
@@ -111,7 +113,7 @@ spec:
               readOnly: true
             {{ end }}
       volumes:
-        {{- if (eq (default false .Values.datastore.inMemoryDb) false) }}
+        {{- if or (eq (default false .Values.datastore.inMemoryDb) false) (eq .Values.datastore.serverMode "AUTOTLS") }}
         - name: rookout-volume
           persistentVolumeClaim:
             claimName: rookout-data-on-prem-pvc
