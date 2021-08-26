@@ -1,18 +1,25 @@
 image:
-  repository: "rookout/k8s-operator"
+  repository: "gcr.io/rookoutdev/operator-test"
   tag: "latest"
   pullPolicy: "Always"
 
 operator:
   matchers:
-    - deployment: "test_deployment"
-      container: "test_container"
-      namespace: "test_namespace"
-      labels:
-        env: "test_env"
+    - deployment: "java-one"
+      container: ""
       env_vars:
         - name: "ROOKOUT_TOKEN"
-          value: "<YOUR TOKEN>"
+          value: "2d1c78743eb256e80a4b4b53314c806253e88a17ae65044ce9818e3d294be2f0"
+    # - deployment: "java-two"
+    #   container: ""
+    #   env_vars:
+    #     - name: "ROOKOUT_TOKEN"
+    #       value: "2d1c78743eb256e80a4b4b53314c806253e88a17ae65044ce9818e3d294be2f0"
+    - deployment: "java-three"
+      container: ""
+      env_vars:
+        - name: "ROOKOUT_TOKEN"
+          value: "2d1c78743eb256e80a4b4b53314c806253e88a17ae65044ce9818e3d294be2f0"
 
   init_container:
     image: "rookout/k8s-operator-init-container"
