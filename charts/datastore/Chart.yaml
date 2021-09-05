@@ -1,9 +1,9 @@
 apiVersion: v1
-appVersion: "1.0.10"
+appVersion: "1.0.11"
 description: A Helm chart for Rookout Data-On-Prem component on Kubernetes
 icon: https://raw.githubusercontent.com/Rookout/helm-charts/master/Rookout-logo.png
 name: datastore
-version: 0.1.39
+version: 0.1.40
 home: "http://rookout.com/"
 maintainers:
 - name: Rookout
