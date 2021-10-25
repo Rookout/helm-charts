@@ -71,6 +71,21 @@ spec:
             - name: ROOKOUT_PROXY
               value: {{ .Values.controller.proxy | quote }}
 {{- end }}
+{{- if (.Values.controller.proxyUsername) }}
+            - name: ROOKOUT_PROXY_USERNAME
+              value: {{ .Values.controller.proxyUsername | quote }}
+{{- end }}
+{{- if or (.Values.controller.proxyPassword) (.Values.controller.proxyPasswordFromSecret) }}
+            - name: ROOKOUT_PROXY_PASSWORD
+{{- if .Values.controller.proxyPassword }}
+              value: {{ .Values.controller.proxyPassword | quote }}
+{{- else }}
+              valueFrom:
+                secretKeyRef:
+{{ toYaml .Values.controller.proxyPasswordFromSecret | indent 18 }}
+{{- end }}
+{{- end }}
+
             - name: ROOKOUT_CONTROLLER_SERVER_MODE
               value: {{ required "controller.serverMode is required" .Values.controller.serverMode | quote }}
             - name: ROOKS_WS_LISTEN_ADDR
