@@ -16,7 +16,7 @@ This chart bootstraps a [Rookout Controller](https://docs.rookout.com/docs/agent
 
 ## Prerequisites
 
-- Kubernetes 1.9+ with Beta APIs enabled
+- Kubernetes 1.9+ with Beta APIs enabled **(if ingress is enabled, requires Kubernetes 1.19+)**
 
 ## Installing the Chart using helm
 
