@@ -8,6 +8,26 @@ WORKING_DIRECTORY="$PWD"
   echo "ERROR: Environment variable GITHUB_PAGES_REPO is required"
   exit 1
 }
+
+[ "$CIRCLE_PR_NUMBER" ] || {
+  echo "ERROR: Environment variable CIRCLE_PR_NUMBER is required"
+  exit 1
+}
+
+LABELS_URL='https://api.github.com/repos/'"${GITHUB_PAGES_REPO}"'/issues/'"${CIRCLE_PR_NUMBER}"'/labels'
+
+# Get labels from github-api and deserialize response
+LABELS=$((curl --connect-timeout 5 --max-time 5 --retry 4 --retry-delay 0 --retry-max-time 20 -s $LABELS_URL | grep "name") | sed 's/name//g; s/"//g; s/,//g; s/://g; s/ //g') || {
+  echo "ERROR: curl failed to get response from github-api  /  failed to serialize data"
+  exit 1
+}
+
+# Using regex to detect if at least one proper label exist 
+if ! [[ "$LABELS" =~ .*"controller".* || "$LABELS" =~ .*"datastore".* || "$LABELS" =~ .*"operator".* || "$LABELS" =~ .*"global_change"*. || -z "$LABELS" ]]; then
+  echo "ERROR: Github-api failed to return answer / no proper labels found, please make sure you add a proper label"
+  exit 1
+fi
+
 [ -z "$GITHUB_PAGES_BRANCH" ] && GITHUB_PAGES_BRANCH=gh-pages
 [ -z "$HELM_CHARTS_SOURCE" ] && HELM_CHARTS_SOURCE="$WORKING_DIRECTORY/charts"
 [ -d "$HELM_CHARTS_SOURCE" ] || {
@@ -20,6 +40,8 @@ WORKING_DIRECTORY="$PWD"
   exit 1
 }
 
+echo "LABELS_URL=$LABELS_URL"
+echo "CIRCLE_PR_NUMBER=$CIRCLE_PR_NUMBER"
 echo "GITHUB_PAGES_REPO=$GITHUB_PAGES_REPO"
 echo "GITHUB_PAGES_BRANCH=$GITHUB_PAGES_BRANCH"
 echo "HELM_CHARTS_SOURCE=$HELM_CHARTS_SOURCE"
@@ -37,29 +59,34 @@ alias helm=/tmp/helm/bin/linux-amd64/helm
 echo '>> Building charts...'
 find "$HELM_CHARTS_SOURCE" -mindepth 1 -maxdepth 1 -type d | while read chart; do
   chart_name="`basename "$chart"`"
-  echo ">>> fetching chart $chart_name version"
-  chart_version=$(cat $chart/Chart.yaml | grep -oE "version:\s[0-9]+\.[0-9]+\.[0-9]+" | grep -oE "[0-9]+\.[0-9]+\.[0-9]+")
-  echo ">>> checking if version is already published"
-  if [ -f "$chart_name/$chart_name-$chart_version.tgz" ]; then
-    echo ">>> Error: VERSION $chart_version ALREADY EXISTS! Update chart version."
-    exit 1
+  for label in $LABELS; do
+  if [ $label == $chart_name ]; then
+    echo ">>> fetching chart $chart_name version"
+    chart_version=$(cat $chart/Chart.yaml | grep -oE "version:\s[0-9]+\.[0-9]+\.[0-9]+" | grep -oE "[0-9]+\.[0-9]+\.[0-9]+")
+    echo ">>> checking if version is already published"
+    if [ -f "$chart_name/$chart_name-$chart_version.tgz" ]; then
+      echo ">>> Error: VERSION $chart_version ALREADY EXISTS! Update chart version."
+      exit 1
+    else
+      echo ">>> chart version is valid, continuing..."
+    fi
   else
-    echo ">>> chart version is valid, continuing..."
+    echo ">>> skipped version check on $chart_name"
   fi
+  done
   echo ">>> helm lint $chart"
   helm lint "$chart"
   echo ">>> helm package -d $chart_name $chart"
   mkdir -p "$chart_name"
   helm package -d "$chart_name" "$chart"
 done
+
 echo '>>> helm repo index'
 helm repo index .
-
 if [ "$CIRCLE_BRANCH" != "master" ]; then
   echo "Current branch is not master and do not publish"
   exit 0
 fi
-
 echo ">> Publishing to $GITHUB_PAGES_BRANCH branch of $GITHUB_PAGES_REPO"
 git config user.email "$CIRCLE_USERNAME@users.noreply.github.com"
 git config user.name CircleCI
