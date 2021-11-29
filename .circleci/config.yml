@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  publish-helm-charts:
+  validate-helm-charts:
     docker:
       - image: alpine
     steps:
@@ -17,6 +17,24 @@ jobs:
           command: |
             apk add --no-cache jq 
             apk add --no-cache curl
+            sh validate.sh
+          environment:
+            - GITHUB_PAGES_REPO: rookout/helm-charts 
+  publish-helm-charts:
+    docker:
+      - image: alpine
+    steps:
+      - checkout
+      - run:
+          name: Validate Charts
+          command: |
+            sh install-helm.sh
+            alias helm=/tmp/helm/bin/linux-amd64/helm
+            helm template charts/controller -f charts/controller/values.yaml
+            helm template charts/datastore -f charts/datastore/values.yaml
+      - run:
+          name: Publish Helm charts to Github Pages
+          command: |
             sh publish.sh
           environment:
             - GITHUB_PAGES_REPO: rookout/helm-charts
@@ -38,6 +56,10 @@ workflows:
   version: 2
   run-pipeline:
     jobs:
+      - validate-helm-charts:
+          filters:
+            branches:
+              ignore: master
       - publish-helm-charts:
           filters:
             branches:
