@@ -25,6 +25,8 @@ LABELS=$(curl -s 'https://api.github.com/repos/'"${GITHUB_PAGES_REPO}"'/issues/'
 # Testing more and more labels
 echo $LABELS
 
+LABELS=""
+
 # Using regex to detect if at least one proper label exist 
 if ! [[ "$LABELS" =~ .*"controller".* || "$LABELS" =~ .*"datastore".* || "$LABELS" =~ .*"operator".* || "$LABELS" =~ .*"global_change"*. || -z "$LABELS" ]]; then
   echo "ERROR: Github-api failed to return answer / no proper labels found, please make sure you add a proper label"
