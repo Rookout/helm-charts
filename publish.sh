@@ -18,12 +18,12 @@ LABELS_URL='https://api.github.com/repos/'"${GITHUB_PAGES_REPO}"'/issues/'"${CIR
 
 # Get labels from github-api and deserialize response
 LABELS=$((curl --connect-timeout 5 --max-time 5 --retry 4 --retry-delay 0 --retry-max-time 20 -s $LABELS_URL | grep "name") | sed 's/name//g; s/"//g; s/,//g; s/://g; s/ //g') || {
-  echo "ERROR: curl failed to get response from github-api  /  failed to serialize data"
+  echo "ERROR: curl failed to get response from github-api  /  failed to deserialize data"
   exit 1
 }
 
 # Using regex to detect if at least one proper label exist 
-if ! [[ "$LABELS" =~ .*"controller".* || "$LABELS" =~ .*"datastore".* || "$LABELS" =~ .*"operator".* || "$LABELS" =~ .*"global_change"*. || -z "$LABELS" ]]; then
+if ! [[ "$LABELS" =~ .*"controller".* || "$LABELS" =~ .*"datastore".* || "$LABELS" =~ .*"operator".* || "$LABELS" =~ .*"global_change"*. || ! -z "$LABELS" ]]; then
   echo "ERROR: Github-api failed to return answer / no proper labels found, please make sure you add a proper label"
   exit 1
 fi
