@@ -16,7 +16,7 @@ jobs:
       - run:
           name: Publish Helm charts to Github Pages
           command: |
-            RUN apk add --no-cache jq 
+            apk add --no-cache jq 
             echo $CIRCLE_PR_NUMBER
             # sh publish.sh
           environment:
