@@ -22,8 +22,6 @@ LABELS=$(curl -s 'https://api.github.com/repos/'"${GITHUB_PAGES_REPO}"'/issues/'
   echo "ERROR: curl failed to get response from github-api  /  failed to serialize data"
   exit 1
 }
-#checking none proper#
-echo $LABELS
 
 if [ -z "$LABELS" ]; then
   echo "ERROR: Github-api failed to return answer / no labels found"
@@ -48,6 +46,7 @@ fi
   exit 1
 }
 
+echo "LABELS=$LABELS"
 echo "PR_NUMBER=$PR_NUMBER"
 echo "GITHUB_PAGES_REPO=$GITHUB_PAGES_REPO"
 echo "GITHUB_PAGES_BRANCH=$GITHUB_PAGES_BRANCH"
@@ -82,22 +81,22 @@ find "$HELM_CHARTS_SOURCE" -mindepth 1 -maxdepth 1 -type d | while read chart; d
   fi
   done
   echo ">>> helm lint $chart"
-  #helm lint "$chart"
+  helm lint "$chart"
   echo ">>> helm package -d $chart_name $chart"
-  #mkdir -p "$chart_name"
-  #helm package -d "$chart_name" "$chart"
+  mkdir -p "$chart_name"
+  helm package -d "$chart_name" "$chart"
 done
 
 echo '>>> helm repo index'
-#helm repo index .
+helm repo index .
 if [ "$CIRCLE_BRANCH" != "master" ]; then
   echo "Current branch is not master and do not publish"
   exit 0
 fi
 echo ">> Publishing to $GITHUB_PAGES_BRANCH branch of $GITHUB_PAGES_REPO"
-#git config user.email "$CIRCLE_USERNAME@users.noreply.github.com"
-#git config user.name CircleCI
-#git add .
-#git status
-#git commit -m "Published by CircleCI $CIRCLE_BUILD_URL"
-#git push origin "$GITHUB_PAGES_BRANCH"
+git config user.email "$CIRCLE_USERNAME@users.noreply.github.com"
+git config user.name CircleCI
+git add .
+git status
+git commit -m "Published by CircleCI $CIRCLE_BUILD_URL"
+git push origin "$GITHUB_PAGES_BRANCH"

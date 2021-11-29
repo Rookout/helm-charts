@@ -23,22 +23,22 @@ jobs:
       - run:
           name: Verify - Published Charts
           command: |
-            #alias helm=/tmp/helm/bin/linux-amd64/helm
-            #if [ "$CIRCLE_BRANCH" = "master" ]; then
+            alias helm=/tmp/helm/bin/linux-amd64/helm
+            if [ "$CIRCLE_BRANCH" = "master" ]; then
               echo "Waiting for repository to be updated before checking"
-              #sleep 15
-              #helm repo add rookout https://helm-charts.rookout.com
-              #helm repo update
-              #helm repo list
-              #helm inspect rookout/controller
-              #helm inspect rookout/datastore
-            #fi
+              sleep 15
+              helm repo add rookout https://helm-charts.rookout.com
+              helm repo update
+              helm repo list
+              helm inspect rookout/controller
+              helm inspect rookout/datastore
+            fi
 
 workflows:
   version: 2
   run-pipeline:
     jobs:
       - publish-helm-charts
-          #filters:
-            #branches:
-              #only: fix-helm-chart-check
+          filters:
+            branches:
+              only: master
