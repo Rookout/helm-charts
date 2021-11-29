@@ -38,7 +38,7 @@ workflows:
   version: 2
   run-pipeline:
     jobs:
-      - publish-helm-charts
+      - publish-helm-charts:
           filters:
             branches:
               only: master
