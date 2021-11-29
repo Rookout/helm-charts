@@ -16,11 +16,16 @@ WORKING_DIRECTORY="$PWD"
 
 LABELS_URL='https://api.github.com/repos/'"${GITHUB_PAGES_REPO}"'/issues/'"${CIRCLE_PR_NUMBER}"'/labels'
 
-# Get labels from github-api and deserialize response
-LABELS=$((curl --connect-timeout 5 --max-time 5 --retry 4 --retry-delay 0 --retry-max-time 20 -s $LABELS_URL | grep "name") | sed 's/name//g; s/"//g; s/,//g; s/://g; s/ //g') || {
-  echo "ERROR: curl failed to get response from github-api  /  failed to deserialize data"
+# Get labels from github-api and deserialize response using jq
+LABELS=$(curl --connect-timeout 5 --max-time 5 --retry 4 --retry-delay 0 --retry-max-time 20 -s $URL | jq -r '.[] | .name') || {
+  echo "ERROR: curl failed to get response from github-api  /  failed to serialize data"
   exit 1
 }
+
+#LABELS=$((curl --connect-timeout 5 --max-time 5 --retry 4 --retry-delay 0 --retry-max-time 20 -s $LABELS_URL | grep "name") | sed 's/name//g; s/"//g; s/,//g; s/://g; s/ //g') || {
+#  echo "ERROR: curl failed to get response from github-api  /  failed to deserialize data"
+#  exit 1
+#}
 
 # Using regex to detect if at least one proper label exist 
 if ! [[ "$LABELS" =~ .*"controller".* || "$LABELS" =~ .*"datastore".* || "$LABELS" =~ .*"operator".* || "$LABELS" =~ .*"global_change"*. || ! -z "$LABELS" ]]; then
@@ -75,22 +80,22 @@ find "$HELM_CHARTS_SOURCE" -mindepth 1 -maxdepth 1 -type d | while read chart; d
   fi
   done
   echo ">>> helm lint $chart"
-  helm lint "$chart"
+#  helm lint "$chart"
   echo ">>> helm package -d $chart_name $chart"
-  mkdir -p "$chart_name"
-  helm package -d "$chart_name" "$chart"
+#  mkdir -p "$chart_name"
+#  helm package -d "$chart_name" "$chart"
 done
 
 echo '>>> helm repo index'
-helm repo index .
+#helm repo index .
 if [ "$CIRCLE_BRANCH" != "master" ]; then
   echo "Current branch is not master and do not publish"
   exit 0
 fi
 echo ">> Publishing to $GITHUB_PAGES_BRANCH branch of $GITHUB_PAGES_REPO"
-git config user.email "$CIRCLE_USERNAME@users.noreply.github.com"
-git config user.name CircleCI
-git add .
-git status
-git commit -m "Published by CircleCI $CIRCLE_BUILD_URL"
-git push origin "$GITHUB_PAGES_BRANCH"
+#git config user.email "$CIRCLE_USERNAME@users.noreply.github.com"
+#git config user.name CircleCI
+#git add .
+#git status
+#git commit -m "Published by CircleCI $CIRCLE_BUILD_URL"
+#git push origin "$GITHUB_PAGES_BRANCH"
