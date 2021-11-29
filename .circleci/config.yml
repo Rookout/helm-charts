@@ -42,4 +42,4 @@ workflows:
       - publish-helm-charts:
           filters:
             branches:
-              #only: master
+              only: fix-helm-chart-check
