@@ -10,7 +10,7 @@ WORKING_DIRECTORY="$PWD"
 }
 
 [ "$CIRCLE_PULL_REQUEST" ] || {
-  echo "ERROR: Environment variable CIRCLE_PR_NUMBER is required"
+  echo "ERROR: Environment variable CIRCLE_PULL_REQUEST is required"
   exit 1
 }
 
@@ -62,28 +62,27 @@ git clone -b "$GITHUB_PAGES_BRANCH" "git@github.com:$GITHUB_PAGES_REPO.git" .
 
 alias helm=/tmp/helm/bin/linux-amd64/helm
 
-echo '>> Building charts...'
+echo '>> Building charts and comparing with labels...'
 find "$HELM_CHARTS_SOURCE" -mindepth 1 -maxdepth 1 -type d | while read chart; do
   chart_name="`basename "$chart"`"
-  echo ">>> fetching chart $chart_name version"
-  chart_version=$(cat $chart/Chart.yaml | grep -oE "version:\s[0-9]+\.[0-9]+\.[0-9]+" | grep -oE "[0-9]+\.[0-9]+\.[0-9]+")
+  for label in $LABELS; do
+  if [ $label == $chart_name ]; then
+    echo ">>> fetching chart $chart_name version"
+    chart_version=$(cat $chart/Chart.yaml | grep -oE "version:\s[0-9]+\.[0-9]+\.[0-9]+" | grep -oE "[0-9]+\.[0-9]+\.[0-9]+")
+    echo ">>> checking if version is already published"
+    if [ -f "$chart_name/$chart_name-$chart_version.tgz" ]; then
+      echo ">>> Error: VERSION $chart_version ALREADY EXISTS! Update chart version."
+      exit 1
+    else
+      echo ">>> chart version is valid, continuing..."
+    fi
+  else
+    echo ">>> skipped version check on $chart_name"
+  fi
+  done
   echo ">>> helm lint $chart"
   helm lint "$chart"
   echo ">>> helm package -d $chart_name $chart"
   mkdir -p "$chart_name"
   helm package -d "$chart_name" "$chart"
 done
-
-echo '>>> helm repo index'
-helm repo index .
-if [ "$CIRCLE_BRANCH" != "master" ]; then
-  echo "Current branch is not master and do not publish"
-  exit 0
-fi
-echo ">> Publishing to $GITHUB_PAGES_BRANCH branch of $GITHUB_PAGES_REPO"
-git config user.email "$CIRCLE_USERNAME@users.noreply.github.com"
-git config user.name CircleCI
-git add .
-git status
-git commit -m "Published by CircleCI $CIRCLE_BUILD_URL"
-git push origin "$GITHUB_PAGES_BRANCH"
