@@ -3,7 +3,7 @@ set -e
 set -o pipefail
 
 WORKING_DIRECTORY="$PWD"
-#test
+
 [ "$GITHUB_PAGES_REPO" ] || {
   echo "ERROR: Environment variable GITHUB_PAGES_REPO is required"
   exit 1
