@@ -9,23 +9,20 @@ WORKING_DIRECTORY="$PWD"
   exit 1
 }
 
-[ "$CIRCLE_PR_NUMBER" ] || {
+[ "$CIRCLE_PULL_REQUEST" ] || [] || {
   echo "ERROR: Environment variable CIRCLE_PR_NUMBER is required"
   exit 1
 }
 
-LABELS_URL='https://api.github.com/repos/'"${GITHUB_PAGES_REPO}"'/issues/'"${CIRCLE_PR_NUMBER}"'/labels'
+# formating to number only
+PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | tr -dc '0-9')
+LABELS_URL='https://api.github.com/repos/'"${GITHUB_PAGES_REPO}"'/issues/'"${PR_NUMBER}"'/labels'
 
 # Get labels from github-api and deserialize response using jq
 LABELS=$(curl --connect-timeout 5 --max-time 5 --retry 4 --retry-delay 0 --retry-max-time 20 -s $URL | jq -r '.[] | .name') || {
   echo "ERROR: curl failed to get response from github-api  /  failed to serialize data"
   exit 1
 }
-
-#LABELS=$((curl --connect-timeout 5 --max-time 5 --retry 4 --retry-delay 0 --retry-max-time 20 -s $LABELS_URL | grep "name") | sed 's/name//g; s/"//g; s/,//g; s/://g; s/ //g') || {
-#  echo "ERROR: curl failed to get response from github-api  /  failed to deserialize data"
-#  exit 1
-#}
 
 # Using regex to detect if at least one proper label exist 
 if ! [[ "$LABELS" =~ .*"controller".* || "$LABELS" =~ .*"datastore".* || "$LABELS" =~ .*"operator".* || "$LABELS" =~ .*"global_change"*. || ! -z "$LABELS" ]]; then
@@ -46,7 +43,7 @@ fi
 }
 
 echo "LABELS_URL=$LABELS_URL"
-echo "CIRCLE_PR_NUMBER=$CIRCLE_PR_NUMBER"
+echo "PR_NUMBER=$PR_NUMBER"
 echo "GITHUB_PAGES_REPO=$GITHUB_PAGES_REPO"
 echo "GITHUB_PAGES_BRANCH=$GITHUB_PAGES_BRANCH"
 echo "HELM_CHARTS_SOURCE=$HELM_CHARTS_SOURCE"
@@ -80,10 +77,10 @@ find "$HELM_CHARTS_SOURCE" -mindepth 1 -maxdepth 1 -type d | while read chart; d
   fi
   done
   echo ">>> helm lint $chart"
-#  helm lint "$chart"
+  #helm lint "$chart"
   echo ">>> helm package -d $chart_name $chart"
-#  mkdir -p "$chart_name"
-#  helm package -d "$chart_name" "$chart"
+  #mkdir -p "$chart_name"
+  #helm package -d "$chart_name" "$chart"
 done
 
 echo '>>> helm repo index'

@@ -16,9 +16,7 @@ jobs:
           name: Publish Helm charts to Github Pages
           command: |
             apk add --no-cache jq 
-            #echo $CIRCLE_PR_NUMBER
-            echo $CIRCLE_PULL_REQUEST
-            # sh publish.sh
+            sh publish.sh
           environment:
             - GITHUB_PAGES_REPO: rookout/helm-charts
       - run:
