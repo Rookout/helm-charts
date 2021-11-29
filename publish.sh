@@ -18,8 +18,11 @@ WORKING_DIRECTORY="$PWD"
 PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | tr -dc '0-9')
 LABELS_URL='https://api.github.com/repos/'"${GITHUB_PAGES_REPO}"'/issues/'"${PR_NUMBER}"'/labels'
 
+echo $LABELS_URL
+echo $PR_NUMBER
+
 # Get labels from github-api and deserialize response using jq
-LABELS=$(curl -s --connect-timeout 5 --max-time 5 --retry 4 --retry-delay 0 --retry-max-time 20 "${URL}" | jq -r '.[] | .name') || {
+LABELS=$(curl -s $URL | jq -r '.[] | .name') || {
   echo "ERROR: curl failed to get response from github-api  /  failed to serialize data"
   exit 1
 }
