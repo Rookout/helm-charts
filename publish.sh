@@ -22,7 +22,7 @@ echo $LABELS_URL
 echo $PR_NUMBER
 
 # Get labels from github-api and deserialize response using jq
-LABELS=$(curl -s "$URL" | jq -r '.[] | .name') || {
+LABELS=$(curl -s "https://api.github.com/repos/rookout/helm-charts/issues/49/labels" | jq -r '.[] | .name') || {
   echo "ERROR: curl failed to get response from github-api  /  failed to serialize data"
   exit 1
 }
