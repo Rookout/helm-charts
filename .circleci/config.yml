@@ -8,16 +8,15 @@ jobs:
       - run:
           name: Validate Charts
           command: |
-            #sh install-helm.sh
-            #alias helm=/tmp/helm/bin/linux-amd64/helm
-            #helm template charts/controller -f charts/controller/values.yaml
-            #helm template charts/datastore -f charts/datastore/values.yaml
+            sh install-helm.sh
+            alias helm=/tmp/helm/bin/linux-amd64/helm
+            helm template charts/controller -f charts/controller/values.yaml
+            helm template charts/datastore -f charts/datastore/values.yaml
       - run:
           name: Publish Helm charts to Github Pages
           command: |
             apk add --no-cache jq 
             apk add --no-cache curl
-            apk update curl
             sh publish.sh
           environment:
             - GITHUB_PAGES_REPO: rookout/helm-charts
