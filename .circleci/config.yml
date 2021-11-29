@@ -8,7 +8,6 @@ jobs:
       - run:
           name: Validate Charts
           command: |
-            echo CIRCLE_PR_NUMBER
             #sh install-helm.sh
             #alias helm=/tmp/helm/bin/linux-amd64/helm
             #helm template charts/controller -f charts/controller/values.yaml
@@ -17,9 +16,8 @@ jobs:
           name: Publish Helm charts to Github Pages
           command: |
             apk add --no-cache jq 
-            echo $CIRCLE_PR_NUMBER
+            #echo $CIRCLE_PR_NUMBER
             echo $CIRCLE_PULL_REQUEST
-            echo CIRCLE_PULL_REQUEST
             # sh publish.sh
           environment:
             - GITHUB_PAGES_REPO: rookout/helm-charts
