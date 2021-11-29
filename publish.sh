@@ -22,7 +22,7 @@ LABELS=$(curl -s 'https://api.github.com/repos/'"${GITHUB_PAGES_REPO}"'/issues/'
   echo "ERROR: curl failed to get response from github-api  /  failed to serialize data"
   exit 1
 }
-# Testing diff labels
+# Testing more and more labels
 echo $LABELS
 
 # Using regex to detect if at least one proper label exist 
