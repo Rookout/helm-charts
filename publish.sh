@@ -15,14 +15,11 @@ WORKING_DIRECTORY="$PWD"
 }
 
 # formating to number only
-PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | tr -dc '0-9')
-LABELS_URL='https://api.github.com/repos/'"${GITHUB_PAGES_REPO}"'/issues/'"${PR_NUMBER}"'/labels'
-
-echo $LABELS_URL
-echo $PR_NUMBER
+PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | tr -dc '0-9' | sed 's/do not merge/do_not_merge/g')
+#LABELS_URL='https://api.github.com/repos/'"${GITHUB_PAGES_REPO}"'/issues/'"${PR_NUMBER}"'/labels'
 
 # Get labels from github-api and deserialize response using jq
-LABELS=$(curl -s "https://api.github.com/repos/rookout/helm-charts/issues/49/labels" | jq -r '.[] | .name') || {
+LABELS=$(curl -s "https://api.github.com/repos/'"${GITHUB_PAGES_REPO}"'/issues/'"${PR_NUMBER}"'/labels" | jq -r '.[] | .name') || {
   echo "ERROR: curl failed to get response from github-api  /  failed to serialize data"
   exit 1
 }
@@ -45,7 +42,6 @@ fi
   exit 1
 }
 
-echo "LABELS_URL=$LABELS_URL"
 echo "PR_NUMBER=$PR_NUMBER"
 echo "GITHUB_PAGES_REPO=$GITHUB_PAGES_REPO"
 echo "GITHUB_PAGES_BRANCH=$GITHUB_PAGES_BRANCH"
