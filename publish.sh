@@ -9,7 +9,7 @@ WORKING_DIRECTORY="$PWD"
   exit 1
 }
 
-[ "$CIRCLE_PULL_REQUEST" ] || [] || {
+[ "$CIRCLE_PULL_REQUEST" ] || {
   echo "ERROR: Environment variable CIRCLE_PR_NUMBER is required"
   exit 1
 }
