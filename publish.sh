@@ -25,7 +25,7 @@ LABELS=$(curl -s 'https://api.github.com/repos/'"${GITHUB_PAGES_REPO}"'/issues/'
 # Testing more and more labels
 echo $LABELS
 
-LABELS=""
+#LABELS=""
 
 # Using regex to detect if at least one proper label exist 
 if ! [[ "$LABELS" =~ .*"controller".* || "$LABELS" =~ .*"datastore".* || "$LABELS" =~ .*"operator".* || "$LABELS" =~ .*"global_change"*. || -z "$LABELS" ]]; then
