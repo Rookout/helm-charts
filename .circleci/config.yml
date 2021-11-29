@@ -39,7 +39,7 @@ workflows:
   version: 2
   run-pipeline:
     jobs:
-      - publish-helm-charts:
-          filters:
-            branches:
-              only: fix-helm-chart-check
+      - publish-helm-charts
+          #filters:
+            #branches:
+              #only: fix-helm-chart-check
