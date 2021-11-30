@@ -11,7 +11,7 @@ WORKING_DIRECTORY="$PWD"
 
 [ "$CIRCLE_PULL_REQUEST" ] || {
   echo "ERROR: Environment variable CIRCLE_PULL_REQUEST is required"
-  exit 1
+  exit 0
 }
 
 # formating to number only
