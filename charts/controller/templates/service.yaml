@@ -23,5 +23,5 @@ spec:
   ports:
     - name: websocket
       protocol: TCP
-      port: 7488
-      targetPort: 7488
+      port: {{ default 7488 .Values.controller.port }}
+      targetPort:  {{ default 7488 .Values.controller.port }}
