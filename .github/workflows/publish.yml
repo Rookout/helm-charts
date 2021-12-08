@@ -1,0 +1,53 @@
+name: publish-ci-test
+on:
+  pull_request:
+    types: [labeled, unlabeled, opened, reopened, edited, ready_for_review, synchronize]
+    branches-ignore:
+      - '*'
+  push:
+    branches-ignore:
+      - '*'
+      - '!master'
+jobs:
+  build-job:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Validate Charts
+        run: |
+          sudo sh install-helm.sh
+          alias helm="/tmp/helm/bin/linux-amd64/helm"
+          sudo helm template charts/controller -f charts/controller/values.yaml
+          sudo helm template charts/datastore -f charts/datastore/values.yaml
+      - name: Publish Charts
+        run: |
+         sudo apt install jq curl -y
+         echo $GITHUB_PAGES_REPO
+         echo $GITHUB_BRANCH
+         echo $GITHUB_ACTIONS_RUN_ID
+         echo $GITHUB_ACTIONS_REPO
+         sudo sh publish.sh $GITHUB_PAGES_REPO $GITHUB_BRANCH $GITHUB_USERNAME $GITHUB_ACTIONS_REPO $GITHUB_ACTIONS_RUN_ID $GITHUB_USERNAME_TOKEN
+        env:
+          GITHUB_PAGES_REPO: rookout/helm-charts
+          GITHUB_BRANCH: ${{ github.ref }}
+          GITHUB_USERNAME: ${{ secrets.SONARIO_GH_USER }}
+          GITHUB_ACTIONS_REPO: ${{ github.repository }}
+          GITHUB_ACTIONS_RUN_ID: ${{ github.run_id }}
+          GITHUB_USERNAME_TOKEN: ${{ secrets.SONARIO_GH_TOKEN }}
+      - name: Verify - Published Charts
+        run: |
+          echo $GITHUB_BRANCH
+          alias helm="/tmp/helm/bin/linux-amd64/helm"
+          if [ "$GITHUB_BRANCH" = "refs/heads/master" ]; then
+            echo "Waiting for repository to be updated before checking"
+            sudo sleep 15
+            helm repo add rookout https://helm-charts.rookout.com
+            helm repo update
+            helm repo list
+            helm inspect chart rookout/controller
+            helm inspect chart rookout/datastore
+          fi
+          echo $GITHUB_BRANCH
+        env:
+          GITHUB_BRANCH: ${{ github.ref }}
+          

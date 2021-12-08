@@ -1,0 +1,41 @@
+name: validate-ci
+on:
+  pull_request:
+    types: [labeled, unlabeled, opened, reopened, edited, ready_for_review, synchronize]
+    branches-ignore:
+      - master
+      - '!*'
+  push:
+    branches-ignore:
+      - master
+      - '*'
+jobs:
+  build-job:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check for valid label
+        if: ${{ !contains( github.event.pull_request.labels.*.name, 'controller') && !contains( github.event.pull_request.labels.*.name, 'datastore') && !contains( github.event.pull_request.labels.*.name, 'operator') && !contains( github.event.pull_request.labels.*.name, 'global_change') }}
+        uses: actions/github-script@v3
+        with:
+         script: |
+             core.error
+             core.setFailed('valid label does not exist, please add one')
+      - name: Validate Charts
+        run: |
+          sudo sh install-helm.sh
+          alias helm=/tmp/helm/bin/linux-amd64/helm
+          sudo helm template charts/controller -f charts/controller/values.yaml
+          sudo helm template charts/datastore -f charts/datastore/values.yaml
+      - name: Validate Helm charts and compare with labels
+        run: |
+          sudo apt install jq curl -y
+          echo $PR_NUMBER
+          echo $GITHUB_PAGES_REPO
+          echo $GITHUB_BRANCH
+          sudo sh validate.sh $GITHUB_PAGES_REPO $PR_NUMBER $GITHUB_BRANCH $GITHUB_PAGES_TEST
+        env:
+          GITHUB_PAGES_REPO: rookout/helm-charts
+          GITHUB_PAGES_TEST: Goobensio/test
+          PR_NUMBER: ${{ github.event.number }}
+          GITHUB_BRANCH: ${{ github.head_ref }}

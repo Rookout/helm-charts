@@ -1,11 +1,11 @@
 #!/bin/sh
 set -e
-set -o pipefail
+#set -o pipefail
 echo '>> Prepare...'
 mkdir -p /tmp/helm/bin
 mkdir -p /tmp/helm/publish
-apk update
-apk add ca-certificates git openssh
+apt update -y
+apt install ca-certificates git openssh-server -y # Used to be just openssh
 
 [ -z "$HELM_VERSION" ] && HELM_VERSION=2.8.1
 
