@@ -4,7 +4,6 @@ WORKING_DIRECTORY="$PWD"
 GITHUB_PAGES_REPO=$1
 PR_NUMBER=$2
 GITHUB_BRANCH=$3
-GITHUB_PAGES_TEST=$4
 
 [ "$GITHUB_PAGES_REPO" ] || {
   echo "ERROR: Environment variable GITHUB_PAGES_REPO is required"
@@ -17,7 +16,7 @@ GITHUB_PAGES_TEST=$4
 }
 
 # Get labels from github-api and deserialize response using jq and sed
-LABELS=$(curl -s 'https://api.github.com/repos/'"${GITHUB_PAGES_TEST}"'/issues/'"${PR_NUMBER}"'/labels' | jq -r '.[] | .name' | sed 's/do not merge/do_not_merge/g') || {
+LABELS=$(curl -s 'https://api.github.com/repos/'"${GITHUB_PAGES_REPO}"'/issues/'"${PR_NUMBER}"'/labels' | jq -r '.[] | .name' | sed 's/do not merge/do_not_merge/g') || {
   echo "ERROR: curl failed to get response from github-api  /  failed to serialize data"
   exit 1
 }
@@ -53,7 +52,6 @@ mkdir -p "$HOME/.ssh"
 git clone -b "${GITHUB_PAGES_BRANCH}" "https://github.com/${GITHUB_PAGES_REPO}.git" #GITHUB_PAGES_REPO
 alias helm="/tmp/helm/bin/linux-amd64/helm"
 cd helm-charts/
-echo "$LABELS"
 
 echo '>> Building charts and comparing with labels...'
 sudo find "$HELM_CHARTS_SOURCE" -mindepth 1 -maxdepth 1 -type d | while read chart; do
