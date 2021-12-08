@@ -63,8 +63,7 @@ cd /tmp/helm/publish
 mkdir -p "$HOME/.ssh"
 git clone -b "${GITHUB_PAGES_BRANCH}" "https://${GITHUB_USERNAME}:${GITHUB_USERNAME_TOKEN}@github.com:/${GITHUB_ACTIONS_REPO}.git"
 alias helm="/tmp/helm/bin/linux-amd64/helm"
-cd test/  # to change
-#cd helm-charts/
+cd helm-charts/
 
 echo '>> Building charts...'
 sudo find "$HELM_CHARTS_SOURCE" -mindepth 1 -maxdepth 1 -type d | while read chart; do
