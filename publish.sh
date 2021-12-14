@@ -44,7 +44,7 @@ GITHUB_USERNAME_TOKEN=$6
   echo "ERROR: Could not find Helm charts in $HELM_CHARTS_SOURCE"
   exit 1
 }
-[ -z "$HELM_VERSION" ] && HELM_VERSION=2.8.1
+[ -z "$HELM_VERSION" ] && HELM_VERSION=2.16.7
 [ "$GITHUB_BRANCH" ] || {
   echo "ERROR: Environment variable GITHUB_BRANCH is required"
   exit 1
