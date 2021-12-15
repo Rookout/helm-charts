@@ -8,32 +8,32 @@ GITHUB_ACTIONS_REPO=$4
 GITHUB_ACTIONS_RUN_ID=$5
 GITHUB_USERNAME_TOKEN=$6
 
-[ "$1" ] || {
+[ "$GITHUB_PAGES_REPO" ] || {
   echo "ERROR: Environment variable GITHUB_PAGES_REPO is required"
   exit 1
 }
 
-[ "$2" ] || {
+[ "$GITHUB_BRANCH" ] || {
   echo "ERROR: Environment variable GITHUB_BRANCH is required"
   exit 1
 }
 
-[ "$3" ] || {
+[ "$GITHUB_USERNAME" ] || {
   echo "ERROR: Environment variable GITHUB_USERNAME is required"
   exit 1
 }
 
-[ "$4" ] || {
+[ "$GITHUB_ACTIONS_REPO" ] || {
   echo "ERROR: Environment variable GITHUB_ACTIONS_REPO is required"
   exit 1
 }
 
-[ "$5" ] || {
+[ "$GITHUB_ACTIONS_RUN_ID" ] || {
   echo "ERROR: Environment variable GITHUB_ACTIONS_RUN_ID is required"
   exit 1
 }
 
-[ "$6" ] || {
+[ "$GITHUB_USERNAME_TOKEN" ] || {
   echo "ERROR: Environment variable GITHUB_USERNAME_TOKEN is required"
   exit 1
 }
@@ -44,7 +44,7 @@ GITHUB_USERNAME_TOKEN=$6
   echo "ERROR: Could not find Helm charts in $HELM_CHARTS_SOURCE"
   exit 1
 }
-[ -z "$HELM_VERSION" ] && HELM_VERSION=2.8.1
+[ -z "$HELM_VERSION" ] && HELM_VERSION=2.16.7
 [ "$GITHUB_BRANCH" ] || {
   echo "ERROR: Environment variable GITHUB_BRANCH is required"
   exit 1
@@ -62,7 +62,6 @@ echo ">> Checking out $GITHUB_PAGES_BRANCH branch from $GITHUB_PAGES_REPO"
 cd /tmp/helm/publish
 mkdir -p "$HOME/.ssh"
 git clone -b "${GITHUB_PAGES_BRANCH}" "https://${GITHUB_USERNAME}:${GITHUB_USERNAME_TOKEN}@github.com:/${GITHUB_ACTIONS_REPO}.git"
-alias helm="/tmp/helm/bin/linux-amd64/helm"
 cd helm-charts/
 
 echo '>> Building charts...'
@@ -83,12 +82,3 @@ if [ "$GITHUB_BRANCH" != "refs/heads/master" ]; then
   exit 0
 fi
 
-echo ">> Publishing to $GITHUB_PAGES_BRANCH branch of $GITHUB_PAGES_REPO"
-git config user.email "${GITHUB_USERNAME}@users.noreply.github.com"
-git config user.name Github-Actions-CI
-git add .
-git status
-echo "Message to commit: Published by github actions https://github.com/${GITHUB_ACTIONS_REPO}/actions/runs/${GITHUB_ACTIONS_RUN_ID}"
-git commit -m "Published by github actions https://github.com/${GITHUB_ACTIONS_REPO}/actions/runs/${GITHUB_ACTIONS_RUN_ID}"
-git status
-git push "https://${GITHUB_USERNAME}:${GITHUB_USERNAME_TOKEN}@github.com/${GITHUB_ACTIONS_REPO}.git" "${GITHUB_PAGES_BRANCH}"
