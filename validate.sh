@@ -32,7 +32,7 @@ fi
   echo "ERROR: Could not find Helm charts in $HELM_CHARTS_SOURCE"
   exit 1
 }
-[ -z "$HELM_VERSION" ] && HELM_VERSION=2.8.1
+[ -z "$HELM_VERSION" ] && HELM_VERSION=2.16.7
 [ "$GITHUB_BRANCH" ] || {
   echo "ERROR: Environment variable GITHUB_BRANCH is required"
   exit 1
@@ -49,8 +49,7 @@ echo "GITHUB_BRANCH=$GITHUB_BRANCH"
 echo ">> Checking out $GITHUB_PAGES_BRANCH branch from $GITHUB_PAGES_REPO"
 cd /tmp/helm/publish
 mkdir -p "$HOME/.ssh"
-git clone -b "${GITHUB_PAGES_BRANCH}" "https://github.com/${GITHUB_PAGES_REPO}.git" #GITHUB_PAGES_REPO
-alias helm="/tmp/helm/bin/linux-amd64/helm"
+git clone -b "${GITHUB_PAGES_BRANCH}" "https://github.com/${GITHUB_PAGES_REPO}.git"
 cd helm-charts/
 
 echo '>> Building charts and comparing with labels...'
