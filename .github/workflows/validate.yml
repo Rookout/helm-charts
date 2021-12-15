@@ -2,42 +2,32 @@ name: validate-ci
 on:
   pull_request:
     types: [labeled, unlabeled, opened, reopened, edited, ready_for_review, synchronize]
+    branches-ignore:
+      - master
+      - '!*'
   push:
     branches-ignore:
       - master
       - '*'
 jobs:
   build-job:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-      - name: Check for valid label ✅️
+      - name: Check for valid label
         if: ${{ !contains( github.event.pull_request.labels.*.name, 'controller') && !contains( github.event.pull_request.labels.*.name, 'datastore') && !contains( github.event.pull_request.labels.*.name, 'operator') && !contains( github.event.pull_request.labels.*.name, 'global_change') }}
         uses: actions/github-script@v3
         with:
          script: |
              core.error
              core.setFailed('valid label does not exist, please add one')
-      - name: Helm preinstalls ℹ️
+      - name: Validate Charts
         run: |
-          echo '>> Prepare...'
-          sudo mkdir -p /tmp/helm/bin
-          sudo mkdir -p /tmp/helm/publish
-          sudo apt update -y
-          sudo apt install ca-certificates git openssh-server -y
-          cd /tmp/helm/bin
-      - name: Install helm 🚀
-        uses: azure/setup-helm@v1
-        with:
-          version: '2.16.7'
-      - name: Validate Charts ✅️
-        run: |
-          helm version -c
-          helm init -c --stable-repo-url https://charts.helm.sh/stable
-          ls ~/.helm/repository/
+          sudo sh install-helm.sh
+          alias helm=/tmp/helm/bin/linux-amd64/helm
           sudo helm template charts/controller -f charts/controller/values.yaml
           sudo helm template charts/datastore -f charts/datastore/values.yaml
-      - name: Validate Helm charts and compare with labels ✅️
+      - name: Validate Helm charts and compare with labels
         run: |
           sudo apt install jq curl -y
           echo $GITHUB_PAGES_REPO
