@@ -70,5 +70,5 @@ The data-on-prem solution runs with one of 3 modes (datastore.serverMode):
 
 
 ### Ingress guidelines
-- Some ingresses requires special annotation for SSL terminations whihc depends on the kubernets cluster provider.
+- Some ingresses requires special annotation for SSL terminations which depends on the kubernetes cluster provider.
 - When ingress + SSL is used the data-on-prem serverMode should be in *PLAIN* because it gets plain HTTP from the ingress.
