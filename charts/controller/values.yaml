@@ -12,9 +12,15 @@ ingress:
   path: '/*'
   servicePort: 7488
   annotations: {}
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
 
 controller:
   serverMode: "PLAIN"
+  tlsKeySecretName: ''
+  tlsCertificateConfigmapName: ''
   listenAll: False
   port: 7488
   token: ''

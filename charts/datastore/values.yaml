@@ -6,6 +6,18 @@ image:
   repository: rookout/data-on-prem
   pullPolicy: Always
 
+ingress:
+  enabled: False
+  host: ''
+  path: '/*'
+  servicePort: 8080
+  annotations: {}
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+
 datastore:
   serverMode: 'PLAIN'
   autoTlsDomain: ''

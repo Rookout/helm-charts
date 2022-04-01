@@ -121,8 +121,8 @@ spec:
       volumes:
       - name: tls-key
         secret:
-          secretName: rookout-tls-key
+          secretName: {{ required "In TLS mode, secretName holding key must be specified in controller.tlsKeySecretName." .Values.controller.tlsKeySecretName  }}
       - name: tls-cert
         configMap:
-          name: rookout-tls-cert
+          name: {{ required "In TLS mode, configmapName holding the cert must be specified in controller.tlsCertificateConfigmapName." .Values.controller.tlsCertificateConfigmapName  }}
 {{ end }}
