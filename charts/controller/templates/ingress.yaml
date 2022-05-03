@@ -19,7 +19,6 @@ spec:
         {{- end }}
       secretName: {{ .secretName }}
     {{- end }}
-  {{- end }}
   rules:
     - host: {{ .Values.ingress.host | default (printf "%s.%s.svc.cluster.local" (include "controller.fullname" .) .Release.Namespace) }}
       http:

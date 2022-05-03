@@ -2,10 +2,10 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ template "datastore.fullname" . }}
+  name: {{ template "controller.fullname" . }}
   labels:
-    app: {{ template "datastore.name" . }}
-    chart: {{ template "datastore.chart" . }}
+    app: {{ template "controller.name" . }}
+    chart: {{ template "controller.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
   annotations:
@@ -19,16 +19,15 @@ spec:
         {{- end }}
       secretName: {{ .secretName }}
     {{- end }}
-  {{- end }}
   rules:
-    - host: {{ .Values.ingress.host | default (printf "%s.%s.svc.cluster.local" (include "datastore.fullname" .) .Release.Namespace) }}
+    - host: {{ .Values.ingress.host | default (printf "%s.%s.svc.cluster.local" (include "controller.fullname" .) .Release.Namespace) }}
       http:
         paths:
           - path: {{ .Values.ingress.path }}
             pathType: ImplementationSpecific
             backend:
               service:
-                name: {{ template "datastore.fullname" . }}
+                name: {{ template "controller.fullname" . }}
                 port:
                   number: {{ .Values.ingress.servicePort }}
 {{ end -}}

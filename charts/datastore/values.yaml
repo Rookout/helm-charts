@@ -10,8 +10,10 @@ ingress:
   enabled: False
   host: ''
   path: '/*'
-  servicePort: 8080
+  servicePort: 80
   annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
