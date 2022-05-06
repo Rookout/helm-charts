@@ -9,8 +9,8 @@ service:
 ingress:
   enabled: False
   host: ''
-  path: '/*'
-  servicePort: 7488
+  path: '/'
+  servicePort: 80
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"

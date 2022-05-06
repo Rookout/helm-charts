@@ -93,6 +93,12 @@ spec:
             {{ if (eq (required "datastore.serverMode is required" .Values.datastore.serverMode) "AUTOTLS") }}
             - containerPort: {{ default 9090 .Values.datastore.letsEncryptContainerPort }}
             {{ end }}
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: {{ default 8080 .Values.datastore.dopContainerPort }}
+            initialDelaySeconds: 15
+            periodSeconds: 20
           volumeMounts:
             {{- if (eq (default false .Values.datastore.inMemoryDb) false) }}
             - mountPath: "/var/rookout/database/db"
