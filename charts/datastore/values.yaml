@@ -30,7 +30,7 @@ datastore:
     enabled: false
   
 service:
-  type: ClusterIP
+  type: LoadBalancer
   loadBalancerIP: ''
 
 pvc:
