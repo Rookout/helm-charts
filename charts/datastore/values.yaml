@@ -26,11 +26,12 @@ datastore:
   autoTlsDomain: ''
   tlsKeySecretName: ''
   tlsCertificateConfigmapName: ''
+  servicePortTLS: ''
   logging:
     enabled: false
   
 service:
-  type: LoadBalancer
+  type: ClusterIP
   loadBalancerIP: ''
 
 pvc:
