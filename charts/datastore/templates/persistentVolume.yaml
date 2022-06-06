@@ -1,4 +1,4 @@
-{{- if or (eq (default false .Values.datastore.inMemoryDb) false) (eq .Values.datastore.serverMode "AUTOTLS") }}
+{{- if or (eq (default true .Values.datastore.inMemoryDb) false) (eq .Values.datastore.serverMode "AUTOTLS") }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
