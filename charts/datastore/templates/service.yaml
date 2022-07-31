@@ -22,7 +22,7 @@ spec:
     {{ end }}
     {{- if or (eq (required "datastore.serverMode is required" .Values.datastore.serverMode) "TLS") (eq .Values.datastore.serverMode "AUTOTLS") }}
     - protocol: TCP
-      port: 443
+      port: {{ default 443 .Values.datastore.servicePortTLS }}
       name: {{ printf "%s-https" (include "datastore.name" .) }}
       targetPort: {{ default 8080 .Values.datastore.dopContainerPort }}
     {{- else }}
