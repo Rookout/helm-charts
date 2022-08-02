@@ -52,3 +52,8 @@ affinity: {}
 replicaCount: 1
 
 serviceAccount: {}
+
+# extra environment variables to controller deployment
+extraENV: []
+  # - name: EXAMPLE
+  #   value: helloworld
