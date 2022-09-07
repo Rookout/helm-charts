@@ -14,7 +14,7 @@
 
 ## Available charts
 
-[controller](https://github.com/rookout/helm-charts/tree/master/charts/controller) - Check out our [Rookout Controller Documentation](https://docs.rookout.com/docs/agent-setup.html)
+[controller](https://github.com/rookout/helm-charts/tree/master/charts/controller) - Check out our [Rookout Controller Documentation](https://docs.rookout.com/docs/etl-controller-intro/)
 
 [datastore](https://github.com/rookout/helm-charts/tree/master/charts/datastore) - Controller required
 
