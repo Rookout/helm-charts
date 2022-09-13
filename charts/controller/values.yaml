@@ -41,7 +41,7 @@ controller:
     ##
   internalResources:
     limits:
-      cpu: "3"
+      cpu: "2"
       memory: "4096"
 
 nodeSelector: {}
