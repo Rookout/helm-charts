@@ -28,11 +28,11 @@ controller:
   ##
   resources:
     requests:
-      cpu: 30m
+      cpu: 1
       memory: 32Mi
     limits:
-      cpu: 4000m
-      memory: 1024Mi
+      cpu: 2
+      memory: 4Gi
     ## rookout-agent internal resource limiter limits
     ## CPU must always be integers (1, 2, 3, 4, etc...)
     ## MEMORY must always be an integer representing memory in Mb (512, 1024, 1536, etc...)
@@ -41,8 +41,8 @@ controller:
     ##
   internalResources:
     limits:
-      cpu: "4"
-      memory: "1024"
+      cpu: "3"
+      memory: "4096"
 
 nodeSelector: {}
 
