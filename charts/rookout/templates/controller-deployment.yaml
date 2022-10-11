@@ -1,0 +1,90 @@
+{{- if .Values.controller.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "controller.fullname" . }}
+  labels:
+    {{- include "controller.labels" . | nindent 4 }}
+spec:
+  revisionHistoryLimit: 3
+  replicas: {{ .Values.controller.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "controller.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.controller.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "controller.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "controller.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.controller.podSecurityContext | nindent 8 }}
+      {{ if (eq (required "rookout.serverMode is required" .Values.rookout.serverMode) "TLS") }}
+      volumes:
+      - name: tls-secret
+        secret:
+          secretName: {{ required "In TLS mode, secretName holding key must be specified in rookout.controllerTLSSecretName." .Values.rookout.controllerTLSSecretName  }}
+          items:
+          - key: tls-key
+            path: tls.key
+          - key: tls-cert
+            path: tls.crt
+      {{ end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.controller.securityContext | nindent 12 }}
+          image: "{{ .Values.controller.image.repository }}/{{ .Values.controller.image.name }}:{{ .Values.controller.image.tag }}"
+          imagePullPolicy: {{ .Values.controller.image.pullPolicy }}
+          ports:
+            - containerPort: 7488
+            - containerPort: 4009
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 4009
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            {{- toYaml .Values.controller.resources | nindent 12 }}
+          env:
+            - name: ROOKOUT_TOKEN
+              value: {{ .Values.rookout.token }}
+            - name: ROOKOUT_CONTROLLER_SERVER_MODE
+              value: {{ required "rookout.serverMode is required" .Values.rookout.serverMode | quote }}
+            - name: ROOKS_WS_LISTEN_ADDR
+              value: ":7488"
+{{- with .Values.controller.extraEnv }}
+{{- toYaml . | nindent 12 }}
+{{- end }}
+{{ if (eq (required "rookout.serverMode is required" .Values.rookout.serverMode) "TLS") }}
+          volumeMounts:
+          - mountPath: /var/controller-tls-secrets
+            name: tls-key
+            readOnly: true
+          - mountPath: /var/controller-tls-secrets
+            name: tls-cert
+            readOnly: true
+{{ end }}
+      {{- with .Values.controller.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.controller.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.controller.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+{{- end }}

@@ -25,14 +25,14 @@ jobs:
       - name: Install helm 🚀
         uses: azure/setup-helm@v1
         with:
-          version: '2.16.7'
+          version: '3.10.0'
 
       - name: Validate Charts ✅️
         run: |
           helm version -c
-          helm init -c --stable-repo-url https://charts.helm.sh/stable
           sudo helm template charts/controller -f charts/controller/values.yaml
           sudo helm template charts/datastore -f charts/datastore/values.yaml
+          sudo helm template charts/rookout -f charts/rookout/values.yaml
 
       - name: Pre Publish Charts ℹ️
         run: |
@@ -76,6 +76,7 @@ jobs:
             helm repo list
             helm inspect chart rookout/controller
             helm inspect chart rookout/datastore
+            helm inspect chart rookout/rookout
           fi
           echo $GITHUB_BRANCH
         env:

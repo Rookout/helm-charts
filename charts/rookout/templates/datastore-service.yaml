@@ -1,0 +1,16 @@
+{{- if .Values.datastore.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "datastore.fullname" . }}
+  labels:
+    {{- include "datastore.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.datastore.service.type }}
+  ports:
+    - port: {{ .Values.datastore.service.port }}
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    {{- include "datastore.selectorLabels" . | nindent 4 }}
+{{- end }}

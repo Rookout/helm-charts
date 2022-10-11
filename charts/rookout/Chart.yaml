@@ -1,0 +1,5 @@
+apiVersion: v2
+name: rookout-hybrid-deployment
+description: "A Helm chart for Rookout's hybrid deployment components (ETL Controller + Datastore)"
+type: application
+version: 0.1.0

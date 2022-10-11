@@ -18,6 +18,8 @@
 
 [datastore](https://github.com/rookout/helm-charts/tree/master/charts/datastore) - Controller required
 
+[rookout](https://github.com/rookout/helm-charts/tree/master/charts/rookout) - Rookout's hybrid deployment components (ETL Controller + Datastore)
+
 ---------------------------------------------------------------
 
 [LICENSE](https://github.com/rookout/helm-charts/blob/master/LICENSE)
