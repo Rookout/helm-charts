@@ -15,8 +15,9 @@
 ## Available charts
 
 [controller](https://github.com/rookout/helm-charts/tree/master/charts/controller) - Check out our [Rookout Controller Documentation](https://docs.rookout.com/docs/etl-controller-intro/)
+(This chart no longer under active development.)
 
-[datastore](https://github.com/rookout/helm-charts/tree/master/charts/datastore) - Controller required
+[datastore](https://github.com/rookout/helm-charts/tree/master/charts/datastore) - Controller required (This chart no longer under active development.)
 
 [rookout](https://github.com/rookout/helm-charts/tree/master/charts/rookout) - Rookout's hybrid deployment components (ETL Controller + Datastore)
 

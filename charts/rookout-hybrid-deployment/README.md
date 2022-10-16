@@ -8,6 +8,28 @@ For more information:
 * Controller - https://docs.rookout.com/docs/etl-controller-intro/
 * Datastore - https://docs.rookout.com/docs/dop-intro
 
+## Quick start
+### Add rookout repo
+```commandline
+helm repo add rookout https://helm-charts.rookout.com
+helm repo update
+```
+### Full installation Controller + Datastore
+```commandline
+helm upgrade --install rookout rookout/rookout-hybrid-deployment \
+    --namespace rookout \
+    --create-namespace \
+    --set rookout.token=<ROOKOUT_TOKEN>
+```
+### Only Controller installation
+```commandline
+helm upgrade --install rookout rookout/rookout-hybrid-deployment \
+    --namespace rookout \
+    --create-namespace
+    --set rookout.token=<ROOKOUT_TOKEN> \
+    --set datastore.enabled=false
+```
+
 ## Values
 
 | Key | Type | Default | Description |

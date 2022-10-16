@@ -47,7 +47,7 @@ controller:
     # -- Rookout's controller public dockerhub repo
     repository: rookout
     # -- Rookout's controller image pull policy
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
     # -- Rookout's controller image tag
     tag: latest
 
@@ -156,7 +156,7 @@ datastore:
      # -- Rookout's Datastore public dockerhub repo
     repository: rookout
     # -- Rookout's Datastore image pull policy
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
     # -- Rookout's Datastore image tag
     tag: latest
 

@@ -3,3 +3,8 @@ name: rookout-hybrid-deployment
 description: "A Helm chart for Rookout's hybrid deployment components (ETL Controller + Datastore)"
 type: application
 version: 0.1.0
+icon: https://raw.githubusercontent.com/Rookout/helm-charts/master/Rookout-logo.png
+home: "http://rookout.com/"
+maintainers:
+  - name: Rookout
+    email: support@rookout.com

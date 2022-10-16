@@ -32,7 +32,7 @@ jobs:
           helm version -c
           sudo helm template charts/controller -f charts/controller/values.yaml
           sudo helm template charts/datastore -f charts/datastore/values.yaml
-          sudo helm template charts/rookout -f charts/rookout/values.yaml
+          sudo helm template charts/rookout-hybrid-deployment -f charts/rookout-hybrid-deployment/values.yaml
 
       - name: Pre Publish Charts ℹ️
         run: |
@@ -76,7 +76,7 @@ jobs:
             helm repo list
             helm inspect chart rookout/controller
             helm inspect chart rookout/datastore
-            helm inspect chart rookout/rookout
+            helm inspect chart rookout/rookout-hybrid-deployment
           fi
           echo $GITHUB_BRANCH
         env:
