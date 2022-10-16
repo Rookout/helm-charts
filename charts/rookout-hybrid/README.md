@@ -22,7 +22,7 @@ helm repo update
 ### Full installation - Controller + Datastore
 
 ```commandline
-helm upgrade --install rookout rookout/rookout-hybrid-deployment \
+helm upgrade --install rookout rookout/rookout-hybrid \
     --namespace rookout \
     --create-namespace \
     --set rookout.token=<ROOKOUT_TOKEN>
@@ -31,7 +31,7 @@ helm upgrade --install rookout rookout/rookout-hybrid-deployment \
 ### Controller only installation
 
 ```commandline
-helm upgrade --install rookout rookout/rookout-hybrid-deployment \
+helm upgrade --install rookout rookout/rookout-hybrid \
     --namespace rookout \
     --create-namespace
     --set rookout.token=<ROOKOUT_TOKEN> \

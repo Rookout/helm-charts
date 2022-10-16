@@ -13,7 +13,7 @@
 
 ## Available charts
 
-[rookout](https://github.com/rookout/helm-charts/tree/master/charts/rookout) - Rookout's hybrid architecture (ETL Controller + Datastore)
+[rookout](https://github.com/rookout/helm-charts/tree/master/charts/rookout-hybrid) - Rookout's hybrid architecture (ETL Controller + Datastore)
 
 [controller](https://github.com/rookout/helm-charts/tree/master/charts/controller) (No longer under active development)
 

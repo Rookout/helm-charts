@@ -35,7 +35,7 @@ jobs:
           helm version -c
           sudo helm template charts/controller -f charts/controller/values.yaml
           sudo helm template charts/datastore -f charts/datastore/values.yaml
-          sudo helm template charts/rookout-hybrid-deployment -f charts/rookout-hybrid-deployment/values.yaml
+          sudo helm template charts/rookout-hybrid -f charts/rookout-hybrid/values.yaml
       - name: Validate Helm charts and compare with labels ✅️
         run: |
           sudo apt install jq curl -y
