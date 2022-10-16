@@ -11,15 +11,13 @@
 - Install the chart  
 `helm install rookout/CHART_NAME`
 
-
 ## Available charts
 
-[controller](https://github.com/rookout/helm-charts/tree/master/charts/controller) - Check out our [Rookout Controller Documentation](https://docs.rookout.com/docs/etl-controller-intro/)
-(This chart no longer under active development.)
+[rookout](https://github.com/rookout/helm-charts/tree/master/charts/rookout) - Rookout's hybrid architecture (ETL Controller + Datastore)
 
-[datastore](https://github.com/rookout/helm-charts/tree/master/charts/datastore) - Controller required (This chart no longer under active development.)
+[controller](https://github.com/rookout/helm-charts/tree/master/charts/controller) (No longer under active development)
 
-[rookout](https://github.com/rookout/helm-charts/tree/master/charts/rookout) - Rookout's hybrid deployment components (ETL Controller + Datastore)
+[datastore](https://github.com/rookout/helm-charts/tree/master/charts/datastore) - (No longer under active development)
 
 ---------------------------------------------------------------
 
