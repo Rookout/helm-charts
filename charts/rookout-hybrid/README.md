@@ -28,6 +28,15 @@ helm upgrade --install rookout rookout/rookout-hybrid \
     --set rookout.token=<ROOKOUT_TOKEN>
 ```
 
+### Full installation - Controller + Datastore + Ingress annotations
+ingress_example.yaml file can be found in examples folder of the helm chart
+
+```commandline
+helm upgrade --install rookout rookout/rookout-hybrid \
+    --namespace rookout \
+    --create-namespace \
+    -f ingerss_example.yaml
+```
 ### Controller only installation
 
 ```commandline
