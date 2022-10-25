@@ -1,0 +1,248 @@
+# Default values for rookout on-premise components.
+# For more information head to https://docs.rookout.com/
+
+# -- Secrets with credentials to pull images from a private registry. Registry secret names as an array.
+imagePullSecrets: []
+
+#######################################################
+#############Rookout common configuration##############
+#######################################################
+
+# Map of rookout configurations.
+rookout:
+  # -- Your Rookout organization token. Get it from the Rookout app at https://app.rookout.com/. 
+  token: ""
+  # -- Rookout's components comuunication mode, PLAIN or TLS.
+  # For TLS, please check rookut.controllerTLSSecretName and rookut.datastoreTLSSecretName
+  serverMode: "PLAIN"
+  
+  # When using serverMode: "TLS", the components (Controller and Datastore) will only accept encrypted TLS connections.
+  # In that case, for each component deployed, a secret containing a key and certificate (as "tls-key" and "tls-cert")
+  # should be injected to the namespace of the deployment.
+  # The name of those secrets should be set as "rookout.controllerTLSSecretName" and "rookout.datastoreTLSSecretName".
+
+  # -- Rookout's controller TLS secert used when rookout.serverMode: "TLS"
+  # The components expect to find "tls-key" and "tls-cert" keys in the secert
+  controllerTLSSecretName: ""
+
+  # -- Rookout's datastore TLS secert used when rookout.serverMode: "TLS"
+  # The components expect to find "tls-key" and "tls-cert" keys in the secert
+  datastoreTLSSecretName: ""
+
+
+#######################################################
+#####################ETL Controller####################
+#######################################################
+# https://docs.rookout.com/docs/etl-controller-intro
+
+controller:
+  # -- Whether to deploy an ETL Controller
+  enabled: true
+  # -- Rookout's controller number of replicas
+  replicaCount: 1
+
+  image:
+    # -- Rookout's controller image name
+    name: controller
+    # -- Rookout's controller public dockerhub repo
+    repository: rookout
+    # -- Rookout's controller image pull policy
+    pullPolicy: Always
+    # -- Rookout's controller image tag
+    tag: latest
+
+  # -- String to partially override "controller.fullname" template
+  nameOverride: ""
+
+  # -- String to fully override "controller.fullname" template
+  fullnameOverride: ""
+
+  serviceAccount:
+    # -- Specifies whether a service account should be created
+    create: true
+    # -- Annotations to add to the service account
+    annotations: {}
+    # -- The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: ""
+
+  # -- Annotations to be added to the Controller pods
+  podAnnotations: {}
+
+  # -- Security Context to set on the pod level
+  podSecurityContext: 
+    fsGroup: 5000
+    runAsUser: 5000
+    runAsGroup: 5000
+
+  # -- Security Context to set on the container level
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 5000
+
+  service:
+     # -- Sets the type of the Service
+    type: ClusterIP
+    # -- Service port
+    port: 80
+
+  ingress:
+    # -- Enable controller ingress support
+    enabled: false
+    # -- Controller ingress class name
+    className: ""
+    # -- Controller ingress annotations
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    
+    # -- Controller ingress hosts
+    ## Hostnames must be provided if Ingress is enabled.
+    hosts:
+      - host: controller.rookout.example.local
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    # -- Controller ingress tls
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+
+  # -- Additional environment variables for Rookout's controller. A list of name/value maps.
+  extraEnv: []
+
+  # -- Resource limits and requests for the controller pods.
+  resources: 
+    limits:
+      cpu: 2
+      memory: 4096Mi
+    requests:
+      cpu: 1
+      memory: 512Mi
+
+  # -- [Node selector]
+  nodeSelector: {}
+
+  # -- [Tolerations] for use with node taints
+  tolerations: []
+
+  # -- Assign custom [affinity] rules to the deployment
+  affinity: {}
+
+  # -- Deployment extra labels
+  extraLabels: {}
+
+
+#######################################################
+##################Rookout Datastore####################
+#######################################################
+# https://docs.rookout.com/docs/dop-intro
+
+datastore:
+   # -- whether to deploy a Datastore
+  enabled: true
+  # -- Whether to create a PVC or use in-memory storage (recommended).
+  # https://docs.rookout.com/docs/dop-config#in-memory-database
+  inMemoryDb: true
+
+  image:
+    # -- Rookout's Datastore image name
+    name: data-on-prem
+     # -- Rookout's Datastore public dockerhub repo
+    repository: rookout
+    # -- Rookout's Datastore image pull policy
+    pullPolicy: Always
+    # -- Rookout's Datastore image tag
+    tag: latest
+
+  
+  # -- String to partially override "datastore.fullname" template
+  nameOverride: ""
+
+  # -- String to fully override "datastore.fullname" template
+  fullnameOverride: ""
+
+  serviceAccount:
+    # -- Specifies whether a service account should be created
+    create: true
+    # -- Annotations to add to the service account
+    annotations: {}
+    # -- The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: ""
+
+  # -- Annotations to be added to the Datastore pods
+  podAnnotations: {}
+
+  # -- Security Context to set on the pod level
+  podSecurityContext: 
+    fsGroup: 5000
+    runAsUser: 5000
+    runAsGroup: 5000
+
+  # -- Security Context to set on the container level
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 5000
+
+  service:
+     # -- Sets the type of the Service
+    type: ClusterIP
+    # -- Service port
+    port: 80
+
+  ingress:
+    # -- Enable datastore ingress support
+    enabled: false
+    # -- Datastore ingress class name
+    className: ""
+    # -- Datastore ingress annotations
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    
+    # -- Datastore ingress hosts
+    ## Hostnames must be provided if Ingress is enabled.
+    hosts:
+      - host: datastore.rookout.example.local
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    # -- Datastore ingress tls
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+
+  # -- Additional environment variables for Rookout's datastore. A list of name/value maps.
+  extraEnv: []
+
+  # -- Resource limits and requests for the datastore pods.
+  resources: 
+    limits:
+      cpu: 2
+      memory: 4096Mi
+    requests:
+      cpu: 2
+      memory: 4096Mi
+
+  # -- [Node selector]
+  nodeSelector: {}
+
+  # -- [Tolerations] for use with node taints
+  tolerations: []
+
+  # -- Assign custom [affinity] rules to the deployment
+  affinity: {}
+
+  # -- Deployment extra labels
+  extraLabels: {}

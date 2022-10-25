@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Check for valid label ✅️
-        if: ${{ !contains( github.event.pull_request.labels.*.name, 'controller') && !contains( github.event.pull_request.labels.*.name, 'datastore') && !contains( github.event.pull_request.labels.*.name, 'operator') && !contains( github.event.pull_request.labels.*.name, 'global_change') }}
+        if: ${{ !contains( github.event.pull_request.labels.*.name, 'controller') && !contains( github.event.pull_request.labels.*.name, 'datastore') && !contains( github.event.pull_request.labels.*.name, 'operator') && !contains( github.event.pull_request.labels.*.name, 'rookout-hybrid-deployment') && !contains( github.event.pull_request.labels.*.name, 'global_change') }}
         uses: actions/github-script@v3
         with:
          script: |
@@ -29,14 +29,13 @@ jobs:
       - name: Install helm 🚀
         uses: azure/setup-helm@v1
         with:
-          version: '2.16.7'
+          version: '3.10.0'
       - name: Validate Charts ✅️
         run: |
           helm version -c
-          helm init -c --stable-repo-url https://charts.helm.sh/stable
-          ls ~/.helm/repository/
           sudo helm template charts/controller -f charts/controller/values.yaml
           sudo helm template charts/datastore -f charts/datastore/values.yaml
+          sudo helm template charts/rookout-hybrid -f charts/rookout-hybrid/values.yaml
       - name: Validate Helm charts and compare with labels ✅️
         run: |
           sudo apt install jq curl -y
