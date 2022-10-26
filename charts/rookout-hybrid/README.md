@@ -12,14 +12,31 @@ For more information:
 
 ## Quick start
 
-### Add the Rookout repo
+### Adding the Rookout repository
+
+First, run the following:
 
 ```commandline
 helm repo add rookout https://helm-charts.rookout.com
 helm repo update
 ```
 
-### Full installation - Controller + Datastore
+### Installation with Ingress
+
+In most cases, the Datastore requires an Ingress for user access, which acts as a TLS termination proxy.
+
+[This yaml file](https://github.com/Rookout/helm-charts/tree/master/charts/rookout-hybrid/examples/ingress_example.yaml) shows an example configuration for an Nginx Ingress controller and Let's Encrypt. To use it, modify the contents of the example yaml file to match your configuration, and then run:
+
+```commandline
+helm upgrade --install rookout rookout/rookout-hybrid \
+    --namespace rookout \
+    --create-namespace \
+    -f ingerss_example.yaml
+```
+
+### Installing without an Ingress
+
+Run the following to install without an ingress. Note that a websocket connection is must be allowed somehow from the user's browser to the Datastore in order to use it.
 
 ```commandline
 helm upgrade --install rookout rookout/rookout-hybrid \
@@ -28,15 +45,6 @@ helm upgrade --install rookout rookout/rookout-hybrid \
     --set rookout.token=<ROOKOUT_TOKEN>
 ```
 
-### Full installation - Controller + Datastore + Ingress annotations
-ingress_example.yaml file can be found in examples folder of the helm chart
-
-```commandline
-helm upgrade --install rookout rookout/rookout-hybrid \
-    --namespace rookout \
-    --create-namespace \
-    -f ingerss_example.yaml
-```
 ### Controller only installation
 
 ```commandline
