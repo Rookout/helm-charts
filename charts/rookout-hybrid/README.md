@@ -23,21 +23,18 @@ helm repo update
 
 ### Installation
 
-[This yaml file](https://github.com/Rookout/helm-charts/tree/master/charts/rookout-hybrid/examples/ingress_example.yaml) shows an example configuration for an Nginx Ingress controller and Let's Encrypt. To use it, modify the contents of the example yaml file to match your configuration, and then run:
+[This yaml file](https://github.com/Rookout/helm-charts/tree/master/charts/rookout-hybrid/examples/nginx_lets_encrypt.yaml) shows an example configuration for an Nginx Ingress controller and cert-manager issuing a Let's encrypt certificate using a `ClusterIssuer`.
+
+To use it, modify the contents of the example yaml file to match your configuration, and then run:
 
 ```commandline
-helm upgrade --install rookout rookout/rookout-hybrid \
-    --namespace rookout \
-    --create-namespace \
-    -f ingerss_example.yaml
+helm upgrade --install rookout rookout/rookout-hybrid -f ingerss_example.yaml
 ```
 
 ### Controller only installation
 
 ```commandline
 helm upgrade --install rookout rookout/rookout-hybrid \
-    --namespace rookout \
-    --create-namespace
     --set rookout.token=<ROOKOUT_TOKEN> \
     --set datastore.enabled=false
 ```
