@@ -21,9 +21,7 @@ helm repo add rookout https://helm-charts.rookout.com
 helm repo update
 ```
 
-### Installation with Ingress
-
-In most cases, the Datastore requires an Ingress for user access, which acts as a TLS termination proxy.
+### Installation
 
 [This yaml file](https://github.com/Rookout/helm-charts/tree/master/charts/rookout-hybrid/examples/ingress_example.yaml) shows an example configuration for an Nginx Ingress controller and Let's Encrypt. To use it, modify the contents of the example yaml file to match your configuration, and then run:
 
@@ -32,17 +30,6 @@ helm upgrade --install rookout rookout/rookout-hybrid \
     --namespace rookout \
     --create-namespace \
     -f ingerss_example.yaml
-```
-
-### Installing without an Ingress
-
-Run the following to install without an ingress. Note that a websocket connection is must be allowed somehow from the user's browser to the Datastore in order to use it.
-
-```commandline
-helm upgrade --install rookout rookout/rookout-hybrid \
-    --namespace rookout \
-    --create-namespace \
-    --set rookout.token=<ROOKOUT_TOKEN>
 ```
 
 ### Controller only installation
