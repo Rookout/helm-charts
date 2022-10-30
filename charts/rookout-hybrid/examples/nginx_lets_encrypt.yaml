@@ -29,4 +29,4 @@ datastore:
       cert-manager.io/cluster-issuer: letsencrypt-issuer
       
       # If you are using an `Issuer` instead of a `ClusterIssuer`, change the line above to:
-      # cert-manager.io/issuer: ...
+      # cert-manager.io/issuer: letsencrypt-issuer
