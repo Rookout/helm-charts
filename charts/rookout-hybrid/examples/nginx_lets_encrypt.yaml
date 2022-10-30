@@ -27,3 +27,6 @@ datastore:
       
       # Set this to the name of the cert-manager Let's Encrypt cluster issuer
       cert-manager.io/cluster-issuer: letsencrypt-issuer
+      
+      # If you are using an `Issuer` instead of a `ClusterIssuer`, change the line above to:
+      # cert-manager.io/issuer: ...
