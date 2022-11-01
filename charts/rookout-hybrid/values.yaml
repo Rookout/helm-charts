@@ -89,6 +89,7 @@ controller:
     type: ClusterIP
     # -- Service port
     port: 80
+    #nodePort:
 
   ingress:
     # -- Enable controller ingress support
@@ -199,6 +200,7 @@ datastore:
     type: ClusterIP
     # -- Service port
     port: 80
+    #nodePort:
 
   ingress:
     # -- Enable datastore ingress support
