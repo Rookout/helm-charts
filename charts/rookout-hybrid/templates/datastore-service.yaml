@@ -11,7 +11,7 @@ spec:
     - port: {{ .Values.datastore.service.port }}
       targetPort: 8080
       protocol: TCP
-    {{- if eq datastore.service.type "nodePort" }}
+    {{- if eq datastore.service.type "NodePort" }}
       nodePort: {{ .Values.datastore.service.nodePort }}
     {{- end }}
   selector:
