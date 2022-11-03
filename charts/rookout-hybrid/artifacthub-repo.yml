@@ -1,7 +1,0 @@
-owners:
-  - name: Lir
-    email: lir@rookout.com
-  - name: Liran
-    email: liran@rookout.com
-ignore:
-  - name: operator
