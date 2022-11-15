@@ -88,6 +88,7 @@ controller:
      # -- Sets the type of the Service
     type: ClusterIP
     # -- Service port
+    # For TLS mode change the port to 443
     port: 80
 
   ingress:
@@ -198,6 +199,7 @@ datastore:
      # -- Sets the type of the Service
     type: ClusterIP
     # -- Service port
+    # For TLS mode change the port to 443
     port: 80
 
   ingress:
