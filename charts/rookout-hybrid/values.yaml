@@ -17,16 +17,16 @@ rookout:
   serverMode: "PLAIN"
   
   # When using serverMode: "TLS", the components (Controller and Datastore) will only accept encrypted TLS connections.
-  # In that case, for each component deployed, a secret containing a key and certificate (as "tls-key" and "tls-cert")
+  # In that case, for each component deployed, a secret containing a key and certificate (as "tls.key" and "tls.crt")
   # should be injected to the namespace of the deployment.
   # The name of those secrets should be set as "rookout.controllerTLSSecretName" and "rookout.datastoreTLSSecretName".
 
   # -- Rookout's controller TLS secert used when rookout.serverMode: "TLS"
-  # The components expect to find "tls-key" and "tls-cert" keys in the secert
+  # The components expect to find "tls.key" and "tls.crt" keys in the secert
   controllerTLSSecretName: ""
 
   # -- Rookout's datastore TLS secert used when rookout.serverMode: "TLS"
-  # The components expect to find "tls-key" and "tls-cert" keys in the secert
+  # The components expect to find "tls.key" and "tls.crt" keys in the secert
   datastoreTLSSecretName: ""
 
 

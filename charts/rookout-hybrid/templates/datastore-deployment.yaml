@@ -33,9 +33,9 @@ spec:
         secret:
           secretName: {{ required "In TLS mode, secretName holding key must be specified in rookout.datastoreTLSSecretName." .Values.rookout.datastoreTLSSecretName  }}
           items:
-          - key: tls-key
+          - key: tls.key
             path: key.pem
-          - key: tls-cert
+          - key: tls.crt
             path: cert.pem
       {{- end }}
       {{ if not .Values.datastore.inMemoryDb }}
