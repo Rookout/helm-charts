@@ -33,9 +33,9 @@ spec:
         secret:
           secretName: {{ required "In TLS mode, secretName holding key must be specified in rookout.controllerTLSSecretName." .Values.rookout.controllerTLSSecretName  }}
           items:
-          - key: tls-key
+          - key: tls.key
             path: tls.key
-          - key: tls-cert
+          - key: tls.crt
             path: tls.crt
       {{ end }}
       containers:

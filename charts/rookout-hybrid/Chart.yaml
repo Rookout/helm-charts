@@ -2,7 +2,7 @@ apiVersion: v2
 name: rookout-hybrid
 description: "Rookout's hybrid (on-premise) architecture components - ETL Controller and Datastore"
 type: application
-version: 0.1.3
+version: 0.1.4
 icon: https://raw.githubusercontent.com/Rookout/helm-charts/master/Rookout-logo.png
 home: "http://rookout.com/"
 maintainers:

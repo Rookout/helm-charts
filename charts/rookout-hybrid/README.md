@@ -107,8 +107,8 @@ helm upgrade --install rookout rookout/rookout-hybrid \
 | datastore.serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |
 | datastore.tolerations | list | `[]` | [Tolerations] for use with node taints |
 | imagePullSecrets | list | `[]` | Secrets with credentials to pull images from a private registry. Registry secret names as an array. |
-| rookout.controllerTLSSecretName | string | `""` | Rookout's controller TLS secert used when rookout.serverMode: "TLS" The components expect to find "tls-key" and "tls-cert" keys in the secert |
-| rookout.datastoreTLSSecretName | string | `""` | Rookout's datastore TLS secert used when rookout.serverMode: "TLS" The components expect to find "tls-key" and "tls-cert" keys in the secert |
+| rookout.controllerTLSSecretName | string | `""` | Rookout's controller TLS secert used when rookout.serverMode: "TLS" The components expect to find "tls.key" and "tls.crt" keys in the secert |
+| rookout.datastoreTLSSecretName | string | `""` | Rookout's datastore TLS secert used when rookout.serverMode: "TLS" The components expect to find "tls.key" and "tls.crt" keys in the secert |
 | rookout.serverMode | string | `"PLAIN"` | Rookout's components comuunication mode, PLAIN or TLS. If tls configured please check rookut.controllerTLSSecretName and rookut.datastoreTLSSecretName |
 | rookout.token | string | `""` | Org token of rookout. Extract it from app.rookout.com > setup  |
 
