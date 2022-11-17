@@ -11,6 +11,9 @@ spec:
     - port: {{ .Values.controller.service.port }}
       targetPort: 7488
       protocol: TCP
+    {{- if eq .Values.controller.service.type "NodePort" }}
+      nodePort: {{ .Values.controller.service.nodePort }}
+    {{- end }}
   selector:
     {{- include "controller.selectorLabels" . | nindent 4 }}
 {{- end }}
