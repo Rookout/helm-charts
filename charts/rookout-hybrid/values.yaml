@@ -90,6 +90,7 @@ controller:
     # -- Service port
     # For TLS mode change the port to 443
     port: 80
+    #nodePort:
 
   ingress:
     # -- Enable controller ingress support
@@ -201,6 +202,7 @@ datastore:
     # -- Service port
     # For TLS mode change the port to 443
     port: 80
+    #nodePort:
 
   ingress:
     # -- Enable datastore ingress support
