@@ -2,7 +2,7 @@
 
 ## Deprecation warning
 
-This chart is no longer under active development. Please use the new chart: <https://github.com/rookout/helm-charts/tree/master/charts/rookout>
+This chart is no longer under active development. Please use the new chart: <https://github.com/rookout/helm-charts/tree/master/charts/rookout-hybrid>
 
 ## Description
 
