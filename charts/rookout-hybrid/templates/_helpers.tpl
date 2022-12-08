@@ -6,6 +6,14 @@ Create chart name and version as used by the chart label.
 {{- end }}
 
 {{/*
+Return secret name to be used based on provided values.
+*/}}
+{{- define "rookout.tokenSecretName" -}}
+{{- $fullName := printf "%s-token" (include .Chart.Name .) -}}
+{{- default $fullName .Values.tokenExistingSecret | quote -}}
+{{- end -}}
+
+{{/*
 Expand the name of the chart.
 */}}
 {{- define "datastore.name" -}}
