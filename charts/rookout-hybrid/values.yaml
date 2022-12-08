@@ -11,7 +11,17 @@ imagePullSecrets: []
 # Map of rookout configurations.
 rookout:
   # -- Your Rookout organization token. Get it from the Rookout app at https://app.rookout.com/. 
-  token: ""
+  # -- Please notice that the usage of token directly should be by --set flag in cli only when helming.
+  # -- helm install rookout rookout/rookout-hybrid --set rookout.token="YOUR_TOKEN"
+  # -- using rookout.token will create secret that mounts as ENV variable into the pods.
+  token: 
+
+  # -- The Rookout organization token can be pass from refrenced existing secret
+  # -- can be create with `kubectl create secret generic rookout-token --from-literal=token=YOUR_TOKEN`
+  # -- then fill rookout.tokenExistingSecret: rookout-token
+  # -- NOTICE: the key of the secret should be named `token`
+  tokenExistingSecret: #rookout-token
+
   # -- Rookout's components comuunication mode, PLAIN or TLS.
   # For TLS, please check rookut.controllerTLSSecretName and rookut.datastoreTLSSecretName
   serverMode: "PLAIN"

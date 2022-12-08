@@ -62,7 +62,10 @@ spec:
             {{- toYaml .Values.datastore.resources | nindent 12 }}
           env:
             - name: ROOKOUT_DOP_LOGGING_TOKEN
-              value: {{ .Values.rookout.token }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "rookout.tokenSecretName" . }}
+                  key: token
             - name: ROOKOUT_DOP_SERVER_MODE
               value: {{ required "rookout.serverMode is required" .Values.rookout.serverMode | quote }}
             - name: ROOKOUT_DOP_PORT
