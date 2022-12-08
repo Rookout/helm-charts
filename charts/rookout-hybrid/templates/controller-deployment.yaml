@@ -33,9 +33,9 @@ spec:
         secret:
           secretName: {{ required "In TLS mode, secretName holding key must be specified in rookout.controllerTLSSecretName." .Values.rookout.controllerTLSSecretName  }}
           items:
-          - key: tls-key
+          - key: tls.key
             path: tls.key
-          - key: tls-cert
+          - key: tls.crt
             path: tls.crt
       {{ end }}
       containers:
@@ -57,7 +57,10 @@ spec:
             {{- toYaml .Values.controller.resources | nindent 12 }}
           env:
             - name: ROOKOUT_TOKEN
-              value: {{ .Values.rookout.token }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "rookout.tokenSecretName" . }}
+                  key: token
             - name: ROOKOUT_CONTROLLER_SERVER_MODE
               value: {{ required "rookout.serverMode is required" .Values.rookout.serverMode | quote }}
             - name: ROOKS_WS_LISTEN_ADDR
@@ -68,10 +71,7 @@ spec:
 {{ if (eq (required "rookout.serverMode is required" .Values.rookout.serverMode) "TLS") }}
           volumeMounts:
           - mountPath: /var/controller-tls-secrets
-            name: tls-key
-            readOnly: true
-          - mountPath: /var/controller-tls-secrets
-            name: tls-cert
+            name: tls-secret
             readOnly: true
 {{ end }}
       {{- with .Values.controller.nodeSelector }}

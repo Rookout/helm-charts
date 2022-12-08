@@ -33,10 +33,10 @@ spec:
         secret:
           secretName: {{ required "In TLS mode, secretName holding key must be specified in rookout.datastoreTLSSecretName." .Values.rookout.datastoreTLSSecretName  }}
           items:
-          - key: tls-key
-            path: tls.key
-          - key: tls-cert
-            path: tls.crt
+          - key: tls.key
+            path: key.pem
+          - key: tls.crt
+            path: cert.pem
       {{- end }}
       {{ if not .Values.datastore.inMemoryDb }}
       - name: rookout-volume
@@ -62,7 +62,10 @@ spec:
             {{- toYaml .Values.datastore.resources | nindent 12 }}
           env:
             - name: ROOKOUT_DOP_LOGGING_TOKEN
-              value: {{ .Values.rookout.token }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "rookout.tokenSecretName" . }}
+                  key: token
             - name: ROOKOUT_DOP_SERVER_MODE
               value: {{ required "rookout.serverMode is required" .Values.rookout.serverMode | quote }}
             - name: ROOKOUT_DOP_PORT
@@ -82,13 +85,8 @@ spec:
             name: rookout-volume
           {{ end }}
 {{ if (eq (required "rookout.serverMode is required" .Values.rookout.serverMode) "TLS") }}
-          - mountPath: /var/datastore-tls-secrets/tls.key
-            subPath: tls.key
-            name: tls-key
-            readOnly: true
-          - mountPath: /var/datastore-tls-secrets/tls.crt
-            subPath: tls.crt
-            name: tls-cert
+          - mountPath: /var/rookout
+            name: tls-secret
             readOnly: true
 {{ end }}
       {{- with .Values.datastore.nodeSelector }}

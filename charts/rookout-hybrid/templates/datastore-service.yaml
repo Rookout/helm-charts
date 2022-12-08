@@ -11,6 +11,9 @@ spec:
     - port: {{ .Values.datastore.service.port }}
       targetPort: 8080
       protocol: TCP
+    {{- if eq .Values.datastore.service.type "NodePort" }}
+      nodePort: {{ .Values.datastore.service.nodePort }}
+    {{- end }}
   selector:
     {{- include "datastore.selectorLabels" . | nindent 4 }}
 {{- end }}

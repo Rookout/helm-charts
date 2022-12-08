@@ -11,22 +11,32 @@ imagePullSecrets: []
 # Map of rookout configurations.
 rookout:
   # -- Your Rookout organization token. Get it from the Rookout app at https://app.rookout.com/. 
-  token: ""
+  # -- Please notice that the usage of token directly should be by --set flag in cli only when helming.
+  # -- helm install rookout rookout/rookout-hybrid --set rookout.token="YOUR_TOKEN"
+  # -- using rookout.token will create secret that mounts as ENV variable into the pods.
+  token: 
+
+  # -- The Rookout organization token can be pass from refrenced existing secret
+  # -- can be create with `kubectl create secret generic rookout-token --from-literal=token=YOUR_TOKEN`
+  # -- then fill rookout.tokenExistingSecret: rookout-token
+  # -- NOTICE: the key of the secret should be named `token`
+  tokenExistingSecret: #rookout-token
+
   # -- Rookout's components comuunication mode, PLAIN or TLS.
   # For TLS, please check rookut.controllerTLSSecretName and rookut.datastoreTLSSecretName
   serverMode: "PLAIN"
   
   # When using serverMode: "TLS", the components (Controller and Datastore) will only accept encrypted TLS connections.
-  # In that case, for each component deployed, a secret containing a key and certificate (as "tls-key" and "tls-cert")
+  # In that case, for each component deployed, a secret containing a key and certificate (as "tls.key" and "tls.crt")
   # should be injected to the namespace of the deployment.
   # The name of those secrets should be set as "rookout.controllerTLSSecretName" and "rookout.datastoreTLSSecretName".
 
   # -- Rookout's controller TLS secert used when rookout.serverMode: "TLS"
-  # The components expect to find "tls-key" and "tls-cert" keys in the secert
+  # The components expect to find "tls.key" and "tls.crt" keys in the secert
   controllerTLSSecretName: ""
 
   # -- Rookout's datastore TLS secert used when rookout.serverMode: "TLS"
-  # The components expect to find "tls-key" and "tls-cert" keys in the secert
+  # The components expect to find "tls.key" and "tls.crt" keys in the secert
   datastoreTLSSecretName: ""
 
 
@@ -88,7 +98,9 @@ controller:
      # -- Sets the type of the Service
     type: ClusterIP
     # -- Service port
+    # For TLS mode change the port to 443
     port: 80
+    #nodePort:
 
   ingress:
     # -- Enable controller ingress support
@@ -198,7 +210,9 @@ datastore:
      # -- Sets the type of the Service
     type: ClusterIP
     # -- Service port
+    # For TLS mode change the port to 443
     port: 80
+    #nodePort:
 
   ingress:
     # -- Enable datastore ingress support
