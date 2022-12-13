@@ -10,7 +10,7 @@ Return secret name to be used based on provided values.
 */}}
 {{- define "rookout.tokenSecretName" -}}
 {{- $fullName := printf "%s-token" .Release.Name -}}
-{{- default $fullName .Values.tokenExistingSecret | quote -}}
+{{- default $fullName .Values.rookout.tokenExistingSecret | quote -}}
 {{- end -}}
 
 {{/*
