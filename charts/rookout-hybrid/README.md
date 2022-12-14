@@ -100,7 +100,7 @@ helm upgrade --install rookout rookout/rookout-hybrid \
 | imagePullSecrets | list | `[]` | Secrets with credentials to pull images from a private registry. Registry secret names as an array. |
 | rookout.controllerTLSSecretName | string | `""` | Rookout's controller TLS secert used when rookout.serverMode: "TLS" The components expect to find "tls.key" and "tls.crt" keys in the secert |
 | rookout.datastoreTLSSecretName | string | `""` | Rookout's datastore TLS secert used when rookout.serverMode: "TLS" The components expect to find "tls.key" and "tls.crt" keys in the secert |
-| rookout.serverMode | string | `"PLAIN"` | Rookout's components comuunication mode, PLAIN or TLS. For TLS, please check rookut.controllerTLSSecretName and rookut.datastoreTLSSecretName |
+| rookout.serverMode | string | `"PLAIN"` | Rookout's components communication mode, PLAIN or TLS. For TLS, please check rookout.controllerTLSSecretName and rookut.datastoreTLSSecretName |
 | rookout.token | string | `nil` | using rookout.token will create secret that mounts as ENV variable into the pods. |
 | rookout.tokenExistingSecret | string | `nil` | NOTICE: the key of the secret should be named `token` |
 
