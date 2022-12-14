@@ -101,8 +101,6 @@ spec:
               value: {{ .Values.controller.internalResources.limits.memory | quote }}
             - name: ROOKOUT_DOP_NO_SSL_VERIFY
               value: {{ default false .Values.controller.datastore_no_ssl_verif | quote }}
-            - name: ROOKOUT_SKIP_SSL_VERIFY
-              value: "1"
           ports:
             - name: websocket
               containerPort: {{ .Values.controller.port }}
