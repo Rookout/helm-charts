@@ -22,8 +22,8 @@ rookout:
   # -- NOTICE: the key of the secret should be named `token`
   tokenExistingSecret: #rookout-token
 
-  # -- Rookout's components comuunication mode, PLAIN or TLS.
-  # For TLS, please check rookut.controllerTLSSecretName and rookut.datastoreTLSSecretName
+  # -- Rookout's components communication mode, PLAIN or TLS.
+  # For TLS, please check rookout.controllerTLSSecretName and rookut.datastoreTLSSecretName
   serverMode: "PLAIN"
   
   # When using serverMode: "TLS", the components (Controller and Datastore) will only accept encrypted TLS connections.
