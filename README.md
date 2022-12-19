@@ -1,3 +1,6 @@
+---
+permalink: /404.html
+---
 # Rookout Helm Charts Repository
 
 ## How to install a chart from this repository
@@ -11,14 +14,14 @@
 - Install the chart  
 `helm install rookout/CHART_NAME`
 
-
 ## Available charts
 
-[controller](https://github.com/rookout/helm-charts/tree/master/charts/controller) - Check out our [Rookout Controller Documentation](https://docs.rookout.com/docs/agent-setup.html)
+[rookout](https://github.com/rookout/helm-charts/tree/master/charts/rookout-hybrid) - Rookout's hybrid architecture (ETL Controller + Datastore)
 
-[datastore](https://github.com/rookout/helm-charts/tree/master/charts/datastore) - Controller required
+[controller-DEPRECATED](https://github.com/rookout/helm-charts/tree/master/charts/controller) (No longer under active development)
+
+[datastore-DEPRECATED](https://github.com/rookout/helm-charts/tree/master/charts/datastore) - (No longer under active development)
 
 ---------------------------------------------------------------
-
 
 [LICENSE](https://github.com/rookout/helm-charts/blob/master/LICENSE)
