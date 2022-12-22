@@ -115,8 +115,6 @@ helm upgrade --install rookout rookout/rookout-hybrid \
 | datastore.nodeSelector | object | `{}` | [Node selector] |
 | datastore.podAnnotations | object | `{}` | Annotations to be added to the Datastore pods |
 | datastore.podSecurityContext | object | `{"fsGroup":5000,"runAsGroup":5000,"runAsUser":5000}` | Security Context to set on the pod level |
-| datastore.pvc | object | `{"enable":false,"storageClassName":"","volumeSize":"10Gi"}` | Enabled when rookout.inMemoryDb is false.  |
-| datastore.pvc.enable | bool | `false` | if disabled will use emptyDir |
 | datastore.resources | object | `{"limits":{"cpu":2,"memory":"4096Mi"},"requests":{"cpu":2,"memory":"4096Mi"}}` | Resource limits and requests for the datastore pods. |
 | datastore.securityContext | object | `{}` | Security Context to set on the container level |
 | datastore.service.annotations | object | `{}` | Datastore service extra annotations |

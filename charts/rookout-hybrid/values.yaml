@@ -268,10 +268,3 @@ datastore:
 
   # -- Additional Deployment and Pods extra labels
   extraLabels: {}
-
-   # -- Enabled when rookout.inMemoryDb is false. 
-  pvc:
-    # -- if disabled will use emptyDir
-    enable: false
-    storageClassName: ''
-    volumeSize: 10Gi
