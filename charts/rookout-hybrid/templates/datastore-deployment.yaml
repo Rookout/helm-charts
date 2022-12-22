@@ -31,10 +31,12 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "datastore.serviceAccountName" . }}
+      {{- with .Values.datastore.podSecurityContext }}
       securityContext:
-        {{- toYaml .Values.datastore.podSecurityContext | nindent 8 }}
-      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- if (eq (required "rookout.serverMode is required" .Values.rookout.serverMode) "TLS") }}
+      volumes:
       - name: tls-secret
         secret:
           secretName: {{ required "In TLS mode, secretName holding key must be specified in rookout.datastoreTLSSecretName." .Values.rookout.datastoreTLSSecretName  }}
@@ -44,11 +46,6 @@ spec:
           - key: tls.crt
             path: cert.pem
       {{- end }}
-      {{ if not .Values.datastore.inMemoryDb }}
-      - name: rookout-volume
-        persistentVolumeClaim:
-          claimName: rookout-data-on-prem-pvc
-      {{ end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -77,24 +74,16 @@ spec:
             - name: ROOKOUT_DOP_PORT
               value: "8080"
             - name: ROOKOUT_DOP_IN_MEMORY_DB
-              {{ if (.Values.datastore.inMemoryDb) }}
               value: "True"
-              {{ else }}
-              value: "False"
-              {{ end }}
-{{- with .Values.datastore.extraEnv }}
-{{- toYaml . | nindent 12 }}
-{{- end }}
+          {{- with .Values.datastore.extraEnv }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           volumeMounts:
-          {{ if not .Values.datastore.inMemoryDb }}
-          - mountPath: "/var/rookout/database/db"
-            name: rookout-volume
-          {{ end }}
-{{ if (eq (required "rookout.serverMode is required" .Values.rookout.serverMode) "TLS") }}
-          - mountPath: /var/rookout
-            name: tls-secret
-            readOnly: true
-{{ end }}
+            {{ if (eq (required "rookout.serverMode is required" .Values.rookout.serverMode) "TLS") }}
+            - mountPath: /var/rookout
+              name: tls-secret
+              readOnly: true
+            {{ end }}
       {{- with .Values.datastore.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
