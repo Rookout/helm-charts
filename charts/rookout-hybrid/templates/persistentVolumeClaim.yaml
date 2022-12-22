@@ -1,0 +1,13 @@
+{{ if not .Values.datastore.inMemoryDb }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "datastore.fullname" . }}-pvc
+spec:
+  storageClassName: {{ .Values.datastore.pvc.storageClassName }}
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.datastore.pvc.volumeSize }}
+{{- end }}
