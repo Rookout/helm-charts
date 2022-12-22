@@ -33,18 +33,18 @@ helm upgrade --install rookout rookout/rookout-hybrid \
 
 ### Datastore access
 
-This installation will not expose your datastore to your web-browser (Rookout client), ingress or other method you are using should expose the datastore service to your web-browser.
+This installation will not expose your datastore to your web-browser (the Rookout client), unless granted explicitly. ingress or other method you are using should expose the datastore service to your web-browser.
 
 <img src="https://docs.rookout.com/assets/images/datastore_diagram-628f79ca44d7af9c355c6f0f7d821712.png" width="900">
 
-you can expose datastore using ingress or chaning the service type of it to LoadBalancer or NodePort as preffered. for reference checkout [Values.yaml](https://github.com/Rookout/helm-charts/tree/master/charts/rookout-hybrid/values.yaml)
+you can expose datastore using ingress or changing the service type of it to LoadBalancer or NodePort as preffered. for reference check out [Values.yaml](https://github.com/Rookout/helm-charts/tree/master/charts/rookout-hybrid/values.yaml)
 
-Here is naive example using ingress, nginx and let's encrypt issuer.
+Here is a naive example using ingress, nginx and let's encrypt issuer.
 [nginx_lets_encrypt.yaml](https://github.com/Rookout/helm-charts/tree/master/charts/rookout-hybrid/example/nginx_lets_encrypt.yaml)
 
 ### Rooks configuration
 
-If the rooks (agents) in same cluster as Rookout's controller they can communicate using internal k8s DNS server, the address will be `CONTROLLER_SERVICE_NAME.NAMESPACE.svc.cluster.local` the default domain with the above command would be `controller-rookout-rookout-hybrid.rookout.svc.cluster.local`. If the rooks not in same cluster, expose the controller's service as you did for the datastore.
+If the agents are in same cluster as Rookout's controller, they can communicate using the internal k8s DNS server. The address will be `CONTROLLER_SERVICE_NAME.NAMESPACE.svc.cluster.local` and the default domain will be `controller-rookout-rookout-hybrid.rookout.svc.cluster.local`. If the agents are not in same cluster, you must expose the controller's service as you did for the datastore.
 
 To configure the rooks (agents) after integration of the rook, please pass the following enviorment variables:
 ```
@@ -53,7 +53,7 @@ To configure the rooks (agents) after integration of the rook, please pass the f
 - name: ROOKOUT_CONTROLLER_PORT
   value: '80'
 - name: ROOKOUT_TOKEN
-  value: 'YOUR_TOKEN'
+  value: 'YOU_TOKEN_HERE'
 ```
 
 ### Controller only installation
