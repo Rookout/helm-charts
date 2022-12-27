@@ -5,6 +5,9 @@ metadata:
   name: {{ include "controller.fullname" . }}
   labels:
     {{- include "controller.labels" . | nindent 4 }}
+    {{- with .Values.controller.extraLabels }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
 spec:
   revisionHistoryLimit: 3
   replicas: {{ .Values.controller.replicaCount }}
@@ -19,6 +22,9 @@ spec:
       {{- end }}
       labels:
         {{- include "controller.selectorLabels" . | nindent 8 }}
+        {{- with .Values.controller.extraLabels }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -65,15 +71,15 @@ spec:
               value: {{ required "rookout.serverMode is required" .Values.rookout.serverMode | quote }}
             - name: ROOKS_WS_LISTEN_ADDR
               value: ":7488"
-{{- with .Values.controller.extraEnv }}
-{{- toYaml . | nindent 12 }}
-{{- end }}
-{{ if (eq (required "rookout.serverMode is required" .Values.rookout.serverMode) "TLS") }}
+          {{- with .Values.controller.extraEnv }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{ if (eq (required "rookout.serverMode is required" .Values.rookout.serverMode) "TLS") }}
           volumeMounts:
           - mountPath: /var/controller-tls-secrets
             name: tls-secret
             readOnly: true
-{{ end }}
+          {{ end }}
       {{- with .Values.controller.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -23,12 +23,37 @@ helm repo update
 
 ### Installation
 
-[This yaml file](https://github.com/Rookout/helm-charts/tree/master/charts/rookout-hybrid/examples/nginx_lets_encrypt.yaml) shows a basic example configuration using Nginx + cert-manager + Let's Encrypt.
-
-To use it, modify the contents of the example yaml file to match your configuration, and then run:
+To use it, get token from Rookout UI settings > token , and then run:
 
 ```commandline
-helm upgrade --install rookout rookout/rookout-hybrid -f ingerss_example.yaml
+helm upgrade --install rookout rookout/rookout-hybrid \
+    --set rookout.token="YOU_TOKEN_HERE" \
+    --create-namespace rookout
+```
+
+### Datastore access
+
+This installation will not expose your datastore to your web-browser (the Rookout client), unless granted explicitly. ingress or other method you are using should expose the datastore service to your web-browser.
+
+<img src="https://docs.rookout.com/assets/images/datastore_diagram-628f79ca44d7af9c355c6f0f7d821712.png" width="900">
+
+you can expose datastore using ingress or changing the service type of it to LoadBalancer or NodePort as preffered. for reference check out [Values.yaml](https://github.com/Rookout/helm-charts/tree/master/charts/rookout-hybrid/values.yaml)
+
+Here is a naive example using ingress, nginx and let's encrypt issuer.
+[nginx_lets_encrypt.yaml](https://github.com/Rookout/helm-charts/tree/master/charts/rookout-hybrid/example/nginx_lets_encrypt.yaml)
+
+### Rooks configuration
+
+If the agents are in same cluster as Rookout's controller, they can communicate using the internal k8s DNS server. The address will be `CONTROLLER_SERVICE_NAME.NAMESPACE.svc.cluster.local` and the default domain will be `controller-rookout-rookout-hybrid.rookout.svc.cluster.local`. If the agents are not in same cluster, you must expose the controller's service as you did for the datastore.
+
+To configure the rooks (agents) after integration of the rook, please pass the following enviorment variables:
+```
+- name: ROOKOUT_CONTROLLER_HOST
+  value: 'ws://controller-rookout-rookout-hybrid.rookout.svc.cluster.local'
+- name: ROOKOUT_CONTROLLER_PORT
+  value: '80'
+- name: ROOKOUT_TOKEN
+  value: 'YOU_TOKEN_HERE'
 ```
 
 ### Controller only installation
@@ -38,7 +63,6 @@ helm upgrade --install rookout rookout/rookout-hybrid \
     --set rookout.token=<ROOKOUT_TOKEN> \
     --set datastore.enabled=false
 ```
-
 ## Values
 
 | Key | Type | Default | Description |
@@ -46,7 +70,7 @@ helm upgrade --install rookout rookout/rookout-hybrid \
 | controller.affinity | object | `{}` | Assign custom [affinity] rules to the deployment |
 | controller.enabled | bool | `true` | Whether to deploy an ETL Controller |
 | controller.extraEnv | list | `[]` | Additional environment variables for Rookout's controller. A list of name/value maps. |
-| controller.extraLabels | object | `{}` | Deployment extra labels |
+| controller.extraLabels | object | `{}` | Deployment and pods extra labels |
 | controller.fullnameOverride | string | `""` | String to fully override "controller.fullname" template |
 | controller.image.name | string | `"controller"` | Rookout's controller image name |
 | controller.image.pullPolicy | string | `"Always"` | Rookout's controller image pull policy |
@@ -64,6 +88,8 @@ helm upgrade --install rookout rookout/rookout-hybrid \
 | controller.replicaCount | int | `1` | Rookout's controller number of replicas |
 | controller.resources | object | `{"limits":{"cpu":2,"memory":"4096Mi"},"requests":{"cpu":1,"memory":"512Mi"}}` | Resource limits and requests for the controller pods. |
 | controller.securityContext | object | `{}` | Security Context to set on the container level |
+| controller.service.annotations | object | `{}` | Controller service extra annotations |
+| controller.service.labels | object | `{}` | Controller service extra labels |
 | controller.service.port | int | `80` | Service port For TLS mode change the port to 443 |
 | controller.service.type | string | `"ClusterIP"` | Sets the type of the Service |
 | controller.serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
@@ -73,7 +99,7 @@ helm upgrade --install rookout rookout/rookout-hybrid \
 | datastore.affinity | object | `{}` | Assign custom [affinity] rules to the deployment |
 | datastore.enabled | bool | `true` | whether to deploy a Datastore |
 | datastore.extraEnv | list | `[]` | Additional environment variables for Rookout's datastore. A list of name/value maps. |
-| datastore.extraLabels | object | `{}` | Deployment extra labels |
+| datastore.extraLabels | object | `{}` | Additional Deployment and Pods extra labels |
 | datastore.fullnameOverride | string | `""` | String to fully override "datastore.fullname" template |
 | datastore.image.name | string | `"data-on-prem"` | Rookout's Datastore image name |
 | datastore.image.pullPolicy | string | `"Always"` | Rookout's Datastore image pull policy |
@@ -91,6 +117,8 @@ helm upgrade --install rookout rookout/rookout-hybrid \
 | datastore.podSecurityContext | object | `{"fsGroup":5000,"runAsGroup":5000,"runAsUser":5000}` | Security Context to set on the pod level |
 | datastore.resources | object | `{"limits":{"cpu":2,"memory":"4096Mi"},"requests":{"cpu":2,"memory":"4096Mi"}}` | Resource limits and requests for the datastore pods. |
 | datastore.securityContext | object | `{}` | Security Context to set on the container level |
+| datastore.service.annotations | object | `{}` | Datastore service extra annotations |
+| datastore.service.labels | object | `{}` | Datastore service extra labels |
 | datastore.service.port | int | `80` | Service port For TLS mode change the port to 443 |
 | datastore.service.type | string | `"ClusterIP"` | Sets the type of the Service |
 | datastore.serviceAccount.annotations | object | `{}` | Annotations to add to the service account |

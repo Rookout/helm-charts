@@ -101,6 +101,10 @@ controller:
     # For TLS mode change the port to 443
     port: 80
     #nodePort:
+    # -- Controller service extra labels
+    labels: {}
+    # -- Controller service extra annotations
+    annotations: {}
 
   ingress:
     # -- Enable controller ingress support
@@ -146,7 +150,7 @@ controller:
   # -- Assign custom [affinity] rules to the deployment
   affinity: {}
 
-  # -- Deployment extra labels
+  # -- Deployment and pods extra labels
   extraLabels: {}
 
 
@@ -207,12 +211,16 @@ datastore:
     # runAsUser: 5000
 
   service:
-     # -- Sets the type of the Service
+    # -- Sets the type of the Service
     type: ClusterIP
     # -- Service port
     # For TLS mode change the port to 443
     port: 80
     #nodePort:
+    # -- Datastore service extra labels
+    labels: {}
+    # -- Datastore service extra annotations
+    annotations: {}
 
   ingress:
     # -- Enable datastore ingress support
@@ -258,5 +266,5 @@ datastore:
   # -- Assign custom [affinity] rules to the deployment
   affinity: {}
 
-  # -- Deployment extra labels
+  # -- Additional Deployment and Pods extra labels
   extraLabels: {}
