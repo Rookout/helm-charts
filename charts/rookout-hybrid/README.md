@@ -40,7 +40,7 @@ This installation will not expose your datastore to your web-browser (the Rookou
 you can expose datastore using ingress or changing the service type of it to LoadBalancer or NodePort as preffered. for reference check out [Values.yaml](https://github.com/Rookout/helm-charts/tree/master/charts/rookout-hybrid/values.yaml)
 
 Here is a naive example using ingress, nginx and let's encrypt issuer.
-[nginx_lets_encrypt.yaml](https://github.com/Rookout/helm-charts/tree/master/charts/rookout-hybrid/example/nginx_lets_encrypt.yaml)
+[nginx_lets_encrypt.yaml](https://github.com/Rookout/helm-charts/tree/master/charts/rookout-hybrid/examples/nginx_lets_encrypt.yaml)
 
 ### Rooks configuration
 
