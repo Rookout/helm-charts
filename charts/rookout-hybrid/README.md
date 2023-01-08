@@ -62,7 +62,7 @@ To configure the rooks (agents) after integration of the rook, please pass the f
 helm upgrade --install rookout rookout/rookout-hybrid \
     --set rookout.token=<ROOKOUT_TOKEN> \
     --set datastore.enabled=false \
-    --create-namespace -n rookout
+    -n rookout --create-namespace
 ```
 ## Values
 
