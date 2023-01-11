@@ -28,7 +28,7 @@ To use it, get token from Rookout UI settings > token , and then run:
 ```commandline
 helm upgrade --install rookout rookout/rookout-hybrid \
     --set rookout.token="YOUR_TOKEN_HERE" \
-    --create-namespace rookout -n rookout
+     -n rookout --create-namespace rookout
 ```
 
 ### Datastore access
@@ -62,7 +62,7 @@ To configure the rooks (agents) after integration of the rook, please pass the f
 helm upgrade --install rookout rookout/rookout-hybrid \
     --set rookout.token=<ROOKOUT_TOKEN> \
     --set datastore.enabled=false \
-    --create-namespace -n rookout
+    -n rookout --create-namespace
 ```
 ## Values
 
