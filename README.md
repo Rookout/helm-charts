@@ -1,6 +1,3 @@
----
-permalink: /404.html
----
 # Rookout Helm Charts Repository
 
 ## How to install a chart from this repository
