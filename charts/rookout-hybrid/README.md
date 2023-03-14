@@ -1,6 +1,6 @@
 # Rookout Hybrid Architecture
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.3.1](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Rookout's hybrid (on-premise) architecture components - ETL Controller and Datastore
 
@@ -63,7 +63,7 @@ helm upgrade --install rookout rookout/rookout-hybrid \
     --set rookout.token=<ROOKOUT_TOKEN> \
     --set datastore.enabled=false \
     -n rookout --create-namespace
-```
+
 ## Values
 
 | Key | Type | Default | Description |
@@ -106,7 +106,6 @@ helm upgrade --install rookout rookout/rookout-hybrid \
 | datastore.image.pullPolicy | string | `"Always"` | Rookout's Datastore image pull policy |
 | datastore.image.repository | string | `"rookout"` | Rookout's Datastore public dockerhub repo |
 | datastore.image.tag | string | `"latest"` | Rookout's Datastore image tag |
-| datastore.inMemoryDb | bool | `true` | Whether to create a PVC or use in-memory storage (recommended). https://docs.rookout.com/docs/dop-config#in-memory-database |
 | datastore.ingress.annotations | object | `{}` | Datastore ingress annotations |
 | datastore.ingress.className | string | `""` | Datastore ingress class name |
 | datastore.ingress.enabled | bool | `false` | Enable datastore ingress support |
