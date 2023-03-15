@@ -63,7 +63,7 @@ helm upgrade --install rookout rookout/rookout-hybrid \
     --set rookout.token=<ROOKOUT_TOKEN> \
     --set datastore.enabled=false \
     -n rookout --create-namespace
-
+```
 ## Values
 
 | Key | Type | Default | Description |
