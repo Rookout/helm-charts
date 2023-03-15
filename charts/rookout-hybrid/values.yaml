@@ -162,9 +162,6 @@ controller:
 datastore:
    # -- whether to deploy a Datastore
   enabled: true
-  # -- Whether to create a PVC or use in-memory storage (recommended).
-  # https://docs.rookout.com/docs/dop-config#in-memory-database
-  inMemoryDb: true
 
   image:
     # -- Rookout's Datastore image name
