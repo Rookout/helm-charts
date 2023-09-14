@@ -82,6 +82,8 @@ spec:
               value: {{ default 8080 .Values.datastore.dopContainerPort | quote }}
             - name: ROOKOUT_DOP_AUTO_TLS_DOMAIN
               value: {{ .Values.datastore.autoTlsDomain | quote }}
+            - name: ROOKOUT_DOP_DAO_ACTIVE
+              value: {{ .Values.datastore.enableNewDao }}
             {{ if (eq (required "datastore.serverMode is required" .Values.datastore.serverMode) "AUTOTLS") }}
             - name: ROOKOUT_DOP_ENABLE_FILE_LOGGER
               value: "False"

@@ -163,6 +163,9 @@ datastore:
    # -- whether to deploy a Datastore
   enabled: true
 
+   # -- whether to enable the new DAO wrappers for the datastore
+  enableNewDao: false
+
   image:
     # -- Rookout's Datastore image name
     name: data-on-prem

@@ -14,6 +14,7 @@ datastore:
   servicePortTLS: ''
   logging:
     enabled: false
+  enableNewDao: false
   
 service:
   type: LoadBalancer
