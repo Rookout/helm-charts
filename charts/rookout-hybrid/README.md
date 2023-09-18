@@ -98,6 +98,7 @@ helm upgrade --install rookout rookout/rookout-hybrid \
 | controller.serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |
 | controller.tolerations | list | `[]` | [Tolerations] for use with node taints |
 | datastore.affinity | object | `{}` | Assign custom [affinity] rules to the deployment |
+| datastore.enableNewDao | bool | `false` | whether to enable the new DAO wrappers for the datastore |
 | datastore.enabled | bool | `true` | whether to deploy a Datastore |
 | datastore.extraEnv | list | `[]` | Additional environment variables for Rookout's datastore. A list of name/value maps. |
 | datastore.extraLabels | object | `{}` | Additional Deployment and Pods extra labels |
@@ -125,7 +126,6 @@ helm upgrade --install rookout rookout/rookout-hybrid \
 | datastore.serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
 | datastore.serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |
 | datastore.tolerations | list | `[]` | [Tolerations] for use with node taints |
-| datastore.enableNewDao | bool | `false` | Enable new SQL connector and new DAO schema
 | imagePullSecrets | list | `[]` | Secrets with credentials to pull images from a private registry. Registry secret names as an array. |
 | rookout.controllerTLSSecretName | string | `""` | Rookout's controller TLS secert used when rookout.serverMode: "TLS" The components expect to find "tls.key" and "tls.crt" keys in the secert |
 | rookout.datastoreTLSSecretName | string | `""` | Rookout's datastore TLS secert used when rookout.serverMode: "TLS" The components expect to find "tls.key" and "tls.crt" keys in the secert |
