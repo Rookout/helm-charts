@@ -80,10 +80,10 @@ controller:
   podAnnotations: {}
 
   # -- Security Context to set on the pod level
-  podSecurityContext: 
-    fsGroup: 5000
-    runAsUser: 5000
-    runAsGroup: 5000
+  podSecurityContext:  {}
+    # fsGroup: 5000
+    # runAsUser: 5000
+    # runAsGroup: 5000
 
   # -- Security Context to set on the container level
   securityContext: {}
@@ -152,6 +152,18 @@ controller:
 
   # -- Deployment and pods extra labels
   extraLabels: {}
+
+  # -- Deployment volumes
+  volumes: {}
+
+  # -- Main container volume mountes
+  volumeMounts: {}
+
+  # -- Deployment init containers
+  initContainers: {}
+
+  # -- Main container entrypoint command, if empty will use Dockerfile default
+  command: {}
 
 
 #######################################################
@@ -265,3 +277,15 @@ datastore:
 
   # -- Additional Deployment and Pods extra labels
   extraLabels: {}
+
+  # -- Deployment volumes
+  volumes: {}
+
+  # -- Main container volume mountes
+  volumeMounts: {}
+
+  # -- Deployment init containers
+  initContainers: {}
+
+  # -- Main container entrypoint command, if empty will use Dockerfile default
+  command: {}
